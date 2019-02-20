@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>封面管理</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" th:href="@{/public/admin/favicon.png}" type="image/png">
+    <!--<link rel="stylesheet" th:href="@{/lib/element-ui/lib/theme-chalk/index.css}"/>-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" th:href="@{/lib/font/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/public/admin/base.css}">
+    <link data-no-instant rel="stylesheet" th:href="@{/admin/css/cover.css}">
+
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!-- vue入口 -->
+<div id="app">
+    <div :class="'app-wrapper' + sidebarFlag">
+        <!-- aside -->
+        <div th:replace="admin/side :: side"></div>
+
+        <!-- container -->
+        <el-container class="main-container">
+            <!-- header -->
+            <div style="background-color: rgb(84, 92, 100);" th:replace="admin/header :: header"></div>
+
+            <!-- main -->
+            <el-main class="app-main">
+                <el-card>
+                    <h2>文章封面管理</h2>
+                    <div>
+                        <el-row :gutter="40" class="panel-group">
+                            <el-col :xs="24" :sm="24" :lg="6" class="card-panel-col" v-for="item in article" :key="item.id">
+                                <el-card class="box-card-component" style="margin-left:8px;">
+                                    <div slot="header" class="box-card-header">
+                                        <img :src="item.titlePic">
+                                    </div>
+                                    <div class="footer">
+                                        <span>{{item.title}}</span>
+                                        <div class="bottom clearfix">
+                                            <time class="time">{{item.publishTime}}</time>
+                                            <el-button type="text" @click="editBtn(item.id)" class="button">编辑</el-button>
+                                        </div>
+                                    </div>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <!-- 分页 -->
+                    <div class="pagination">
+                        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageConf.pageCode"
+                                :page-sizes="pageConf.pageOption"
+                                :page-size="pageConf.pageSize"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total="pageConf.totalPage">
+                        </el-pagination>
+                    </div>
+                </el-card>
+            </el-main>
+        </el-container>
+    </div>
+
+    <el-dialog title="修改文章封面图片" :visible.sync="editDialog" width="30%" :append-to-body='true' :before-close="handleClose">
+        <span>
+            <el-card>
+                <el-upload action="/admin/upload" multiple drag name="file" list-type="picture-card" :limit="1"
+                        :on-exceed="onExceed"
+                        :file-list="fileList"
+                        :before-upload="beforeUpload"
+                        :on-preview="handlePreview"
+                        :on-success="handleSuccess"
+                        :on-remove="handleRemove">
+                    <i class="el-icon-upload"></i>
+                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                </el-upload>
+            </el-card>
+        </span>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="editDialog = false">取 消</el-button>
+            <el-button type="primary" @click="edit">确 定</el-button>
+        </span>
+    </el-dialog>
+</div>
+</body>
+<!--<script type="text/javascript" th:src="@{/lib/vue/vue.min.js}"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript" th:src="@{/lib/element-ui/lib/index.js}"></script>
+<script type="text/javascript" th:src="@{/lib/vue/vue-resource.min.js}"></script>
+<script type="text/javascript" th:src="@{/admin/js/cover.js}"></script>
+</html>
