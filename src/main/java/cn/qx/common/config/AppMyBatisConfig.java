@@ -18,7 +18,7 @@ import com.github.pagehelper.PageInterceptor;
  * @author Satone
  * @date 2019年2月20日下午8:34:20
  */
-@MapperScan(basePackages="cn.qx.**.dao")
+@MapperScan(basePackages="cn.qx.**.mapper")
 @Configuration//通过此注解声明这是配置文件
 public class AppMyBatisConfig {
 	 //假如bean没有指定名字,此bean的默认名字为方法名

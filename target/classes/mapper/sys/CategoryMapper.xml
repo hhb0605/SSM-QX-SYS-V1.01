@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.qx.sys.dao.CategoryDao">
+<mapper namespace="cn.qx.sys.mapper.SysCategoryMapper">
 
     <!-- 查询所有 -->
     <select id="findAll" resultType="cn.qx.sys.entity.Category">

@@ -6,9 +6,9 @@
 </head>
 <body>
 <div th:fragment="onloadJS">
-    <script type="text/javascript" th:src="@{/plugins/js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/plugins/js/headroom.min.js}"></script>
-    <script type="text/javascript" th:src="@{/plugins/js/instantclick.min.js}"></script>
+    <script type="text/javascript" th:src="@{static/plugins/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{static/plugins/js/headroom.min.js}"></script>
+    <script type="text/javascript" th:src="@{static/plugins/js/instantclick.min.js}"></script>
     <script type="text/javascript">
         var header = new Headroom(document.getElementById("header"), {
             tolerance: 10,
@@ -44,7 +44,7 @@
         });
         InstantClick.init('mousedown');
     </script>
-    <script type="text/javascript" th:src="@{/plugins/js/rocket-loader.min.js}"></script>
+    <script type="text/javascript" th:src="@{static/plugins/js/rocket-loader.min.js}"></script>
 </div>
 </body>
 </html>

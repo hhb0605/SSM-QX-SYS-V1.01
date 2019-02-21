@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
  * @date 2019年2月20日下午8:36:09
  */
 @ComponentScan(
-	value="cn.qx",
-    excludeFilters={//要排除加载的类(例如使用controller注解修饰的类不进行加载)
+	value="cn.qx"
+    ,excludeFilters={//要排除加载的类(例如使用controller注解修饰的类不进行加载)
     @Filter(type=FilterType.ANNOTATION,//约束classes属性中的内容
     		classes={Controller.class,
-    				 ControllerAdvice.class})})
+    				 ControllerAdvice.class})}
+	)
 @EnableAspectJAutoProxy //启用AOP配置
 @EnableTransactionManagement//启用注解方式的事务管理
 public class AppRootConfig {

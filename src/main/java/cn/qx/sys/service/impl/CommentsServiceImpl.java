@@ -10,8 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
+import cn.qx.common.exception.ServiceException;
+import cn.qx.common.vo.CommentsDTO;
 import cn.qx.common.vo.PageBean;
 import cn.qx.sys.entity.Comments;
+import cn.qx.sys.mapper.SysCommentsMapper;
 import cn.qx.sys.service.CommentsService;
 
 /**
@@ -25,7 +28,7 @@ import cn.qx.sys.service.CommentsService;
 public class CommentsServiceImpl implements CommentsService {
 
     @Autowired
-    private CommentsMapper commentsMapper;
+    private SysCommentsMapper commentsMapper;
 
     @Override
     public Long findAllCount() {
@@ -96,7 +99,7 @@ public class CommentsServiceImpl implements CommentsService {
             commentsMapper.save(comments);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ResultException(ResultEnums.ERROR);
+            throw new ServiceException(e);
         }
     }
 
@@ -106,7 +109,7 @@ public class CommentsServiceImpl implements CommentsService {
             commentsMapper.update(comments);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ResultException(ResultEnums.ERROR);
+            throw new ServiceException(e);
         }
     }
 
@@ -118,7 +121,7 @@ public class CommentsServiceImpl implements CommentsService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ResultException(ResultEnums.ERROR);
+            throw new ServiceException(e);
         }
     }
 

@@ -7,8 +7,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @auther TyCoding
- * @date 2018/10/17
+ * 
+ * @author Satone
+ * @date 2019年2月21日
  */
 public class Comments implements Serializable {
     private static final long serialVersionUID = 3859595569997151936L;

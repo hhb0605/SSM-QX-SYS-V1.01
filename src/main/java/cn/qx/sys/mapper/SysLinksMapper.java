@@ -1,17 +1,28 @@
 package cn.qx.sys.mapper;
 
-import cn.qx.sys.entity.SysLinks;
+import java.util.List;
 
+import com.github.pagehelper.Page;
+
+import cn.qx.sys.entity.Links;
+
+/**
+ * @auther TyCoding
+ * @date 2018/10/18
+ */
 public interface SysLinksMapper {
-    int deleteByPrimaryKey(Long id);
 
-    int insert(SysLinks record);
+    List<Links> findAll();
 
-    int insertSelective(SysLinks record);
+    Page<Links> findByPage(Links links);
 
-    SysLinks selectByPrimaryKey(Long id);
+    Links findById(long id);
 
-    int updateByPrimaryKeySelective(SysLinks record);
+    void save(Links links);
 
-    int updateByPrimaryKey(SysLinks record);
+    void update(Links links);
+
+    void delete(long id);
+
+    Long findAllCount();
 }

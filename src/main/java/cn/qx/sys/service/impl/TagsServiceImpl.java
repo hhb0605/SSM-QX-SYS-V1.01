@@ -9,21 +9,24 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
+import cn.qx.common.exception.ServiceException;
 import cn.qx.common.vo.PageBean;
 import cn.qx.sys.entity.Tags;
+import cn.qx.sys.mapper.SysTagsMapper;
+import cn.qx.sys.service.ArticleTagsService;
 import cn.qx.sys.service.TagsService;
 
 /**
- * @auther TyCoding
- * @date 2018/10/18
+ * 
+ * @author Satone
+ * @date 2019年2月21日
  */
 @Service
-@SuppressWarnings("all")
 @Transactional
 public class TagsServiceImpl implements TagsService {
 
     @Autowired
-    private TagsMapper tagsMapper;
+    private SysTagsMapper tagsMapper;
 
     @Autowired
     private ArticleTagsService articleTagsService;
@@ -39,10 +42,10 @@ public class TagsServiceImpl implements TagsService {
     }
 
     @Override
-    public PageBean findByPage(Tags tags, int pageCode, int pageSize) {
+    public PageBean<Tags> findByPage(Tags tags, int pageCode, int pageSize) {
         PageHelper.startPage(pageCode, pageSize);
-        Page page = tagsMapper.findByPage(tags);
-        return new PageBean(page.getTotal(), page.getResult());
+        Page<Tags> page = tagsMapper.findByPage(tags);
+        return new PageBean<Tags>(page.getTotal(), page.getResult());
     }
 
     @Override
@@ -57,7 +60,7 @@ public class TagsServiceImpl implements TagsService {
                 tagsMapper.save(tags);
             }
         } catch (Exception e) {
-            throw new ResultException(ResultEnums.INNER_ERROR);
+            throw new ServiceException(e);
         }
     }
 
@@ -71,10 +74,10 @@ public class TagsServiceImpl implements TagsService {
             if (tags.getId() != 0) {
                 tagsMapper.update(tags);
             } else {
-                throw new ResultException(ResultEnums.ERROR);
+                throw new ServiceException("标签不能为空");
             }
         } catch (Exception e) {
-            throw new ResultException(ResultEnums.INNER_ERROR);
+            throw new ServiceException(e);
         }
     }
 
@@ -85,14 +88,14 @@ public class TagsServiceImpl implements TagsService {
                 for (long id : ids) {
                     tagsMapper.delete(id);
 
-                    //删除该标签与文章有关联的关联信息
+                    // 删除该标签与文章有关联的关联信息
                     articleTagsService.deleteByTagsId(id);
                 }
             } else {
-                throw new ResultException(ResultEnums.ERROR);
+                throw new ServiceException("id不能为空");
             }
         } catch (Exception e) {
-            throw new ResultException(ResultEnums.INNER_ERROR);
+            throw new ServiceException(e);
         }
     }
 
