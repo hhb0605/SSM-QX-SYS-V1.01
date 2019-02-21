@@ -106,7 +106,7 @@ public class SiteController {
      *
      * @return
      */
-    @GetMapping("/link")
+    @RequestMapping("/link")
     public String link(Model model, @RequestParam(value = "cp", required = false) Integer cp) {
 
         //加载友情链接数据
