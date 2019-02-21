@@ -33,7 +33,7 @@
             console.log(obj);
             $.ajax({
                 type: 'post',
-                url: '/comments/save.do',
+                url: 'comments/save.do',
                 data: JSON.stringify(obj),
                 async: false,
                 contentType: 'application/json',

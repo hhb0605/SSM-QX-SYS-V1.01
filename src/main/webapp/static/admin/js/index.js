@@ -6,13 +6,13 @@ const WIDTH = 1024;
 const RATIO = 3;
 
 const api = {
-    articleCount: '/article/findAllCount',
-    commentsCount: '/comments/findAllCount',
-    tagsCount: '/tags/findAllCount',
-    linksCount: '/links/findAllCount',
-    info: '/admin/info',
-    allArticle: '/article/findAll',
-    allComments: '/comments/findAll'
+    articleCount: 'article/findAllCount.do',
+    commentsCount: 'comments/findAllCount.do',
+    tagsCount: 'tags/findAllCount.do',
+    linksCount: 'links/findAllCount.do',
+    info: 'admin/info.do',
+    allArticle: 'article/findAll.do',
+    allComments: 'comments/findAll.do'
 };
 
 

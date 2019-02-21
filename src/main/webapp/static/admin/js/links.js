@@ -7,15 +7,15 @@ const RATIO = 3;
 
 const api = {
     findByPage(pageSize, pageCode) {
-        return '/links/findByPage?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return 'links/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     findById(id) {
-        return '/links/findById?id=' + id
+        return 'links/findById.do?id=' + id
     },
-    save: '/links/save',
-    delete: '/links/delete',
-    update: '/links/update',
-    info: '/admin/info'
+    save: 'links/save.do',
+    delete: 'links/delete.do',
+    update: 'links/update.do',
+    info: 'admin/info.do'
 };
 
 // Vue实例

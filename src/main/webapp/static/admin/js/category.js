@@ -7,21 +7,21 @@ const RATIO = 3;
 
 const api = {
     findByPage(flag, pageSize, pageCode) {
-        return '/' + flag + '/findByPage?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     delete(flag) {
-        return '/' + flag + '/delete';
+        return flag + '/delete.do';
     },
     update(flag) {
-        return '/' + flag + '/update'
+        return flag + '/update.do'
     },
     save(flag) {
-        return '/' + flag + '/save'
+        return flag + '/save.do'
     },
     findById(flag, id) {
-        return '/' + flag + '/findById?id=' + id
+        return flag + '/findById.do?id=' + id
     },
-    info: '/admin/info'
+    info: 'admin/info.do'
 };
 
 // Vue实例

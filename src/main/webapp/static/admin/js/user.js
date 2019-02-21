@@ -78,7 +78,7 @@ var vm = new Vue({
                         } else {
                             //修改了用户名，从新登陆
                             //执行/logout请求
-                            window.location.href = '/admin/logout'; //更改了密码，注销当前登录状态，重新登录
+                            window.location.href = 'admin/logout.do'; //更改了密码，注销当前登录状态，重新登录
                         }
                     } else {
                         this.$message({
@@ -125,7 +125,7 @@ var vm = new Vue({
                 this.clearPass();
             } else {
                 this.pass.username = this.user.username;
-                this.$http.post('/user/update', JSON.stringify(this.pass)).then(result => {
+                this.$http.post('user/update.do', JSON.stringify(this.pass)).then(result => {
                     if (result.body.code == 20000) {
                         this.$message({
                             type: 'success',
@@ -134,7 +134,7 @@ var vm = new Vue({
                         });
 
                         //执行/logout请求
-                        window.location.href = '/admin/logout'; //更改了密码，注销当前登录状态，重新登录
+                        window.location.href = 'admin/logout.do'; //更改了密码，注销当前登录状态，重新登录
                     } else {
                         this.$message({
                             type: 'info',

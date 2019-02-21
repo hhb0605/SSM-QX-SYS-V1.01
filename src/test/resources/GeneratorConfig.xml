@@ -40,7 +40,7 @@
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
-		<!-- 指定数据库表，后面的属性设置为false，则不会生成examble类 -->
+		<!-- 指定数据库表，不生成example -->
 		<table schema="" tableName="sys_links"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
