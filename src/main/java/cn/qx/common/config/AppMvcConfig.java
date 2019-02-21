@@ -1,8 +1,5 @@
 package cn.qx.common.config;
 
-import javax.annotation.Resource;
-import javax.annotation.Resources;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -10,8 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
@@ -28,7 +27,7 @@ import cn.qx.common.web.AccessInterceptor;
 @Configuration
 @ComponentScan(value = "cn.qx", useDefaultFilters = false, // 取消默认过滤器
         includeFilters = { // 只加载有指定注解修饰的类
-                @Filter(type = FilterType.ANNOTATION, classes = { Controller.class, ControllerAdvice.class }) })
+                @Filter(type = FilterType.ANNOTATION, classes = { Controller.class, ControllerAdvice.class,RestController.class}) })
 @EnableWebMvc // 启用mvc默认配置(内置很多类型转换器bean对象)
 public class AppMvcConfig extends WebMvcConfigurerAdapter {
     public final static String CHARACTER_ENCODING = "UTF-8";
@@ -101,5 +100,9 @@ public class AppMvcConfig extends WebMvcConfigurerAdapter {
         viewResolver.setCharacterEncoding(CHARACTER_ENCODING);
         return viewResolver;
     }
-
+    
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/site/**").addResourceLocations("classpath:/static/site/");
+//    }
 }

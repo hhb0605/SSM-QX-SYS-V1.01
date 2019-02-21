@@ -134,7 +134,7 @@
     <div th:replace="site/footer :: footer"></div>
 </div>
 <!-- 公共的JS库 -->
-<div th:include="site/common/onload_js ::onloadJS"></div>
+<div th:include="/site/common/onload_js ::onloadJS"></div>
 </body>
-<script type="text/javascript" th:src="@{/site/js/link.js}"></script>
+<script type="text/javascript" th:src="@{/static/site/js/link.js}"></script>
 </html>

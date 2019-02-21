@@ -36,7 +36,7 @@ new Vue({
                 if (valid) {
                     this.loadings(); //加载动画
                     //提交表单
-                    this.$http.post('/admin/login', {
+                    this.$http.post('/admin/login.do', {
                         username: this.login.username,
                         password: this.login.password,
                         remember: this.login.remember
@@ -52,7 +52,7 @@ new Vue({
                                     message: result.body.data.info,
                                     type: 'warning',
                                     duration: 6000
-                                }),
+                                })
                             );
                             // 清空表单状态
                             this.$refs[login].resetFields();
@@ -65,7 +65,7 @@ new Vue({
                             message: '输入信息有误！',
                             type: 'warning',
                             duration: 6000
-                        }),
+                        })
                     );
                     return false;
                 }
