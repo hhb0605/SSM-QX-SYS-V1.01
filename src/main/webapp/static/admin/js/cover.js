@@ -7,21 +7,21 @@ const RATIO = 3;
 
 const api = {
     findByPage(flag, pageSize, pageCode) {
-        return '/' + flag + '/findByPage?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     delete(flag) {
-        return '/' + flag + '/delete';
+        return flag + '/delete.do';
     },
     update(flag) {
-        return '/' + flag + '/update'
+        return flag + '/update.do'
     },
     save(flag) {
-        return '/' + flag + '/save'
+        return flag + '/save.do'
     },
     findById(flag, id) {
-        return '/' + flag + '/findById?id=' + id
+        return flag + '/findById.do?id=' + id
     },
-    info: '/admin/info'
+    info: 'admin/info.do'
 };
 
 // Vue实例
@@ -80,7 +80,7 @@ var vm = new Vue({
         },
         //条件查询
         search(pageCode, pageSize) {
-            this.$http.post('/article/findByPage?pageSize=' + pageSize + '&pageCode=' + pageCode).then(result => {
+            this.$http.post('article/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode).then(result => {
                 this.article = result.body.data.rows;
                 this.pageConf.totalPage = result.body.data.total;
             });
@@ -99,7 +99,7 @@ var vm = new Vue({
         //编辑按钮
         editBtn(id) {
             this.editDialog = true;
-            this.$http.get('/article/findById?id=' + id).then(result => {
+            this.$http.get('article/findById.do?id=' + id).then(result => {
                 this.editor.id = result.body.data.id;
                 this.editor.titlePic = result.body.data.titlePic;
 
@@ -110,7 +110,7 @@ var vm = new Vue({
         },
         //编辑
         edit() {
-            this.$http.put('/article/update', JSON.stringify(this.editor)).then(result => {
+            this.$http.put('article/update.do', JSON.stringify(this.editor)).then(result => {
                 this.editDialog = false;
                 this.reloadList();
                 if (result.body.code == 20000) {
@@ -187,7 +187,7 @@ var vm = new Vue({
 
         init() {
             //已登录用户名
-            this.$http.get('/admin/info').then(result => {
+            this.$http.get('admin/info.do').then(result => {
                 this.token.name = result.body.data.name;
             });
         },

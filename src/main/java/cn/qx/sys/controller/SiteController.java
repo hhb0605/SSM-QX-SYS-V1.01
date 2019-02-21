@@ -15,8 +15,6 @@ import cn.qx.sys.entity.Article;
 import cn.qx.sys.entity.Comments;
 import cn.qx.sys.entity.Links;
 import cn.qx.sys.service.ArticleService;
-import cn.qx.sys.service.ArticleTagsService;
-import cn.qx.sys.service.CategoryService;
 import cn.qx.sys.service.CommentsService;
 import cn.qx.sys.service.LinksService;
 
@@ -33,12 +31,6 @@ public class SiteController {
 
     @Autowired
     private ArticleService articleService;
-
-    @Autowired
-    private ArticleTagsService articleTagsService;
-
-    @Autowired
-    private CategoryService categoryService;
 
     @Autowired
     private CommentsService commentsService;

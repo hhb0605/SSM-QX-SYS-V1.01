@@ -6,9 +6,9 @@ const WIDTH = 1024;
 const RATIO = 3;
 
 const api = {
-    save: '/article/save',
-    allCategory: '/category/findAll',
-    info: '/admin/info'
+    save: 'article/save.do',
+    allCategory: 'category/findAll.do',
+    info: 'admin/info.do'
 };
 
 //Vue实例

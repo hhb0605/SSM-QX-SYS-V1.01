@@ -16,9 +16,9 @@ public class GeneratorSqlMap {
 		boolean overwrite = true;
 		//指定 逆向工程配置文件
 		File configFile = new File(".\\src\\test\\resources\\GeneratorConfig.xml"); 
-		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		Configuration config = cp.parseConfiguration(configFile);
+		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
 		MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config,
 				callback, warnings);
 		myBatisGenerator.generate(null);

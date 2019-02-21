@@ -36,13 +36,13 @@ new Vue({
                 if (valid) {
                     this.loadings(); //加载动画
                     //提交表单
-                    this.$http.post('/admin/login.do', {
+                    this.$http.post('admin/login.do', {
                         username: this.login.username,
                         password: this.login.password,
                         remember: this.login.remember
                     }).then(result => {
                         if (result.body.code == 20000) {
-                            window.location.href = "/admin";
+                            window.location.href = "admin.do";
                             this.loading.close(); //关闭动画加载
                         } else {
                             // 弹出错误信息框

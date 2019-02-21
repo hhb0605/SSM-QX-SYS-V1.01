@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.qx.common.exception.ServiceException;
+import cn.qx.common.enums.ResultEnums;
+import cn.qx.common.exception.ResultException;
 import cn.qx.common.vo.PageBean;
 import cn.qx.sys.entity.ArticleCategory;
 import cn.qx.sys.mapper.ArticleCategoryMapper;
 import cn.qx.sys.service.ArticleCategoryService;
 
 /**
- * 
- * @author Satone
- * @date 2019年2月21日
+ * @auther TyCoding
+ * @date 2018/10/22
  */
 @Service
 @Transactional
@@ -52,7 +52,7 @@ public class ArticleCategoryServiceImpl implements ArticleCategoryService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServiceException(e);
+            throw new ResultException(ResultEnums.INNER_ERROR);
         }
     }
 
@@ -76,7 +76,7 @@ public class ArticleCategoryServiceImpl implements ArticleCategoryService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServiceException(e);
+            throw new ResultException(ResultEnums.INNER_ERROR);
         }
     }
 
@@ -88,7 +88,7 @@ public class ArticleCategoryServiceImpl implements ArticleCategoryService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServiceException(e);
+            throw new ResultException(ResultEnums.INNER_ERROR);
         }
     }
 }

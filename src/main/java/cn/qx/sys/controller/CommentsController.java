@@ -89,7 +89,6 @@ public class CommentsController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Result save(@RequestBody Comments comments) {
-        System.out.println("保存");
         if (CheckValue.checkObj(comments)) {
             try {
                 commentsService.save(comments);

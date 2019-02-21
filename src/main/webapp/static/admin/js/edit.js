@@ -7,12 +7,12 @@ const RATIO = 3;
 
 const api = {
     findById(id) {
-        return '/article/findById?id=' + id
+        return 'article/findById.do?id=' + id
     },
-    save: '/article/save',
-    update: '/article/update',
-    allCategory: '/category/findAll',
-    info: '/admin/info'
+    save: 'article/save.do',
+    update: 'article/update.do',
+    allCategory: 'category/findAll.do',
+    info: 'admin/info.do'
 };
 
 //Vue实例
@@ -62,7 +62,7 @@ new Vue({
             this.article.tags = JSON.stringify(this.dynamicTags); //给tags字段赋值
 
             this.$http.put(api.update, JSON.stringify(this.article)).then(result => {
-                window.location.href = '/admin/article';
+                window.location.href = 'admin/article.do';
                 if (result.body.code == 20000) {
                     this.$message({
                         showClose: true,

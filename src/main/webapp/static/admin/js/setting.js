@@ -27,7 +27,7 @@ var vm = new Vue({
     methods: {
         init() {
             //已登录用户名
-            this.$http.get('/admin/info').then(result => {
+            this.$http.get('admin/info.do').then(result => {
                 this.token.name = result.body.data.name;
             });
         },

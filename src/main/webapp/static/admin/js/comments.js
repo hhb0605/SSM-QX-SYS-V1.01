@@ -7,10 +7,10 @@ const RATIO = 3;
 
 const api = {
     findByPage(pageSize, pageCode) {
-        return '/comments/findByPage?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return 'comments/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
-    delete: '/comments/delete',
-    info: '/admin/info',
+    delete: 'comments/delete.do',
+    info: 'admin/info.do',
 
 };
 

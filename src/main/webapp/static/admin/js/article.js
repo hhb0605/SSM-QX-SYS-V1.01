@@ -7,10 +7,10 @@ const RATIO = 3;
 
 const api = {
     findByPage(pageSize, pageCode) {
-        return '/article/findByPage?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return 'article/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
-    delete: '/article/delete',
-    info: '/admin/info'
+    delete: 'article/delete.do',
+    info: 'admin/info.do'
 };
 
 // Vue实例
