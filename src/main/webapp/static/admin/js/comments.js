@@ -9,8 +9,8 @@ const api = {
     findByPage(pageSize, pageCode) {
         return '/SSM-QX-SYS-V1.01/comments/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
-    delete: 'comments/delete.do',
-    info: 'admin/info.do',
+    delete: '/SSM-QX-SYS-V1.01/comments/delete.do',
+    info: '/SSM-QX-SYS-V1.01/admin/info.do',
 
 };
 

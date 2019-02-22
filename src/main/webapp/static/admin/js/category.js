@@ -10,18 +10,18 @@ const api = {
         return "/SSM-QX-SYS-V1.01/"+flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     delete(flag) {
-        return flag + '/delete.do';
+        return "../"+flag + '/delete.do';
     },
     update(flag) {
-        return flag + '/update.do'
+        return "../"+flag + '/update.do'
     },
     save(flag) {
-        return flag + '/save.do'
+        return "../"+flag + '/save.do'
     },
     findById(flag, id) {
-        return flag + '/findById.do?id=' + id
+        return "../"+flag + '/findById.do?id=' + id
     },
-    info: 'admin/info.do'
+    info: '../admin/info.do'
 };
 
 // Vue实例
@@ -116,7 +116,7 @@ var vm = new Vue({
 
         //删除
         sureDelete(flag, ids) {
-            this.$confirm('你确定永久删除此用户信息？', '提示', {
+            this.$confirm('你确定永久删除此分类/标签信息？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning',
@@ -211,7 +211,6 @@ var vm = new Vue({
                 if (this.dialogFlag == '标签') {
                     flag = api.save('tags')
                 }
-                console.log('请求API：' + flag + ', 数据：' + this.editor.name);
                 this.$http.post(flag, JSON.stringify(this.editor)).then(result => {
                     if (result.body.code == 20000) {
                         this.$message({
@@ -236,7 +235,6 @@ var vm = new Vue({
                 if (this.dialogFlag == '标签') {
                     flag = api.update('tags')
                 }
-                console.log('请求API：' + flag + ', 数据：' + this.editor.name);
                 this.$http.put(flag, JSON.stringify(this.editor)).then(result => {
                     if (result.body.code == 20000) {
                         this.$message({
