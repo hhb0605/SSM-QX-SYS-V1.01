@@ -10,7 +10,7 @@ import cn.qx.common.exception.ServiceException;
 import cn.qx.common.vo.PageBean;
 import cn.qx.sys.entity.ArticleTags;
 import cn.qx.sys.entity.Tags;
-import cn.qx.sys.mapper.ArticleTagsMapper;
+import cn.qx.sys.mapper.SysArticleTagsMapper;
 import cn.qx.sys.service.ArticleTagsService;
 
 /**
@@ -24,7 +24,7 @@ import cn.qx.sys.service.ArticleTagsService;
 public class ArticleTagsServiceImpl implements ArticleTagsService {
 
     @Autowired
-    private ArticleTagsMapper articleTagsMapper;
+    private SysArticleTagsMapper articleTagsMapper;
 
     @Override
     public Long findAllCount() {

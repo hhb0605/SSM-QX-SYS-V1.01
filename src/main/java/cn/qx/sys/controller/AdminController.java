@@ -120,6 +120,15 @@ public class AdminController {
     public String setting() {
         return "admin/page/setting";
     }
+    /**
+     * 系统设置页
+     *
+     * @return
+     */
+    @GetMapping(value = {"/log"})
+    public String log() {
+        return "admin/page/log";
+    }
 
     /**
      * 根据登录token获取登录信息

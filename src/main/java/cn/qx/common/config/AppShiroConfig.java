@@ -86,6 +86,7 @@ public class AppShiroConfig {
 
         filterChainDefinitionMap.put("/logout", "logout");
 
+        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/login.do", "anon");
         filterChainDefinitionMap.put("/admin/login.do", "anon");
 
