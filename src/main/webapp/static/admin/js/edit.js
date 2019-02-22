@@ -7,7 +7,7 @@ const RATIO = 3;
 
 const api = {
     findById(id) {
-        return 'article/findById.do?id=' + id
+        return '/SSM-QX-SYS-V1.01/article/findById.do?id=' + id
     },
     save: 'article/save.do',
     update: 'article/update.do',

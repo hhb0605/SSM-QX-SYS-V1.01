@@ -6,9 +6,9 @@ const WIDTH = 1024;
 const RATIO = 3;
 
 const api = {
-    save: 'article/save.do',
-    allCategory: 'category/findAll.do',
-    info: 'admin/info.do'
+    save: '/SSM-QX-SYS-V1.01/article/save.do',
+    allCategory: '/SSM-QX-SYS-V1.01/category/findAll.do',
+    info: '/SSM-QX-SYS-V1.01/admin/info.do'
 };
 
 //Vue实例
@@ -24,7 +24,7 @@ new Vue({
                 author: '',
                 content: '',
                 contentMd: '',
-                origin: 'http://tycoding.cn',
+                origin: 'http://www.satone.cn/SoftlyFlow',
             },
             category: [{
                 id: '',

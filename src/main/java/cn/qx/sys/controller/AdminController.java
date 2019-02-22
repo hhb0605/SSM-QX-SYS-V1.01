@@ -87,7 +87,7 @@ public class AdminController {
      * @return
      */
     @GetMapping(value = {"/cover"})
-    public String attach() {
+    public String cover() {
         return "admin/page/cover";
     }
 

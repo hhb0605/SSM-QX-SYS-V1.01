@@ -3,12 +3,18 @@ package cn.qx.common.config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.codec.Base64;
+import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,13 +36,37 @@ public class AppShiroConfig {
         sManager.setRealm(userRealm);
         return sManager;
     }
+    
+    @Bean("rememberMeCookie")
+    public SimpleCookie rememberMeCookie() {
+    	SimpleCookie cookie = new SimpleCookie();
+    	cookie.setMaxAge(60000);
+    	cookie.setHttpOnly(true);
+    	return cookie;
+    }
+    // 设置RememberMeManager，实现RememberMe
+    @Bean("rememberMeManager")
+    public CookieRememberMeManager rememberMeManager() {
+    	CookieRememberMeManager remenberCookie = new CookieRememberMeManager();
+    	remenberCookie.setCookie(rememberMeCookie());
+    	return remenberCookie;
+    }
 
+    /*@Bean("sessionManager")
+    public DefaultWebSessionManager sessionManager() {
+    	DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+    	sessionManager.setGlobalSessionTimeout(30000);
+    	sessionManager.setDeleteInvalidSessions(true);
+    	sessionManager.setSessionIdCookie(rememberMeCookie());
+    	return sessionManager;
+    }*/
+    
     @Bean("shiroFilterFactory")
     public ShiroFilterFactoryBean newShiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-
+        
         shiroFilterFactoryBean.setLoginUrl("/login.do");
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
@@ -60,7 +90,9 @@ public class AppShiroConfig {
         filterChainDefinitionMap.put("/login.do", "anon");
         filterChainDefinitionMap.put("/admin/login.do", "anon");
 
-        filterChainDefinitionMap.put("/admin/**", "authc");
+        filterChainDefinitionMap.put("/admin.do", "user");
+        filterChainDefinitionMap.put("/admin/**", "user");
+        filterChainDefinitionMap.put("/admin/log.do", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
