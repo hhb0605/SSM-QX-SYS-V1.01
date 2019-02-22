@@ -7,21 +7,21 @@ const RATIO = 3;
 
 const api = {
     findByPage(flag, pageSize, pageCode) {
-        return flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return "../"+flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     delete(flag) {
-        return flag + '/delete.do';
+        return "../"+flag + '/delete.do';
     },
     update(flag) {
-        return flag + '/update.do'
+        return "../"+flag + '/update.do'
     },
     save(flag) {
-        return flag + '/save.do'
+        return "../"+flag + '/save.do'
     },
     findById(flag, id) {
-        return flag + '/findById.do?id=' + id
+        return "../"+flag + '/findById.do?id=' + id
     },
-    info: 'admin/info.do'
+    info: '/SSM-QX-SYS-V1.01/admin/info.do'
 };
 
 // Vue实例
@@ -80,7 +80,7 @@ var vm = new Vue({
         },
         //条件查询
         search(pageCode, pageSize) {
-            this.$http.post('article/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode).then(result => {
+            this.$http.post('../article/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode).then(result => {
                 this.article = result.body.data.rows;
                 this.pageConf.totalPage = result.body.data.total;
             });
@@ -187,7 +187,7 @@ var vm = new Vue({
 
         init() {
             //已登录用户名
-            this.$http.get('admin/info.do').then(result => {
+            this.$http.get('../admin/info.do').then(result => {
                 this.token.name = result.body.data.name;
             });
         },

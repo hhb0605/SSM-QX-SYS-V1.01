@@ -9,8 +9,8 @@ const api = {
     findByPage(pageSize, pageCode) {
         return '/SSM-QX-SYS-V1.01/article/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
-    delete: 'article/delete.do',
-    info: 'admin/info.do'
+    delete: '/SSM-QX-SYS-V1.01/article/delete.do',
+    info: '/SSM-QX-SYS-V1.01/admin/info.do'
 };
 
 // Vue实例

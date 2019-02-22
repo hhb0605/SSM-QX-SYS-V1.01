@@ -39,8 +39,8 @@ public class AppShiroConfig {
     
     @Bean("rememberMeCookie")
     public SimpleCookie rememberMeCookie() {
-    	SimpleCookie cookie = new SimpleCookie("rememberMe");
-    	cookie.setMaxAge(30000);
+    	SimpleCookie cookie = new SimpleCookie();
+    	cookie.setMaxAge(60000);
     	cookie.setHttpOnly(true);
     	return cookie;
     }
@@ -52,14 +52,14 @@ public class AppShiroConfig {
     	return remenberCookie;
     }
 
-    @Bean("sessionManager")
+    /*@Bean("sessionManager")
     public DefaultWebSessionManager sessionManager() {
     	DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
     	sessionManager.setGlobalSessionTimeout(30000);
     	sessionManager.setDeleteInvalidSessions(true);
     	sessionManager.setSessionIdCookie(rememberMeCookie());
     	return sessionManager;
-    }
+    }*/
     
     @Bean("shiroFilterFactory")
     public ShiroFilterFactoryBean newShiroFilterFactoryBean(SecurityManager securityManager) {
@@ -91,7 +91,8 @@ public class AppShiroConfig {
         filterChainDefinitionMap.put("/admin/login.do", "anon");
 
         filterChainDefinitionMap.put("/admin.do", "user");
-        filterChainDefinitionMap.put("/admin/**", "authc");
+        filterChainDefinitionMap.put("/admin/**", "user");
+        filterChainDefinitionMap.put("/admin/log.do", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 

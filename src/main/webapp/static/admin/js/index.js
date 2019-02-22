@@ -12,7 +12,7 @@ const api = {
     linksCount: 'links/findAllCount.do',
     info: 'admin/info.do',
     allArticle: 'article/findAll.do',
-    allComments: 'comments/findAll.do'
+    allComments: 'comments/findAll.do',
 };
 
 
@@ -68,7 +68,7 @@ new Vue({
             });
             //已登录用户名
             this.$http.get(api.info).then(result => {
-                this.token.name = result.body.data.name;
+                this.token.name = result.body.data.username;
             });
             //最新文章
             this.$http.get(api.allArticle).then(result => {

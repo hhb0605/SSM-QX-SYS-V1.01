@@ -6,8 +6,8 @@ const WIDTH = 1024;
 const RATIO = 3;
 
 const api = {
-    update: '/user/update',
-    info: '/admin/info',
+    update: '../user/update.do',
+    info: '../admin/info.do',
 };
 
 // Vue实例

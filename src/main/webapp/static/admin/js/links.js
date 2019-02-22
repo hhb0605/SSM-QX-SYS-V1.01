@@ -10,12 +10,12 @@ const api = {
         return '/SSM-QX-SYS-V1.01/links/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     findById(id) {
-        return 'links/findById.do?id=' + id
+        return '../links/findById.do?id=' + id
     },
-    save: 'links/save.do',
-    delete: 'links/delete.do',
-    update: 'links/update.do',
-    info: 'admin/info.do'
+    save: '../links/save.do',
+    delete: '../links/delete.do',
+    update: '../links/update.do',
+    info: '../admin/info.do'
 };
 
 // Vue实例
@@ -82,7 +82,7 @@ var vm = new Vue({
 
         //删除
         sureDelete(ids) {
-            this.$confirm('你确定永久删除此用户信息？', '提示', {
+            this.$confirm('你确定永久删除此友联？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning',
