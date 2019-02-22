@@ -33,7 +33,7 @@
             console.log(obj);
             $.ajax({
                 type: 'post',
-                url: '/comments/save',
+                url: 'comments/save.do',
                 data: JSON.stringify(obj),
                 async: false,
                 contentType: 'application/json',
@@ -70,13 +70,13 @@ function getCommentCookie(name) {
     }
 }
 
-function addCommentInputValue() {
+/*function addCommentInputValue() {
     document.getElementById('author').value = getCommentCookie('tale_remember_author');
     document.getElementById('email').value = getCommentCookie('tale_remember_mail');
     document.getElementById('url').value = getCommentCookie('tale_remember_url');
 }
 
-addCommentInputValue();
+addCommentInputValue();*/
 //>>>>>>>>>>>>>回复表单提交<<<<<<<<<<<<END
 
 
