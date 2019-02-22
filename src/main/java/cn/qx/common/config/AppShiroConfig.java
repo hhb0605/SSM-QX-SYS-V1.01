@@ -7,12 +7,14 @@ import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,21 +34,33 @@ public class AppShiroConfig {
         DefaultWebSecurityManager sManager = new DefaultWebSecurityManager();
         // 此时必须保证realm对象已经存在了
         sManager.setRealm(userRealm);
-        //sManager.setRememberMeManager(rememberMeManager());
         return sManager;
     }
     
+    @Bean("rememberMeCookie")
+    public SimpleCookie rememberMeCookie() {
+    	SimpleCookie cookie = new SimpleCookie("rememberMe");
+    	cookie.setMaxAge(30000);
+    	cookie.setHttpOnly(true);
+    	return cookie;
+    }
     // 设置RememberMeManager，实现RememberMe
     @Bean("rememberMeManager")
     public CookieRememberMeManager rememberMeManager() {
-    	SimpleCookie cookie = new SimpleCookie();
-    	cookie.setMaxAge(30000);
-    	cookie.setHttpOnly(true);
     	CookieRememberMeManager remenberCookie = new CookieRememberMeManager();
-    	remenberCookie.setCookie(cookie);
+    	remenberCookie.setCookie(rememberMeCookie());
     	return remenberCookie;
     }
 
+    @Bean("sessionManager")
+    public DefaultWebSessionManager sessionManager() {
+    	DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+    	sessionManager.setGlobalSessionTimeout(30000);
+    	sessionManager.setDeleteInvalidSessions(true);
+    	sessionManager.setSessionIdCookie(rememberMeCookie());
+    	return sessionManager;
+    }
+    
     @Bean("shiroFilterFactory")
     public ShiroFilterFactoryBean newShiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();

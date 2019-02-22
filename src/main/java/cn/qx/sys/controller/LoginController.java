@@ -54,7 +54,7 @@ public class LoginController {
             @RequestParam(value = "remember", required = false) String remember) {
         if (username != null && password != null) {
             Subject subject = SecurityUtils.getSubject();
-            if(subject.isRemembered()||subject.isAuthenticated()) {
+            if(subject.isRemembered()) {
             	Map<String,Object> map = new HashMap<>();
             	map.put("token", subject.getPrincipal());
             	return new Result(StatusCode.SUCCESS, map);
