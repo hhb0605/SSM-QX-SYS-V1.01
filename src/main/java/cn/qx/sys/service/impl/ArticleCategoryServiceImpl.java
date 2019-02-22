@@ -10,7 +10,7 @@ import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.exception.ResultException;
 import cn.qx.common.vo.PageBean;
 import cn.qx.sys.entity.ArticleCategory;
-import cn.qx.sys.mapper.ArticleCategoryMapper;
+import cn.qx.sys.mapper.SysArticleCategoryMapper;
 import cn.qx.sys.service.ArticleCategoryService;
 
 /**
@@ -22,7 +22,7 @@ import cn.qx.sys.service.ArticleCategoryService;
 public class ArticleCategoryServiceImpl implements ArticleCategoryService {
 
     @Autowired
-    private ArticleCategoryMapper articleCategoryMapper;
+    private SysArticleCategoryMapper articleCategoryMapper;
 
     @Override
     public Long findAllCount() {
