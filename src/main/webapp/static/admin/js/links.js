@@ -7,7 +7,7 @@ const RATIO = 3;
 
 const api = {
     findByPage(pageSize, pageCode) {
-        return 'links/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return '/SSM-QX-SYS-V1.01/links/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     findById(id) {
         return 'links/findById.do?id=' + id

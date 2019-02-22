@@ -7,7 +7,7 @@ const RATIO = 3;
 
 const api = {
     findByPage(flag, pageSize, pageCode) {
-        return flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return "/SSM-QX-SYS-V1.01/"+flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     delete(flag) {
         return flag + '/delete.do';

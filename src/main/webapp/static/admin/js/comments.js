@@ -7,7 +7,7 @@ const RATIO = 3;
 
 const api = {
     findByPage(pageSize, pageCode) {
-        return 'comments/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return '/SSM-QX-SYS-V1.01/comments/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     delete: 'comments/delete.do',
     info: 'admin/info.do',
