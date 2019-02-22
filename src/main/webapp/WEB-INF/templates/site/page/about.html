@@ -3,7 +3,7 @@
 
 <!-- 公共的CSS库 -->
 <head th:include="/site/common/common_head :: commonHead"></head>
-<title>关于 | Tumo Blog</title>
+<title>关于 | QianXing Blog</title>
 
 <body class="bg-grey" gtools_scp_screen_capture_injected="true">
 <!--[if lt IE 8]>
@@ -21,7 +21,7 @@
 <div id="main" style="background: #fff">
     <article role="pge-title-content" class="main-content page-page" itemscope itemtype="http://schema.org/Article">
         <div class="post-header">
-            <h1 class="post-title" itemprop="name headline">关于</h1>
+            <h1 class="post-title" itemprop="name headline">About</h1>
             <div class="post-data">
                 <time datetime="2017-09-17" itemprop="datePublished">发布于 2019-2-20</time>
             </div>
@@ -33,41 +33,25 @@
             <label>I’m a Java Developer with an enduring interest in Coding and Write Blog.</label>
             <br/>
             <br/>
-            <h1>About</h1>
+            <h1>关于</h1>
             <p style="margin-bottom: 10px;">Hi! 你好，我是浅行, 专注Java开发， 喜欢代码艺术， 关注新技术</p>
             <p>喜欢运动， 音乐</p>
             <br/>
             <br/>
             <h1>Works</h1>
             <ul>
-                <li><a href="https://github.com/Shichimiyasatone/SSM-QX-SYS-V1.01">QX Blog:</a> 低调奢华的Java博客系统，基于SSM实现</li>
+                <li><a href="https://github.com/Shichimiyasatone/SSM-QX-SYS-V1.01">浅行博客:</a> 低调奢华的Java博客系统，基于SSM实现</li>
                 <!-- <li><a href="https://github.com/TyCoding/springboot-seckill">springboot-seckill:</a>基于SpringBoot-2.x的Java高并发Seckill秒杀系统实现</li>
                 <li><a href="https://github.com/TyCoding/spring-boot">spring-boot:</a> SpringBoot-2.x入门开发</li> -->
-                <li><a href="https://github.com/TyCoding/ssm-redis-solr">ssm-redis-solr:</a>基于SSM、Shiro、Redis、Solr框架简单实现电商项目中搜索功能</li>
-                <li><a href="https://github.com/Shichimiyasatone/SSM-WZ-SYS-V1.01">ssm:</a> 基于SSM框架简单的文章管理系统，使用MySQL多表存储方式实现留言回复功能</li>
+                <li><a href="https://github.com/chibuqikendeji/webmagic">WebMagic:</a>基于Scrapy框架和HttpClient、Jsoup等Java工具实现的简单灵活的爬虫框架</li>
+                <li><a href="https://github.com/Shichimiyasatone/SSM-WZ-SYS-V1.01">文章管理系统:</a> 基于SSM框架简单的文章管理系统，使用MySQL多表存储方式实现留言回复功能</li>
             </ul>
             <br/>
             <br/>
-            <h1>Concat</h1>
-            <img src="http://cdn.tycoding.cn/qq.png">
+            <h1>Connect</h1>
+            <img src="static/site/img/qq.png">
         </div>
     </article>
-
-    <!-- 留言信息 -->
-    <div class="comment-container">
-        <div id="comments" ref="comments" class="clearfix">
-            <span class="response"></span>
-            <!-- 表单 -->
-            <form method="post" id="comment-form" class="comment-form" onsubmit="return TumoComment.subComment();">
-                <input hidden="hidden" name="articleId" id="articleId"/>
-                <input hidden="hidden" name="articleTitle" id="articleTitle"/>
-                <input hidden="hidden" name="sort" id="sort" th:value="${sort}"/>
-                <input maxlength="12" name="author" id="author" class="form-control input-control clearfix" placeholder="姓名 (*)" value="" required/>
-                <input type="email" name="email" id="email" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required/>
-                <input type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value=""/>
-                <textarea name="content" id="content" class="form-control" placeholder="回复" required minlength="5" maxlength="2000"></textarea>
-                <button class="submit" id="misubmit">提交</button>
-            </form>
 
             <!-- 列表 -->
             <ol class="comment-list" th:if="${talkList.total} >= 0">
