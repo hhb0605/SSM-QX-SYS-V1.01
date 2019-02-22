@@ -51,22 +51,17 @@ public class ShiroUserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-
         String username = (String) authenticationToken.getPrincipal();
-
         User user = userService.findByName(username);
-
         if (user == null){
             throw new UnknownAccountException();
         }
-
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUsername(),
                 user.getPassword(),
                 ByteSource.Util.bytes(user.getSalt()),
                 getName()
         );
-
         return authenticationInfo;
     }
 
