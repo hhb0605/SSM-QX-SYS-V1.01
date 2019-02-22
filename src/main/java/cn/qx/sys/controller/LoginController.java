@@ -54,21 +54,25 @@ public class LoginController {
             @RequestParam(value = "remember", required = false) String remember) {
         if (username != null && password != null) {
             Subject subject = SecurityUtils.getSubject();
+            if(subject.isRemembered()||subject.isAuthenticated()) {
+            	Map<String,Object> map = new HashMap<>();
+            	map.put("token", subject.getPrincipal());
+            	return new Result(StatusCode.SUCCESS, map);
+            }
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             if (remember != null) {
                 if (remember.equals("true")) {
                     //说明选择了记住我
                     token.setRememberMe(true);
-                } else {
-                    token.setRememberMe(false);
-                }
-            } else {
-                token.setRememberMe(false);
-            }
-
+                }else {
+					token.setRememberMe(false);
+				}
+            }else {
+				token.setRememberMe(false);
+			}
+            
             try {
                 subject.login(token);
-                System.out.println("是否登录：" + subject.isAuthenticated());
                 Map<String,Object> map = new HashMap<>();
                 map.put("token", subject.getPrincipal());
                 return new Result(StatusCode.SUCCESS, map);

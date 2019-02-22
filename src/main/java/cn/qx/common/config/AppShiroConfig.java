@@ -3,12 +3,16 @@ package cn.qx.common.config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.codec.Base64;
+import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +32,19 @@ public class AppShiroConfig {
         DefaultWebSecurityManager sManager = new DefaultWebSecurityManager();
         // 此时必须保证realm对象已经存在了
         sManager.setRealm(userRealm);
+        //sManager.setRememberMeManager(rememberMeManager());
         return sManager;
+    }
+    
+    // 设置RememberMeManager，实现RememberMe
+    @Bean("rememberMeManager")
+    public CookieRememberMeManager rememberMeManager() {
+    	SimpleCookie cookie = new SimpleCookie();
+    	cookie.setMaxAge(30000);
+    	cookie.setHttpOnly(true);
+    	CookieRememberMeManager remenberCookie = new CookieRememberMeManager();
+    	remenberCookie.setCookie(cookie);
+    	return remenberCookie;
     }
 
     @Bean("shiroFilterFactory")
@@ -36,7 +52,7 @@ public class AppShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-
+        
         shiroFilterFactoryBean.setLoginUrl("/login.do");
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
@@ -59,6 +75,7 @@ public class AppShiroConfig {
         filterChainDefinitionMap.put("/login.do", "anon");
         filterChainDefinitionMap.put("/admin/login.do", "anon");
 
+        filterChainDefinitionMap.put("/admin.do", "user");
         filterChainDefinitionMap.put("/admin/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
