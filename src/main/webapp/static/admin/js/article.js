@@ -60,6 +60,7 @@ var vm = new Vue({
         //条件查询
         search(pageCode, pageSize) {
             this.$http.post(api.findByPage(pageSize,pageCode), this.searchEntity).then(result => {
+            	console.log(result.body.data);
                 this.article = result.body.data.rows;
                 this.pageConf.totalPage = result.body.data.total;
             });
@@ -76,7 +77,7 @@ var vm = new Vue({
 
         //删除
         sureDelete(ids) {
-            this.$confirm('你确定永久删除此用户信息？', '提示', {
+            this.$confirm('你确定永久删除此文章？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning',
@@ -129,7 +130,7 @@ var vm = new Vue({
         init() {
             //已登录用户名
             this.$http.get(api.info).then(result => {
-                this.token.name = result.body.data.name;
+                this.token.name = result.body.data.username;
             });
         },
 

@@ -15,13 +15,13 @@
 <!-- header -->
 <div th:replace="site/header :: header"></div>
 
-<link rel="stylesheet" th:href="@{/plugins/css/default.min.css}"/>
+<link rel="stylesheet" th:href="@{/static/plugins/css/default.min.css}"/>
 
 <!-- main -->
 <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
     <div class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            <a th:href="'/article/' + ${article.id}" th:text="${article.title}"></a>
+            <a th:href="'/SSM-QX-SYS-V1.01/article/' + ${article.id}+'.do'" th:text="${article.title}"></a>
         </h1>
         <div class="post-data">
             <time datetime="2017-02-25" itemprop="datePublished">发布于 [[${#dates.format(article.publishTime, 'yyy-MM-dd')}]]
@@ -64,7 +64,7 @@
                 <div th:id="'comment-' + ${comment.parent.id}">
                     <div class="comment-view">
                         <div class="comment-header">
-                            <img class="avatar" th:src="@{/public/author.png}" width="80" height="80">
+                            <img class="avatar" th:src="@{/static/public/author.jpg}" width="80" height="80">
                             <span class="comment-author">
                                     <a th:href="${comment.parent.url}" target="_blank" rel="external nofollow" th:text="${comment.parent.author}"></a>
                                 </span>
@@ -88,7 +88,7 @@
                             <div th:id="'comment-' + ${item.id}">
                                 <div class="comment-view">
                                     <div class="comment-header">
-                                        <img class="avatar" th:src="@{/public/author.png}" width="80" height="80">
+                                        <img class="avatar" th:src="@{/static/public/author.png}" width="80" height="80">
                                         <span class="comment-author comment-by-author">
                                             <a th:href="${item.url}" target="_blank" rel="external nofollow" th:text="${item.author}"></a>
                                         </span>
@@ -133,5 +133,5 @@
 <!-- 公共的JS库 -->
 <div th:include="site/common/onload_js ::onloadJS"></div>
 </body>
-<script type="text/javascript" th:src="@{/site/js/content.js}"></script>
+<script type="text/javascript" th:src="@{/static/site/js/content.js}"></script>
 </html>

@@ -1,8 +1,9 @@
 package cn.qx.common.config;
-import java.io.IOException;
 import java.util.Properties;
 
 import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ import com.github.pagehelper.PageInterceptor;
 public class AppMyBatisConfig {
 	 //假如bean没有指定名字,此bean的默认名字为方法名
 	 @Bean("sqlSessionFactory")
-	 public SqlSessionFactoryBean newSqlSesionFactoryBean(
-		 DataSource dataSource)throws IOException{
+	 public SqlSessionFactory newSqlSesionFactoryBean(
+		 DataSource dataSource)throws Exception{
 		 //1.构建bean对象
 		 SqlSessionFactoryBean fBean=
 		 new SqlSessionFactoryBean();
@@ -41,7 +42,9 @@ public class AppMyBatisConfig {
 	        properties.setProperty("helperDialect", "mysql");
 	        pageInterceptor.setProperties(properties);
 	        fBean.setPlugins(new PageInterceptor[] {pageInterceptor});
-		 return fBean;
+	        // 开启驼峰命名转换
+	        fBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
+		 return fBean.getObject();
 	 }
 	 /**配置事务管理对象：开启事务，提交事务，回滚事务，释放资源...*/
 	 @Bean("txManager")
