@@ -10,7 +10,11 @@ import cn.qx.common.vo.JsonResult;
 import cn.qx.common.vo.PageObject;
 import cn.qx.sys.entity.Log;
 import cn.qx.sys.service.LogService;
-
+/**
+ * 
+ * @author hhb
+ * @date 2019年2月23日
+ */
 @Controller
 @RequestMapping("/log/")
 public class LogController {
