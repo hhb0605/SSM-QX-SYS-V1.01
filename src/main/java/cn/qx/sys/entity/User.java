@@ -17,24 +17,24 @@ public class User implements Serializable {
     private String salt; //盐
     private String email; //邮箱
     private String avatar; //头像
- // 0禁用，1启用
-    private Integer valid = 1;
-    private Integer deptId;
+    private Integer mobile;
+ public Integer getMobile() {
+		return mobile;
+	}
 
+	public void setMobile(Integer mobile) {
+		this.mobile = mobile;
+	}
+
+	// 0禁用，1启用
+    private Integer valid = 1;
+    
     public Integer getValid() {
         return valid;
     }
 
     public void setValid(Integer valid) {
         this.valid = valid;
-    }
-
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
     }
 
     private String checkPass; //用于旧密码校验的属性
@@ -106,8 +106,7 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "SysUser [id=" + id + ", username=" + username + ", nickname=" + nickname + ", password=" + password
-                + ", salt=" + salt + ", email=" + email + ", avatar=" + avatar + ", valid=" + valid + ", deptId="
-                + deptId + ", checkPass=" + checkPass + "]";
+                + ", salt=" + salt + ", email=" + email + ", avatar=" + avatar + ", valid=" + valid  + ", checkPass=" + checkPass + "]";
     }
 
 

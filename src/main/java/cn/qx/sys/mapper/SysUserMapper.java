@@ -1,5 +1,7 @@
 package cn.qx.sys.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.github.pagehelper.Page;
 
 import cn.qx.sys.entity.User;
@@ -22,4 +24,14 @@ public interface SysUserMapper {
     void delete(long id);
 
     User findByName(String username);
+    
+    int validById(
+			@Param("id")Integer id,
+			@Param("valid")Integer valid,
+			@Param("modifiedUser")String modifiedUser);
+    int findObjectByColumn(
+    		@Param("columnName")String columnName,
+    		@Param("columnValue")String columnValue);
+    int updateObject(User entity);
+    	
 }

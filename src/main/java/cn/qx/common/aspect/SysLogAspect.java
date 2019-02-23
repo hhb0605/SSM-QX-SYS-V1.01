@@ -15,7 +15,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.qx.common.annotation.RequestLog;
-import cn.qx.common.utils.IPUtils;
+import cn.qx.common.util.IPUtils;
 import cn.qx.sys.mapper.SysLogMapper;
 import cn.qx.sys.entity.Log;
 /**

@@ -9,9 +9,18 @@ public class PageController {
       /**
        * 返回分页页面
        */
-      @RequestMapping("log/doPageUI")
+      @RequestMapping("{rest}/doPageUI")
       public String doPageUI(){
     	 //...
       	 return "admin/page/common/page";
       }  
+      
+      @RequestMapping("user/doUserEditUI")
+	  public String doUserEditUI(){
+		  return "admin/page/user_edit";
+	  }
+      @RequestMapping("user/doUserListUI")
+	  public String doUserListUI(){
+		  return "admin/page/user";
+	  }
 }

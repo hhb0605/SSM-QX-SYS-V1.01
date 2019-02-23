@@ -137,8 +137,18 @@ public class AdminController {
      */
     @GetMapping(value = {"/user"})
     public String user() {
+    	System.out.println("AdminController.user()");
         return "admin/page/user";
     }
+    /** 用户管理页
+    *
+    * @return
+    */
+   @GetMapping(value = {"/role"})
+   public String role() {
+	   System.out.println("AdminController.role()");
+       return "admin/page/role";
+   }
 
     /**
      * 根据登录token获取登录信息
