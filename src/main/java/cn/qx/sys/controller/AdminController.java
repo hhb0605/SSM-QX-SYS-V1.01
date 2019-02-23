@@ -106,9 +106,9 @@ public class AdminController {
      *
      * @return
      */
-    @GetMapping(value = {"/user"})
-    public String users() {
-        return "admin/page/user";
+    @GetMapping(value = {"/personal"})
+    public String personal() {
+        return "admin/page/personal";
     }
 
     /**
@@ -121,13 +121,23 @@ public class AdminController {
         return "admin/page/setting";
     }
     /**
-     * 系统设置页
+     * 日志管理页
      *
      * @return
      */
     @GetMapping(value = {"/log"})
     public String log() {
         return "admin/page/log";
+    }
+    
+    /**
+     * 用户管理页
+     *
+     * @return
+     */
+    @GetMapping(value = {"/user"})
+    public String user() {
+        return "admin/page/user";
     }
 
     /**
@@ -141,6 +151,7 @@ public class AdminController {
         try {
             Subject subject = SecurityUtils.getSubject();
             String name = (String) subject.getPrincipal();
+            System.out.println("AdminController.info()");
             return new Result(StatusCode.SUCCESS, userService.findByName(name));
         } catch (Exception e) {
             e.printStackTrace();

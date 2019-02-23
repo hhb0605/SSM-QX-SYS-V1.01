@@ -12,6 +12,12 @@
             <div class="el-scrollbar__view" style="background-color: rgb(48, 65, 86);">
                 <el-aside style="background-color: rgb(48, 65, 86);width: auto !important;" show-timeout="200">
                     <el-menu unique-opened :default-active="defaultActive" :collapse="!sidebarStatus" background-color="rgb(48, 65, 86)" text-color="#fff">
+                     <el-submenu index="20">
+                            <template slot="title">
+                                <i class="el-icon-menu"></i>
+                                <span>功能菜单</span>
+                            </template>
+        
                         <a href="/SSM-QX-SYS-V1.01/admin.do">
                             <el-menu-item index="1">
                                 <i class="fa fa-home fa-fw"></i>
@@ -55,31 +61,39 @@
                                 <span slot="title">友链管理</span>
                             </el-menu-item>
                         </a>
-                        <a href="/SSM-QX-SYS-V1.01/admin/user.do">
+                        <a href="/SSM-QX-SYS-V1.01/admin/personal.do">
                             <el-menu-item index="9">
                                 <i class="fa fa-user fa-fw"></i>
                                 <span slot="title">个人信息</span>
                             </el-menu-item>
                         </a>
-                        <a href="/SSM-QX-SYS-V1.01/admin/setting.do">
-                            <el-menu-item index="10">
-                                <i class="fa fa-cog fa-fw"></i>
-                                <span slot="title">系统设置</span>
-                            </el-menu-item>
-                        </a>
+                        </el-submenu>
+                        <el-submenu index="10">
+                            <template slot="title">
+                                <i class="el-icon-setting"></i>
+                                <span>系统管理</span>
+                            </template>
+                            
                         <a href="/SSM-QX-SYS-V1.01/admin/log.do">
                             <el-menu-item index="11">
                                 <i class="fa fa-file-text fa-fw"></i>
                                 <span slot="title">日志管理</span>
                             </el-menu-item>
                         </a>
-                        <a href="/SSM-QX-SYS-V1.01/admin/links.do">
+                        <a href="/SSM-QX-SYS-V1.01/admin/user.do">
                             <el-menu-item index="12">
                                 <i class="fa fa-cog fa-fw"></i>
                                 <span slot="title">用户管理</span>
                             </el-menu-item>
                         </a>
+                        <a href="/SSM-QX-SYS-V1.01/admin/role.do">
+                            <el-menu-item index="13">
+                                <i class="fa fa-cog fa-fw"></i>
+                                <span slot="title">角色管理</span>
+                            </el-menu-item>
+                        </a>
                     </el-menu>
+      </el-submenu>
                 </el-aside>
             </div>
         </div>
