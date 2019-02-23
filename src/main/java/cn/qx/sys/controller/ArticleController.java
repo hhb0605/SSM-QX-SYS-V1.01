@@ -120,6 +120,7 @@ public class ArticleController {
     public Result update(@RequestBody Article article) {
         if (CheckValue.checkObj(article)) {
             try {
+                System.out.println("ArticleController.update()");
                 articleService.update(article);
                 return new Result(StatusCode.SUCCESS, ResultEnums.SUCCESS);
             } catch (Exception e) {
