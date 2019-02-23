@@ -16,8 +16,9 @@ import cn.qx.common.vo.StatusCode;
 import cn.qx.sys.service.UserService;
 
 /**
- * @auther TyCoding
- * @date 2018/10/3
+ * 
+ * @author STK_Tofu
+ * @date 2019年2月23日
  */
 @Controller
 @RequestMapping("/admin")
@@ -35,6 +36,16 @@ public class AdminController {
     public String publish() {
         return "admin/page/publish";
     }
+    
+    /**
+     * 加载上一页，下一页等
+     * @return
+     */
+    @GetMapping(value = {"doPageUI"})
+    public String doPageUI() {
+        return "admin/page/common/page";
+    }
+    
 
     /**
      * 跳转到文件编辑页
@@ -43,8 +54,8 @@ public class AdminController {
      * @return
      */
     @RequestMapping(value = {"/article/edit/{id}"})
-    public String edit(@PathVariable("id") Long id) {
-        if (id == null || id == 0) {
+    public String edit(@PathVariable("id") String id) {
+        if (id == null || id == "") {
             return "admin/page/article";
         } else {
             return "admin/page/edit";
@@ -130,6 +141,7 @@ public class AdminController {
         return "admin/page/log";
     }
     
+    
     /**
      * 用户管理页
      *
@@ -140,15 +152,24 @@ public class AdminController {
     	System.out.println("AdminController.user()");
         return "admin/page/user";
     }
-    /** 用户管理页
-    *
-    * @return
-    */
-   @GetMapping(value = {"/role"})
-   public String role() {
-	   System.out.println("AdminController.role()");
-       return "admin/page/role";
-   }
+    
+    /**
+     * 角色管理页
+     * @return
+     */
+	@RequestMapping("role")
+	public String doRoleListUI() {
+		return "admin/page/role";
+	}
+	/**
+     * 角色管理页
+     * @return
+     */
+	@RequestMapping("role2")
+	public String doRoleListUI2() {
+		return "admin/page/role2";
+	}
+
 
     /**
      * 根据登录token获取登录信息
@@ -161,7 +182,6 @@ public class AdminController {
         try {
             Subject subject = SecurityUtils.getSubject();
             String name = (String) subject.getPrincipal();
-            System.out.println("AdminController.info()");
             return new Result(StatusCode.SUCCESS, userService.findByName(name));
         } catch (Exception e) {
             e.printStackTrace();

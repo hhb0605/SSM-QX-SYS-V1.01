@@ -8,9 +8,10 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
@@ -27,7 +28,7 @@ import cn.qx.common.web.AccessInterceptor;
 @Configuration
 @ComponentScan(value = "cn.qx", useDefaultFilters = false, // 取消默认过滤器
         includeFilters = { // 只加载有指定注解修饰的类
-                @Filter(type = FilterType.ANNOTATION, classes = { Controller.class, ControllerAdvice.class,RestController.class}) })
+                @Filter(type = FilterType.ANNOTATION, classes = { Controller.class, ControllerAdvice.class,RestController.class,RestControllerAdvice.class}) })
 @EnableWebMvc // 启用mvc默认配置(内置很多类型转换器bean对象)
 public class AppMvcConfig extends WebMvcConfigurerAdapter {
     public final static String CHARACTER_ENCODING = "UTF-8";
@@ -99,6 +100,17 @@ public class AppMvcConfig extends WebMvcConfigurerAdapter {
         viewResolver.setTemplateEngine(springTemplateEngine);
         viewResolver.setCharacterEncoding(CHARACTER_ENCODING);
         return viewResolver;
+    }
+    
+    /**
+     * 多媒体文件处理器
+     *  @return
+     */
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver amr = new CommonsMultipartResolver();
+        amr.setMaxUploadSize(1024*1024);
+        return amr;
     }
     
 //    @Override

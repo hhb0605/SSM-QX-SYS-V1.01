@@ -55,7 +55,6 @@ new Vue({
             this.article.content = window.markdownContent.getHTML(); //给content赋值
             this.article.contentMd = window.markdownContent.getMarkdown(); //给contentMd赋值
             this.article.tags = JSON.stringify(this.dynamicTags); //给tags字段赋值
-
             this.$http.post(api.save, JSON.stringify(this.article)).then(result => {
                 window.location.reload();
                 if (result.body.code == 20000) {
@@ -112,6 +111,7 @@ new Vue({
             //已登录用户名
             this.$http.get(api.info).then(result => {
                 this.token.name = result.body.data.username;
+                this.article.author =  this.token.name;
             });
         },
 

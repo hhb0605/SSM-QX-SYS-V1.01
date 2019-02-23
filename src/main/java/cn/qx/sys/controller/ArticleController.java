@@ -61,7 +61,9 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
-    public Result findById(@RequestParam("id") Long id, Model model) throws JsonProcessingException {
+    public Result findById(@RequestParam("id") String ids, Model model) throws JsonProcessingException {
+        // 前端获取url为“4.do”
+        Long id = Long.parseLong(ids.split("\\.")[0]);
         if (CheckValue.checkId(id)) {
             Article article = articleService.findById(id);
             if (CheckValue.checkObj(article)) {
@@ -118,6 +120,7 @@ public class ArticleController {
     public Result update(@RequestBody Article article) {
         if (CheckValue.checkObj(article)) {
             try {
+                System.out.println("ArticleController.update()");
                 articleService.update(article);
                 return new Result(StatusCode.SUCCESS, ResultEnums.SUCCESS);
             } catch (Exception e) {

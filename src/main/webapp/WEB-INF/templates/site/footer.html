@@ -22,8 +22,8 @@
             <div class="footer-container">
                 <div class="meta-item meta-copyright">
                     <div class="meta-copyright-info">
-                        <a href="/" class="info-logo">
-                            <img src="static/public/qx-icon.png" alt="QianX Blog"/>
+                        <a href="/SSM-QX-SYS-V1.01/index.do" class="info-logo">
+                            <img src="/SSM-QX-SYS-V1.01/static/public/qx-icon.png" alt="QianX Blog"/>
                         </a>
                         <div class="info-text">
                             <p>纸上得来终觉浅，绝知此事要躬行</p>
@@ -37,14 +37,14 @@
                 <div class="meta-item meta-posts">
                     <h3 class="meta-title">最新文章</h3>
                     <li th:each="item : ${articleList}">
-                        <a th:href="'/article/' + ${item.id}" th:text="${item.title}"></a>
+                        <a th:href="'/SSM-QX-SYS-V1.01/article/' + ${item.id}+'.do'" th:text="${item.title}"></a>
                     </li>
                 </div>
 
                 <div class="meta-item meta-comments">
                     <h3 class="meta-title">最新评论</h3>
                     <li th:each="item : ${commentsList}">
-                        <a th:if="${item.articleId != 0}" th:href="'/article/' + ${item.articleId}" th:text="${item.author} + ':  ' + ${item.content}"></a>
+                        <a th:if="${item.articleId != 0}" th:href="'/SSM-QX-SYS-V1.01/article/' + ${item.articleId}+'.do'" th:text="${item.author} + ':  ' + ${item.content}"></a>
                         <a th:if="${item.articleId == 0}" th:text="${item.author} + ':  ' + ${item.content}"></a>
                     </li>
                 </div>
