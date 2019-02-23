@@ -1,4 +1,4 @@
-package cn.qx.common.utils;
+package cn.qx.common.util;
 
 import org.apache.shiro.SecurityUtils;
 

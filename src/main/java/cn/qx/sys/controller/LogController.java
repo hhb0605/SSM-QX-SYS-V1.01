@@ -23,11 +23,10 @@ public class LogController {
 	/**
 	 * 返回日志页面
 	 * @return
-	 */
-	
+	 */	
 	@RequestMapping("doLogListUI")
 	public String doLogListUI(){
-		return "sys/log_list";
+		return "sys/log";
 	}
 	
 	@PostMapping("doDeleteObjects")

@@ -149,6 +149,7 @@ public class AdminController {
      */
     @GetMapping(value = {"/user"})
     public String user() {
+    	System.out.println("AdminController.user()");
         return "admin/page/user";
     }
     
@@ -168,6 +169,7 @@ public class AdminController {
 	public String doRoleListUI2() {
 		return "admin/page/role2";
 	}
+
 
     /**
      * 根据登录token获取登录信息
