@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.qx.sys.mapper.SysRoleMapper">
+	<select id="findPageObjects"
+		resultType="cn.qx.sys.entity.Role">
+		select *
+		from sys_roles
+		<include refid="queryWhereId" />
+		order by createdTime desc
+		limit #{startIndex},#{pageSize}
+	</select>
+
+	<select id="getRowCount" resultType="int">
+		select count(*)
+		from sys_roles
+		<include refid="queryWhereId" />
+	</select>
+
+
+	<!-- 借助此元素对共性数据进行提取 -->
+	<sql id="queryWhereId">
+		<where>
+			<if test="name!=null and name!=''">
+				name like concat("%",#{name},"%")
+			</if>
+		</where>
+	</sql>
+
+	<!-- 本次insert操作结束要将写入到数据库的主键id值
+	存储到参数对象的id属性上 -->
+	<insert id="insertObject"
+		parameterType="cn.qx.sys.entity.Role" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into sys_roles
+		(id,name,note,createdTime,modifiedTime,
+		createdUser,modifiedUser)
+		values
+		(null,#{name},#{note},now(),now(),
+		#{createdUser},#{modifiedUser})
+
+	</insert>
+	
+	<resultMap type="cn.qx.common.vo.RoleMenuVo"
+              id="RoleMenuVo">
+        <!-- 尝试自己实现：思考讨论 -->
+        <!-- 自己补充实现 -->
+        <collection property="menuIds"
+                    column="id"
+                    select="cn.qx.sys.mapper.SysRoleMenuMapper.findMenuIdsByRoleId">
+        </collection>
+   </resultMap>
+   <!-- 基于角色id查询角色信息 -->
+   <select id="findObjectById"
+           resultMap="RoleMenuVo">
+           select id,name,note
+           from sys_roles
+           where id=#{id}        
+   </select>
+
+	<update id="updateObject"
+		parameterType="cn.qx.sys.entity.Role">
+		update sys_roles
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="note!=null and note!=''">
+				note=#{note},
+			</if>
+			<if test="modifiedUser!=null and modifiedUser!=''">
+				modifiedUser=#{modifiedUser},
+			</if>
+			modifiedTime=now()
+		</set>
+		where id=#{id}
+	</update>
+	
+	<select id="findObjects" resultType="cn.qx.common.vo.CheckBox">
+	select id,name
+	from sys_roles
+</select>
+	
+	
+</mapper>
+
+
+
