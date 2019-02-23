@@ -7,6 +7,12 @@
 	where menu_id=#{id}
 	</delete>
 
+<!-- 基于角色id删除中间表数据 -->
+      <delete id="deleteObjectsByRoleId">
+           delete from sys_role_menus
+           where role_id=#{roleId}
+      </delete>
+      
 	<select id="findMenuIdsByRoleId"
               resultType="int">
             select menu_id
@@ -25,10 +31,6 @@
 	</foreach>
 </insert>
 	
-	<delete id="deleteObjectsByRoleId" parameterType="int">
-	delete from sys_role_menus
-	where role_id=#{roleId}
-</delete>
 
 	<select id="findMenuIdsByRoleIds" resultType="int">
 		select distinct menu_id

@@ -7,7 +7,7 @@ import cn.qx.common.vo.PageObject;
 import cn.qx.common.vo.RoleMenuVo;
 import cn.qx.sys.entity.Role;
 
-public interface SysRoleService {
+public interface RoleService {
 	// 根据条件查询数据
 	PageObject<Role> findPageObjects(
 			String name, 
@@ -22,5 +22,11 @@ public interface SysRoleService {
 	int updateObject(Role entity,Integer[] menuIds);
 	
     public List<CheckBox> findObjects();
+	 /**
+	  * 基于角色id删除角色相关信息
+	  * @param id
+	  * @return
+	  */
+	 int deleteObject(Integer id);
 
 }

@@ -7,17 +7,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.qx.common.vo.JsonResult;
 import cn.qx.sys.entity.Role;
-import cn.qx.sys.service.SysRoleService;
+import cn.qx.sys.service.RoleService;
 
 @Controller
-@RequestMapping("/role/")
+@RequestMapping("role/")
 public class RoleController {
 	@Autowired
-	private SysRoleService sysRoleService;
-	@RequestMapping("doRoleListUI")
-	public String doRoleListUI() {
-		return "admin/page/common/role_list";
-	}
+	private RoleService sysRoleService;
+
 	@ResponseBody
 	@RequestMapping("doFindPageObjects")
 	public JsonResult doFindPageObjects(String name, Integer pageCurrent) {
@@ -26,7 +23,7 @@ public class RoleController {
 	
 	@RequestMapping("doRoleEditUI")
 	public String doMenuEditUI() {
-		return "sys/role_edit";
+		return "admin/page/role_edit";
 	}
 	
 	// 添加角色
@@ -57,6 +54,11 @@ public class RoleController {
 	public JsonResult doFindObjects(){
 		return new JsonResult(sysRoleService.findObjects());
 	}
-
+	 @RequestMapping("doDeleteObject")
+	 @ResponseBody
+	 public JsonResult doDeleteObject(Integer id){
+		 sysRoleService.deleteObject(id);
+		 return new JsonResult("delete ok");
+	 }
 	
 }

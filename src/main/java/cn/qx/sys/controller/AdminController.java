@@ -35,6 +35,16 @@ public class AdminController {
     public String publish() {
         return "admin/page/publish";
     }
+    
+    /**
+     * 加载上一页，下一页等
+     * @return
+     */
+    @GetMapping(value = {"doPageUI"})
+    public String doPageUI() {
+        return "admin/page/common/page";
+    }
+    
 
     /**
      * 跳转到文件编辑页
@@ -130,6 +140,7 @@ public class AdminController {
         return "admin/page/log";
     }
     
+    
     /**
      * 用户管理页
      *
@@ -139,6 +150,23 @@ public class AdminController {
     public String user() {
         return "admin/page/user";
     }
+    
+    /**
+     * 角色管理页
+     * @return
+     */
+	@RequestMapping("role")
+	public String doRoleListUI() {
+		return "admin/page/role";
+	}
+	/**
+     * 角色管理页
+     * @return
+     */
+	@RequestMapping("role2")
+	public String doRoleListUI2() {
+		return "admin/page/role2";
+	}
 
     /**
      * 根据登录token获取登录信息
@@ -151,7 +179,7 @@ public class AdminController {
         try {
             Subject subject = SecurityUtils.getSubject();
             String name = (String) subject.getPrincipal();
-            System.out.println("AdminController.info()");
+            //System.out.println("AdminController.info()");
             return new Result(StatusCode.SUCCESS, userService.findByName(name));
         } catch (Exception e) {
             e.printStackTrace();
