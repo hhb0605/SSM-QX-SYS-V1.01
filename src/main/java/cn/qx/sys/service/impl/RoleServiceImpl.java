@@ -15,14 +15,15 @@ import cn.qx.common.vo.RoleMenuVo;
 import cn.qx.sys.entity.Role;
 import cn.qx.sys.mapper.SysRoleMapper;
 import cn.qx.sys.mapper.SysRoleMenuMapper;
-import cn.qx.sys.service.SysRoleService;
+import cn.qx.sys.service.RoleService;
 
 @Service
-public class RoleServiceImpl implements SysRoleService {
+public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private SysRoleMapper sysRoleDao;
 	@Autowired
 	private SysRoleMenuMapper sysRoleMenuDao;
+	
 
 	public PageObject<Role> findPageObjects(String name, Integer pageCurrent) {
 		// 1.验证参数合法性
@@ -97,6 +98,22 @@ public class RoleServiceImpl implements SysRoleService {
 		sysRoleMenuDao.insertObject(entity.getId(),menuIds);
 
 		//3.返回结果
+		return rows;
+	}
+	
+	@Override
+	public int deleteObject(Integer id) {
+		//1.参数合法性校验
+		if(id==null||id<1)
+		throw new IllegalArgumentException("id值不合法");
+		//2.删除角色自身信息
+		int rows=sysRoleDao.deleteObject(id);
+		if(rows==0)
+		throw new ServiceException("记录可能已经不存在");
+		//3.删除角色菜单关系数据
+		sysRoleMenuDao.deleteObjectsByRoleId(id);
+/*		//4.删除角色用户关系数据
+		sysUserRoleDao.deleteObjectsByRoleId(id);*/
 		return rows;
 	}
 

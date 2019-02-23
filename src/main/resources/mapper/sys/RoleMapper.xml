@@ -80,7 +80,11 @@
 	select id,name
 	from sys_roles
 </select>
-	
+	<!-- 删除角色自身信息 -->
+    <delete id="deleteObject">
+        delete from sys_roles
+        where id=#{id}
+    </delete>
 	
 </mapper>
 

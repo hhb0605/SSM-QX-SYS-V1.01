@@ -15,7 +15,7 @@ public interface SysRoleMapper {
 	 * @param name
 	 * @return
 	 */
-    int getRowCount(String name);
+    int getRowCount(@Param("name")String name);
     
     /**
      * 查询当前页要呈现的角色信息
@@ -39,5 +39,10 @@ public interface SysRoleMapper {
     
     List<Integer> findRoleIdsByUserId(
 			Integer id);
-
+	/**
+	 * 删除角色自身信息
+	 * @param id
+	 * @return
+	 */
+	int deleteObject(Integer id);
 }

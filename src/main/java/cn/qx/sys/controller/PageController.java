@@ -9,7 +9,7 @@ public class PageController {
       /**
        * 返回分页页面
        */
-      @RequestMapping("log/doPageUI")
+      @RequestMapping("{rest}/doPageUI")
       public String doPageUI(){
     	 //...
       	 return "admin/page/common/page";
