@@ -99,18 +99,18 @@ var vm = new Vue({
         //编辑按钮
         editBtn(id) {
             this.editDialog = true;
-            this.$http.get('article/findById.do?id=' + id).then(result => {
+            this.$http.get('/SSM-QX-SYS-V1.01/article/findById.do?id=' + id).then(result => {
                 this.editor.id = result.body.data.id;
-                this.editor.titlePic = result.body.data.titlePic;
-
+                this.editor.titlePic = "/SSM-QX-SYS-V1.01/static"+result.body.data.titlePic;
                 this.fileList.forEach(row => {
-                    row.url = result.body.data.titlePic; //将图片的URL地址赋值给file-list展示出来
+                    row.url = "/SSM-QX-SYS-V1.01/static"+result.body.data.titlePic; //将图片的URL地址赋值给file-list展示出来
                 });
             });
         },
         //编辑
         edit() {
-            this.$http.put('article/update.do', JSON.stringify(this.editor)).then(result => {
+        	console.log("上传图片");
+            this.$http.put('/SSM-QX-SYS-V1.01/article/update.do', JSON.stringify(this.editor)).then(result => {
                 this.editDialog = false;
                 this.reloadList();
                 if (result.body.code == 20000) {
@@ -188,7 +188,7 @@ var vm = new Vue({
         init() {
             //已登录用户名
             this.$http.get('../admin/info.do').then(result => {
-                this.token.name = result.body.data.name;
+                this.token.name = result.body.data.username;
             });
         },
 

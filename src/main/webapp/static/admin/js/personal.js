@@ -6,8 +6,8 @@ const WIDTH = 1024;
 const RATIO = 3;
 
 const api = {
-    update: '../user/update.do',
-    info: '../admin/info.do',
+    update: '/SSM-QX-SYS-V1.01/user/update.do',
+    info: '/SSM-QX-SYS-V1.01/admin/info.do',
 };
 
 // Vue实例
@@ -30,6 +30,12 @@ var vm = new Vue({
                 checkPass: '', //old password
                 repassword: '', //repeat password
             },
+                id: '',
+                username: '',
+                email: '',
+                nickname: '',
+                password: '',
+                checkPass: '',
 
             defaultActive: '9',
             token: {name: ''},
@@ -51,25 +57,25 @@ var vm = new Vue({
                 this.user.email = result.body.data.email;
                 this.user.nickname = result.body.data.nickname;
                 this.pass.id = result.body.data.id;
-
                 this.token.name = result.body.data.username;
+                console.log(this.user);
             });
         },
 
         save() {
+        	console.log(this.user);
             if (this.user.username == '' || this.user.username == null || this.user.nickname == '' || this.user.nickname == null || this.user.email == '' || this.user.email == null) {
+            	console.log("输入的信息有误");
                 this.$message({
                     type: 'info',
                     message: '输入的信息有误',
                     duration: 6000
                 });
             } else {
-                console.log(this.user);
-                console.log(this.token);
                 this.$http.post(api.update, JSON.stringify(this.user)).then(result => {
                     if (result.body.code == 20000) {
                         if (this.user.username == this.token.name) {
-                            window.location.reload();
+                            /*window.location.reload();*/
                             this.$message({
                                 type: 'success',
                                 message: result.body.data,
@@ -78,7 +84,7 @@ var vm = new Vue({
                         } else {
                             //修改了用户名，从新登陆
                             //执行/logout请求
-                            window.location.href = 'admin/logout.do'; //更改了密码，注销当前登录状态，重新登录
+                            window.location.href = '/SSM-QX-SYS-V1.01/admin/logout.do'; //更改了密码，注销当前登录状态，重新登录
                         }
                     } else {
                         this.$message({
@@ -89,6 +95,7 @@ var vm = new Vue({
                         window.location.reload();
                     }
                     this.$refs.user.resetFields(); //清空校验状态
+                    console.log("清空状态");
                     this.user.username = '';
                     this.user.nickname = '';
                     this.user.email = '';
@@ -125,7 +132,7 @@ var vm = new Vue({
                 this.clearPass();
             } else {
                 this.pass.username = this.user.username;
-                this.$http.post('user/update.do', JSON.stringify(this.pass)).then(result => {
+                this.$http.post('/SSM-QX-SYS-V1.01/user/update.do', JSON.stringify(this.pass)).then(result => {
                     if (result.body.code == 20000) {
                         this.$message({
                             type: 'success',
@@ -134,7 +141,7 @@ var vm = new Vue({
                         });
 
                         //执行/logout请求
-                        window.location.href = 'admin/logout.do'; //更改了密码，注销当前登录状态，重新登录
+                        window.location.href = '/SSM-QX-SYS-V1.01/admin/logout.do'; //更改了密码，注销当前登录状态，重新登录
                     } else {
                         this.$message({
                             type: 'info',

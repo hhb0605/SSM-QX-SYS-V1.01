@@ -16,8 +16,9 @@ import cn.qx.common.vo.StatusCode;
 import cn.qx.sys.service.UserService;
 
 /**
- * @auther TyCoding
- * @date 2018/10/3
+ * 
+ * @author STK_Tofu
+ * @date 2019年2月23日
  */
 @Controller
 @RequestMapping("/admin")
@@ -53,8 +54,8 @@ public class AdminController {
      * @return
      */
     @RequestMapping(value = {"/article/edit/{id}"})
-    public String edit(@PathVariable("id") Long id) {
-        if (id == null || id == 0) {
+    public String edit(@PathVariable("id") String id) {
+        if (id == null || id == "") {
             return "admin/page/article";
         } else {
             return "admin/page/edit";
@@ -179,7 +180,6 @@ public class AdminController {
         try {
             Subject subject = SecurityUtils.getSubject();
             String name = (String) subject.getPrincipal();
-            //System.out.println("AdminController.info()");
             return new Result(StatusCode.SUCCESS, userService.findByName(name));
         } catch (Exception e) {
             e.printStackTrace();

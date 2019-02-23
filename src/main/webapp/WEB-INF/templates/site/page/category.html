@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- 公共的CSS库 -->
 <head th:include="/site/common/common_head :: commonHead"></head>
-<title>[[${category}]] | Tumo Blog</title>
+<title>[[${category}]] | QX Blog</title>
 <body class="bg-grey" gtools_scp_screen_capture_injected="true">
 
 <!--[if lt IE 8]>
@@ -25,7 +25,7 @@
                     <div class="post-list-item-container">
                         <div class="item-label">
                             <div class="item-title">
-                                <a th:href="'/article/' + ${item.id}" th:text="${item.title}"></a>
+                                <a th:href="'/SSM-QX-SYS-V1.01/article/' + ${item.id}+'.do'" th:text="${item.title}"></a>
                             </div>
                             <div class="item-meta clearfix">
                                 <div class="item-meta-date">发布于 [[${#dates.format(item.publishTime, 'yyyy-MM-dd')}]]

@@ -16,7 +16,7 @@
 
     <!-- 条件查询 -->
     <select id="findByPage"  resultType="cn.qx.sys.entity.Article">
-        SELECT * FROM sys_article WHERE 1=1
+        SELECT * FROM sys_article
         <if test="author != null">
             AND author LIKE CONCAT('%', #{author}, '%')
         </if>
