@@ -3,6 +3,7 @@ package cn.qx.common.config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
@@ -11,6 +12,8 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -39,25 +42,26 @@ public class AppShiroConfig {
     
     @Bean("rememberMeCookie")
     public SimpleCookie rememberMeCookie() {
-    	SimpleCookie cookie = new SimpleCookie();
-    	cookie.setMaxAge(60000);
+    	SimpleCookie cookie = new SimpleCookie("rememberMe");
     	cookie.setHttpOnly(true);
+    	cookie.setMaxAge(3600000);
     	return cookie;
     }
+    
     // 设置RememberMeManager，实现RememberMe
     @Bean("rememberMeManager")
     public CookieRememberMeManager rememberMeManager() {
     	CookieRememberMeManager remenberCookie = new CookieRememberMeManager();
+    	remenberCookie.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
     	remenberCookie.setCookie(rememberMeCookie());
     	return remenberCookie;
     }
-
+    
     /*@Bean("sessionManager")
     public DefaultWebSessionManager sessionManager() {
     	DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-    	sessionManager.setGlobalSessionTimeout(30000);
+    	sessionManager.setGlobalSessionTimeout(10000);
     	sessionManager.setDeleteInvalidSessions(true);
-    	sessionManager.setSessionIdCookie(rememberMeCookie());
     	return sessionManager;
     }*/
     
