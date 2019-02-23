@@ -2,13 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>系统设置</title>
+    <title>日志管理</title>
     <link rel="icon" th:href="@{/static/public/admin/favicon.png}" type="image/png">
     <!--<link rel="stylesheet" th:href="@{/lib/element-ui/lib/theme-chalk/index.css}"/>-->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" th:href="@{/static/lib/font/css/font-awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/static/public/admin/base.css}">
-    <link rel="stylesheet" th:href="@{/static/admin/css/setting.css}">
     
     <!-- 导入的adminLTE的css -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -48,20 +47,19 @@
             <!-- main -->
             <el-main class="app-main">
                 <el-card>
-                    <h2>系统设置</h2>
+                    <h2>日志管理</h2>
                     <div>
                     
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">日志管理</h3>
+				<h3 class="box-title"></h3>
 
 				<div class="box-tools">
 					<div class="input-group input-group-sm" style="width: 350px;">
 						<input type="text" name="table_search" id="searchNameId"
-							class="form-control pull-right" placeholder="用户名">
-
+							class="form-control input-sm" placeholder="请输入用户名">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default btn-search">
                                 <i class="fa fa-search"></i>
@@ -101,47 +99,6 @@
 	</div>
 </div>
 
-                        <!--<el-row :gutter="40">
-                            <el-col :span="12">
-                                <el-card class="card-category">
-                                    <div slot="header">
-                                        <span>全局设置</span>
-                                    </div>
-                                    <div>
-                                        <el-form label-width="80px">
-                                            <el-form-item required prop="old_password" :rules="[{ required: true, message: '请输入站点名称'}]" label="账号">
-                                                <el-input placeholder="请输入站点名称"></el-input>
-                                            </el-form-item>
-                                            <el-form-item>
-                                                <el-button type="primary" style="float:right;">保存设置</el-button>
-                                            </el-form-item>
-                                        </el-form>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-card class="card-tags">
-                                    <div slot="header">
-                                        <span>个性化设置</span>
-                                    </div>
-                                    <div>
-                                        <el-form label-width="100px">
-                                            <el-form-item required prop="zhihu" :rules="[{ required: true, message: '请输入知乎账号'}]" label="输入旧密码">
-                                                <el-input placeholder="请输入知乎账号"></el-input>
-                                            </el-form-item>
-                                            <el-form-item required prop="github" :rules="[{ required: true, message: '请输入Github账号'}]" label="输入新密码">
-                                                <el-input placeholder="请输入Github账号"></el-input>
-                                            </el-form-item>
-                                            <el-form-item>
-                                                <el-button type="danger" style="float:right;">保存设置</el-button>
-                                            </el-form-item>
-                                        </el-form>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                        </el-row>-->
-
-                        
                     </div>
                 </el-card>
             </el-main>
@@ -233,7 +190,6 @@
     	  }
     	 //2.给出提示确认删除吗?
     	  if(!confirm("确认删除吗"))return;
-    	  console.log(idArray);
     	 //3.发送异步请求执行删除操作
     	 //3.1构建请求参数
     	 var params={"ids":idArray.toString()};//1,2,3,4
@@ -281,7 +237,6 @@
     	 var url="../log/doFindPageObjects.do";
     	 //3.发起异步请求获取数据(借助jquery中的getJSON)
     	 $.getJSON(url,params,function(result){//callback
-    		 console.log(result);
     	     doHandleResponseResult(result);//JsonResult
     	 });//ajax (xhr)
      }
@@ -293,14 +248,12 @@
     	   //显示当前日志数据 
     	   doSetTableBodyRows(result.data.records);
     	   //显示分页信息
-    	   console.log(result.data);
     	   doSetPagination(result.data);//PageObject
     	  }else{
     		 alert(result.message); 
     	  }
      }
      function doSetTableBodyRows(records){
-    	console.log(records);
     	//1.获取tbody对象,并清空原有内容
     	var tBody=$("#tbodyId");
     	tBody.empty();//tBody.innerHTML="";
@@ -326,5 +279,5 @@
   		     "<td>"+data.time+"</td>";	   
             return tds;
      }    
-</script><!-- debugger,console.log(),排除 -->
+</script>
 </html>

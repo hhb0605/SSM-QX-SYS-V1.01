@@ -17,7 +17,7 @@ var vm = new Vue({
                 email: ''
             },
 
-            defaultActive: '11',
+            defaultActive: '13',
             editDialog: false,
             token: {name: ''},
             mobileStatus: false, //是否是移动端

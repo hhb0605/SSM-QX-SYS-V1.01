@@ -82,7 +82,7 @@ var vm = new Vue({
 
         //删除
         sureDelete(ids) {
-            this.$confirm('你确定永久删除此友联？', '提示', {
+            this.$confirm('你确定永久删除此友链？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning',

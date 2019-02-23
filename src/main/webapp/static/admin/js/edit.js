@@ -9,10 +9,10 @@ const api = {
     findById(id) {
         return '/SSM-QX-SYS-V1.01/article/findById.do?id=' + id
     },
-    save: 'article/save.do',
-    update: 'article/update.do',
-    allCategory: 'category/findAll.do',
-    info: 'admin/info.do'
+    save: '../article/save.do',
+    update: '../article/update.do',
+    allCategory: '../category/findAll.do',
+    info: 'info.do'
 };
 
 //Vue实例
@@ -62,7 +62,7 @@ new Vue({
             this.article.tags = JSON.stringify(this.dynamicTags); //给tags字段赋值
 
             this.$http.put(api.update, JSON.stringify(this.article)).then(result => {
-                window.location.href = 'admin/article.do';
+                window.location.href = 'article.do';
                 if (result.body.code == 20000) {
                     this.$message({
                         showClose: true,
@@ -122,7 +122,7 @@ new Vue({
 
             //已登录用户名
             this.$http.get(api.info).then(result => {
-                this.token.name = result.body.data.name;
+                this.token.name = result.body.data.username;
             });
         },
 
