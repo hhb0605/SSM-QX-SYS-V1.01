@@ -3,7 +3,7 @@
 <!-- 公共的CSS库 -->
 <head th:include="/site/common/common_head :: commonHead"></head>
 
-<title>[[${article.title}]] | Tumo Blog</title>
+<title>[[${article.title}]] | QX Blog</title>
 
 <body gtools_scp_screen_capture_injected="true">
 <!--[if lt IE 8]>
@@ -26,7 +26,7 @@
         <div class="post-data">
             <time datetime="2017-02-25" itemprop="datePublished">发布于 [[${#dates.format(article.publishTime, 'yyy-MM-dd')}]]
             </time>
-            / <a th:href="'/category/' + ${article.category}" th:text="${article.category}"></a> / <a
+            / <a th:text="${article.category}"></a> / <a
                 href="#comments"><b th:text="${commentsCount}"></b> 条评论</a> /
             <b th:text="${article.eyeCount}"></b> 浏览
         </div>
