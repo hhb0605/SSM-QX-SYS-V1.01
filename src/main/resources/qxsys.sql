@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50524
 File Encoding         : 65001
 
-Date: 2019-02-23 19:18:21
+Date: 2019-02-24 15:45:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -254,7 +254,7 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `username` varchar(100) NOT NULL COMMENT '用户名',
-  `nickname` varchar(100) NOT NULL COMMENT '昵称',
+  `nickname` varchar(100) DEFAULT NULL COMMENT '昵称',
   `password` varchar(100) NOT NULL COMMENT '密码',
   `salt` varchar(200) NOT NULL COMMENT '盐值',
   `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
@@ -263,13 +263,15 @@ CREATE TABLE `sys_user` (
   `modified_user` varchar(20) DEFAULT NULL COMMENT '修改用户',
   `modified_time` datetime DEFAULT NULL COMMENT '修改时间',
   `mobile` int(15) DEFAULT NULL,
+  `created_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='标签表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='标签表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', '菜鸡一枚', 'b9fd429a10b73d2c0971db1d4ad975a9', '9a924d8ae9800c229c892eeba7d413a6', '233333@qq.com', 'http://img.api.tycoding.cn/avatar.jpg', '1', 'admin', '2019-02-23 17:27:46', null);
+INSERT INTO `sys_user` VALUES ('1', 'admin', '菜鸡一枚', 'b9fd429a10b73d2c0971db1d4ad975a9', '9a924d8ae9800c229c892eeba7d413a6', '233333@qq.com', 'http://img.api.tycoding.cn/avatar.jpg', '1', 'admin', '2019-02-23 17:27:46', null, null);
+INSERT INTO `sys_user` VALUES ('15', 'zxzx', null, 'a0ec95965b80ed1c2a01af749de615df', 'e5b5f928-ec6f-45d1-bb11-6186f84f23c3', 'sdasd', null, '1', 'admin', '2019-02-24 15:43:47', '21213222', '2019-02-24 15:43:38');
 
 -- ----------------------------
 -- Table structure for `sys_user_roles`
@@ -280,9 +282,35 @@ CREATE TABLE `sys_user_roles` (
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
   `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户与角色对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户与角色对应关系';
 
 -- ----------------------------
 -- Records of sys_user_roles
 -- ----------------------------
 INSERT INTO `sys_user_roles` VALUES ('1', '19', '46');
+INSERT INTO `sys_user_roles` VALUES ('13', '0', '47');
+INSERT INTO `sys_user_roles` VALUES ('14', '0', '46');
+INSERT INTO `sys_user_roles` VALUES ('15', '0', '47');
+INSERT INTO `sys_user_roles` VALUES ('16', '0', '46');
+INSERT INTO `sys_user_roles` VALUES ('17', '0', '47');
+INSERT INTO `sys_user_roles` VALUES ('18', '0', '46');
+INSERT INTO `sys_user_roles` VALUES ('19', '0', '47');
+INSERT INTO `sys_user_roles` VALUES ('20', '6', '46');
+INSERT INTO `sys_user_roles` VALUES ('21', '6', '47');
+INSERT INTO `sys_user_roles` VALUES ('22', '7', '46');
+INSERT INTO `sys_user_roles` VALUES ('23', '7', '49');
+INSERT INTO `sys_user_roles` VALUES ('26', '9', '46');
+INSERT INTO `sys_user_roles` VALUES ('27', '9', '48');
+INSERT INTO `sys_user_roles` VALUES ('28', '8', '46');
+INSERT INTO `sys_user_roles` VALUES ('29', '8', '48');
+INSERT INTO `sys_user_roles` VALUES ('30', '8', '49');
+INSERT INTO `sys_user_roles` VALUES ('31', '10', '46');
+INSERT INTO `sys_user_roles` VALUES ('32', '10', '47');
+INSERT INTO `sys_user_roles` VALUES ('33', '11', '46');
+INSERT INTO `sys_user_roles` VALUES ('34', '11', '47');
+INSERT INTO `sys_user_roles` VALUES ('35', '12', '46');
+INSERT INTO `sys_user_roles` VALUES ('36', '13', '47');
+INSERT INTO `sys_user_roles` VALUES ('37', '14', '46');
+INSERT INTO `sys_user_roles` VALUES ('38', '3', '51');
+INSERT INTO `sys_user_roles` VALUES ('41', '15', '46');
+INSERT INTO `sys_user_roles` VALUES ('42', '15', '47');

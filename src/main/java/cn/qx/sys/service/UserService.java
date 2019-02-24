@@ -1,6 +1,8 @@
 package cn.qx.sys.service;
 
 
+import java.util.Map;
+
 import cn.qx.common.vo.PageObject;
 import cn.qx.sys.entity.User;
 
@@ -28,4 +30,6 @@ public interface UserService extends BaseService<User> {
     int updateObject(User entity,Integer[]roleIds);
     
 	void saveObject(User entity, Integer[] roleIds);
+	
+	public Map<String, Object> findObjectById(Long id);
 }
