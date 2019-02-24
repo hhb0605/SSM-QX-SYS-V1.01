@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 50524
+Source Server Version : 50622
 Source Host           : localhost:3306
 Source Database       : qxsys
 
 Target Server Type    : MYSQL
-Target Server Version : 50524
+Target Server Version : 50622
 File Encoding         : 65001
 
-Date: 2019-02-24 17:35:17
+Date: 2019-02-24 18:47:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -168,18 +168,16 @@ CREATE TABLE `sys_menus` (
   `created_user` varchar(20) DEFAULT NULL COMMENT '创建用户',
   `modified_user` varchar(20) DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='资源管理';
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='资源管理';
 
 -- ----------------------------
 -- Records of sys_menus
 -- ----------------------------
+INSERT INTO `sys_menus` VALUES ('7', '个人页面管理', '/admin.do', '1', '7', null, null, 'sys:personal', '2017-07-12 15:15:59', '2018-10-29 12:16:41', 'admin', null);
 INSERT INTO `sys_menus` VALUES ('8', '系统管理', '请求路径', '1', '8', null, null, 'sys:list', '2017-07-12 15:15:59', '2017-07-21 11:16:00', 'admin', 'admin');
-INSERT INTO `sys_menus` VALUES ('25', '日志管理', 'log/doFindPageObject.do', '1', '25', null, '8', 'sys:log:view', '2017-07-12 15:15:59', '2018-10-29 12:15:48', 'admin', null);
-INSERT INTO `sys_menus` VALUES ('45', '用户管理', 'user/doUserListUI.do', '1', '45', null, '8', 'sys:user:view', '2017-07-12 15:15:59', '2018-10-29 12:16:41', 'admin', null);
-INSERT INTO `sys_menus` VALUES ('46', '菜单管理', 'menu/doMenuListUI.do', '1', '46', null, '8', 'sys:menu:view', '2017-07-12 15:15:59', '2018-10-29 12:17:01', 'admin', null);
-INSERT INTO `sys_menus` VALUES ('47', '角色管理', 'role/doRoleListUI.do', '1', '47', null, '8', 'sys:role:view', '2017-07-12 15:15:59', '2018-10-29 12:17:46', 'admin', null);
-INSERT INTO `sys_menus` VALUES ('131', '禁用启用', 'user/doValidById.do', '1', '111111', null, '45', 'sys:user:valid', '2018-07-18 19:24:48', '2018-07-18 19:24:48', null, null);
-INSERT INTO `sys_menus` VALUES ('132', '日志删除', 'log/doDeleteObject.do', '2', '10', null, '25', 'sys:log:delete', '2018-10-29 12:18:42', '2018-10-29 12:18:42', null, null);
+INSERT INTO `sys_menus` VALUES ('25', '日志管理', 'log/doFindPageObject.do', '1', '25', null, '8', 'sys:log', '2017-07-12 15:15:59', '2018-10-29 12:15:48', 'admin', null);
+INSERT INTO `sys_menus` VALUES ('45', '用户管理', 'user/doUserListUI.do', '1', '45', null, '8', 'sys:user', '2017-07-12 15:15:59', '2018-10-29 12:16:41', 'admin', null);
+INSERT INTO `sys_menus` VALUES ('47', '角色管理', 'role/doRoleListUI.do', '1', '47', null, '8', 'sys:role', '2017-07-12 15:15:59', '2018-10-29 12:17:46', 'admin', null);
 
 -- ----------------------------
 -- Table structure for `sys_roles`
@@ -194,16 +192,16 @@ CREATE TABLE `sys_roles` (
   `created_user` varchar(20) DEFAULT NULL COMMENT '创建用户',
   `modified_user` varchar(20) DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色';
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色';
 
 -- ----------------------------
 -- Records of sys_roles
 -- ----------------------------
-INSERT INTO `sys_roles` VALUES ('46', '普通会员', '普通会员', '2018-07-06 19:25:36', '2019-02-13 10:21:07', null, null);
-INSERT INTO `sys_roles` VALUES ('47', '系统所有者', '系系统所有者', '2018-07-18 19:23:11', '2019-02-13 10:20:45', null, null);
-INSERT INTO `sys_roles` VALUES ('48', '权限管理员', '权限管理', '2019-01-30 17:24:42', '2019-02-13 10:20:55', '系统所有者', null);
-INSERT INTO `sys_roles` VALUES ('49', '第二个权限管理者', '黄浩', '2019-02-23 15:48:51', '2019-02-23 15:48:51', null, null);
-INSERT INTO `sys_roles` VALUES ('51', '第二个普通用户', '黄浩', '2019-02-23 17:00:56', '2019-02-23 17:00:56', null, null);
+INSERT INTO `sys_roles` VALUES ('47', '系统所有者', '系统所有者', '2018-07-18 19:23:11', '2019-02-24 16:44:50', null, null);
+INSERT INTO `sys_roles` VALUES ('48', '权限管理员', '权限管理', '2019-01-30 17:24:42', '2019-02-24 16:10:59', '系统所有者', null);
+INSERT INTO `sys_roles` VALUES ('49', '第二个权限管理者', '黄浩', '2019-02-23 15:48:51', '2019-02-24 16:11:07', null, null);
+INSERT INTO `sys_roles` VALUES ('51', '第二个普通用户', '第二个普通用户', '2019-02-23 17:00:56', '2019-02-24 16:11:33', null, null);
+INSERT INTO `sys_roles` VALUES ('52', '普通用户', '普通用户', '2019-02-24 16:44:24', '2019-02-24 16:44:24', null, null);
 
 -- ----------------------------
 -- Table structure for `sys_role_menus`
@@ -214,23 +212,24 @@ CREATE TABLE `sys_role_menus` (
   `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
   `menu_id` int(11) DEFAULT NULL COMMENT 'ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1488 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与菜单对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=1510 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与菜单对应关系';
 
 -- ----------------------------
 -- Records of sys_role_menus
 -- ----------------------------
-INSERT INTO `sys_role_menus` VALUES ('1476', '49', '8');
-INSERT INTO `sys_role_menus` VALUES ('1477', '49', '25');
-INSERT INTO `sys_role_menus` VALUES ('1478', '49', '132');
-INSERT INTO `sys_role_menus` VALUES ('1479', '49', '46');
-INSERT INTO `sys_role_menus` VALUES ('1480', '49', '47');
-INSERT INTO `sys_role_menus` VALUES ('1481', '50', '8');
-INSERT INTO `sys_role_menus` VALUES ('1482', '50', '25');
-INSERT INTO `sys_role_menus` VALUES ('1483', '50', '132');
-INSERT INTO `sys_role_menus` VALUES ('1484', '50', '46');
-INSERT INTO `sys_role_menus` VALUES ('1485', '50', '47');
-INSERT INTO `sys_role_menus` VALUES ('1486', '51', '8');
-INSERT INTO `sys_role_menus` VALUES ('1487', '51', '46');
+INSERT INTO `sys_role_menus` VALUES ('1495', '48', '7');
+INSERT INTO `sys_role_menus` VALUES ('1496', '48', '8');
+INSERT INTO `sys_role_menus` VALUES ('1497', '48', '25');
+INSERT INTO `sys_role_menus` VALUES ('1498', '49', '7');
+INSERT INTO `sys_role_menus` VALUES ('1499', '49', '8');
+INSERT INTO `sys_role_menus` VALUES ('1500', '49', '25');
+INSERT INTO `sys_role_menus` VALUES ('1503', '51', '7');
+INSERT INTO `sys_role_menus` VALUES ('1504', '52', '7');
+INSERT INTO `sys_role_menus` VALUES ('1505', '47', '7');
+INSERT INTO `sys_role_menus` VALUES ('1506', '47', '8');
+INSERT INTO `sys_role_menus` VALUES ('1507', '47', '25');
+INSERT INTO `sys_role_menus` VALUES ('1508', '47', '45');
+INSERT INTO `sys_role_menus` VALUES ('1509', '47', '47');
 
 -- ----------------------------
 -- Table structure for `sys_tags`
@@ -265,13 +264,14 @@ CREATE TABLE `sys_user` (
   `mobile` int(15) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='标签表';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='标签表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES ('1', 'admin', '菜鸡一枚', 'b9fd429a10b73d2c0971db1d4ad975a9', '9a924d8ae9800c229c892eeba7d413a6', '233333@qq.com', 'http://img.api.tycoding.cn/avatar.jpg', '1', 'admin', '2019-02-23 17:27:46', null, null);
 INSERT INTO `sys_user` VALUES ('15', 'zxzx', null, 'a0ec95965b80ed1c2a01af749de615df', 'e5b5f928-ec6f-45d1-bb11-6186f84f23c3', 'sdasd', null, '1', 'admin', '2019-02-24 15:43:47', '21213222', '2019-02-24 15:43:38');
+INSERT INTO `sys_user` VALUES ('16', 'asdasdas', null, '7b2ab210c526fe9378be120e32ba9dfb', '29687883-678b-409b-b9ea-6b357246e3e9', 'dasdsa', null, '1', 'admin', '2019-02-24 17:48:15', '123421312', '2019-02-24 17:47:58');
 
 -- ----------------------------
 -- Table structure for `sys_user_roles`
@@ -282,7 +282,7 @@ CREATE TABLE `sys_user_roles` (
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
   `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户与角色对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户与角色对应关系';
 
 -- ----------------------------
 -- Records of sys_user_roles
@@ -314,3 +314,5 @@ INSERT INTO `sys_user_roles` VALUES ('37', '14', '46');
 INSERT INTO `sys_user_roles` VALUES ('38', '3', '51');
 INSERT INTO `sys_user_roles` VALUES ('41', '15', '46');
 INSERT INTO `sys_user_roles` VALUES ('42', '15', '47');
+INSERT INTO `sys_user_roles` VALUES ('45', '16', '46');
+INSERT INTO `sys_user_roles` VALUES ('46', '16', '48');

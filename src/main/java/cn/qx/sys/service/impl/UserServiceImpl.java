@@ -14,6 +14,8 @@ import org.springframework.util.StringUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
+import cn.qx.common.annotation.RequestCache;
+import cn.qx.common.annotation.RequestLog;
 import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.exception.ResultException;
 import cn.qx.common.exception.ServiceException;
@@ -165,6 +167,8 @@ public class UserServiceImpl implements UserService {
         		return pageObject;
 	}
 	
+	@RequestCache
+	@RequestLog("用户查询")
 	@Override
 	public int findObjectByColumn(String columnName,
 			String columnValue) {
