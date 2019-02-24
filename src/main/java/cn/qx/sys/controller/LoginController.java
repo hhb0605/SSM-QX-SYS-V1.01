@@ -25,7 +25,6 @@ import cn.qx.common.vo.StatusCode;
  */
 @Controller
 public class LoginController {
-    
     /**
      * 跳转到后台首页
      *
@@ -46,6 +45,7 @@ public class LoginController {
         return "admin/login";
     }
 
+    
     @ResponseBody
     @RequestMapping("/admin/login")
     public Result login(

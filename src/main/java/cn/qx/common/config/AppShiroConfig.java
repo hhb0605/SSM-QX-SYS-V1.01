@@ -14,6 +14,7 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -65,6 +66,12 @@ public class AppShiroConfig {
     	return sessionManager;
     }*/
     
+    @Bean
+    public LogoutFilter logout() {
+    	LogoutFilter lf = new LogoutFilter();
+    	lf.setRedirectUrl("/login.do");
+    	return lf;
+    }
     @Bean("shiroFilterFactory")
     public ShiroFilterFactoryBean newShiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -72,7 +79,7 @@ public class AppShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         
         shiroFilterFactoryBean.setLoginUrl("/login.do");
-
+        
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/admin/css/**", "anon");
         filterChainDefinitionMap.put("/admin/img/**", "anon");
@@ -88,12 +95,11 @@ public class AppShiroConfig {
         filterChainDefinitionMap.put("/site", "anon");
         filterChainDefinitionMap.put("/site/**", "anon");
 
-        filterChainDefinitionMap.put("/logout", "logout");
-
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/login.do", "anon");
         filterChainDefinitionMap.put("/admin/login.do", "anon");
-
+        filterChainDefinitionMap.put("/logout.do", "logout");
+        
         filterChainDefinitionMap.put("/admin.do", "user");
         filterChainDefinitionMap.put("/admin/**", "user");
         filterChainDefinitionMap.put("/admin/log.do", "authc");
