@@ -56,8 +56,8 @@ public class AppMvcConfig extends WebMvcConfigurerAdapter {
         AccessInterceptor interceptor = new AccessInterceptor();
         // 注册拦截器对象
         registry.addInterceptor(interceptor)
-                // 配置要拦截的url
-                .addPathPatterns("/user/doLogin.do");
+                // 配置要拦截的url（暂无需求，无需拦截）
+                .addPathPatterns("/any.do");
     }
 
     /**

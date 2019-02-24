@@ -82,11 +82,12 @@
             <if test="mobile != null and mobile != ''">
                 mobile = #{mobile}
             </if>
+            
         </set>
         WHERE id = #{id}
     </update>
     <update id="updateObject">
-        update sys_users
+        update sys_user
          <set>
              <if test="username!=null and username!=''">
                username=#{username},
@@ -131,4 +132,27 @@
            from sys_user
            where ${columnName}=#{columnValue}
    </select>
+   
+    <!-- 保存用户自身信息 -->
+    <insert id="insertObject"
+            parameterType="cn.qx.sys.entity.User">
+      
+      <!-- 通过selectKey获取一个值 
+           order表示在insert语句之后执行,
+           keyProperty表示将selectKey的结果
+                      赋予参数对象的id属性-->
+       <selectKey order="AFTER" 
+                 resultType="int" 
+                 keyProperty="id">
+         select last_insert_id()
+       </selectKey>
+      
+      insert into sys_user
+      (username,password,email,mobile,salt,valid,
+      created_time,modified_time,modified_user)
+      values
+      (#{username},#{password},#{email},#{mobile},#{salt},#{valid},
+      now(),now(),#{modifiedUser})
+            
+    </insert>
 </mapper>

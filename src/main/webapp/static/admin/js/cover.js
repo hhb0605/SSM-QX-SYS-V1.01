@@ -101,9 +101,9 @@ var vm = new Vue({
             this.editDialog = true;
             this.$http.get('/SSM-QX-SYS-V1.01/article/findById.do?id=' + id).then(result => {
                 this.editor.id = result.body.data.id;
-                this.editor.titlePic = "/SSM-QX-SYS-V1.01/static"+result.body.data.titlePic;
+                this.editor.titlePic = result.body.data.titlePic;
                 this.fileList.forEach(row => {
-                    row.url = "/SSM-QX-SYS-V1.01/static"+result.body.data.titlePic; //将图片的URL地址赋值给file-list展示出来
+                    row.url =result.body.data.titlePic; //将图片的URL地址赋值给file-list展示出来
                 });
             });
         },
@@ -144,6 +144,7 @@ var vm = new Vue({
             });
             if (res.code == 20000) {
                 this.fileList = [];
+                res.data.url = "/SSM-QX-SYS-V1.01/static"+res.data.url;
                 this.fileList.push(res.data);
                 this.editor.titlePic = res.data.url; //将返回的文件储存路径赋值image字段
             }

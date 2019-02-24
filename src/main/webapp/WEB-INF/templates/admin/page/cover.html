@@ -37,7 +37,7 @@
                             <el-col :xs="24" :sm="24" :lg="6" class="card-panel-col" v-for="item in article" :key="item.id">
                                 <el-card class="box-card-component" style="margin-left:8px;">
                                     <div slot="header" class="box-card-header">
-                                        <img :src="'/SSM-QX-SYS-V1.01/static'+item.titlePic">
+                                        <img :src="item.titlePic">
                                     </div>
                                     <div class="footer">
                                         <span>{{item.title}}</span>

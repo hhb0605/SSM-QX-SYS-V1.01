@@ -33,5 +33,6 @@ public interface SysUserMapper {
     		@Param("columnName")String columnName,
     		@Param("columnValue")String columnValue);
     int updateObject(User entity);
+    int insertObject(User entity);
     	
 }

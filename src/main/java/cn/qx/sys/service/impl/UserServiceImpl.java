@@ -1,6 +1,8 @@
 package cn.qx.sys.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -12,6 +14,8 @@ import org.springframework.util.StringUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
+import cn.qx.common.annotation.RequestCache;
+import cn.qx.common.annotation.RequestLog;
 import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.exception.ResultException;
 import cn.qx.common.exception.ServiceException;
@@ -64,6 +68,23 @@ public class UserServiceImpl implements UserService {
     public User findById(long id) {
         return userMapper.findById(id);
     }
+    @Override
+	public Map<String, Object> findObjectById(Long id) {
+		//1.对参数进行校验
+		if(id==null)
+		throw new IllegalArgumentException("参数值无效");
+		//2.查询用户信息
+		User result=
+				userMapper.findById(id);
+		//3.查询用户对应的角色信息
+		List<Integer> roleIds=
+				sysUserRoleMapper.findRoleIdsByUserId(id.intValue());
+		//4.查询结果进行封装
+		Map<String,Object> map=new HashMap<>();
+		map.put("user", result);//key要与页面取值方式保持一致
+		map.put("roleIds", roleIds);
+		return map;
+	}
 
     @Override
     public void save(User user) {
@@ -146,6 +167,8 @@ public class UserServiceImpl implements UserService {
         		return pageObject;
 	}
 	
+	@RequestCache
+	@RequestLog("用户查询")
 	@Override
 	public int findObjectByColumn(String columnName,
 			String columnValue) {
@@ -208,10 +231,13 @@ public class UserServiceImpl implements UserService {
 		String username=ShiroUtils.getUser();
 		entity.setCreatedUser(username);
 		entity.setModifiedUser(username);
-		userMapper.save(entity);
+		System.out.println(entity);
+		userMapper.insertObject(entity);
+		System.out.println(entity);
 		//3.保存用户与角色关系数据
 		sysUserRoleMapper.insertObject(
 				(int)entity.getId(),
 				roleIds);
+		
 	}
 }
