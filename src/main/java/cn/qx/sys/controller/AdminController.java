@@ -161,15 +161,6 @@ public class AdminController {
 	public String doRoleListUI() {
 		return "admin/page/role";
 	}
-	/**
-     * 角色管理页
-     * @return
-     */
-	@RequestMapping("role2")
-	public String doRoleListUI2() {
-		return "admin/page/role2";
-	}
-
 
     /**
      * 根据登录token获取登录信息

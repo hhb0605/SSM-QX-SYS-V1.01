@@ -81,12 +81,7 @@
     	}
     }
     function doCancel(){
-    	var url="/SSM-QX-SYS-V1.01/admin/role2.do";
-    	$(".box-info")
-    	.load(url,function(){
-    	  $(".box-info").removeData();
-    	});
-    	console.log("doCancel");
+    	window.location.href="/SSM-QX-SYS-V1.01/admin/role.do";
     }
     
     function doSaveOrUpdate(){
@@ -100,7 +95,7 @@
     		alert("请为角色赋予权限")
     		return;
     	}
-    	var data=$("#mainContentId").data("data");
+    	var data=$(".app-main").data("data");
     	if(data)params.id=data.id;
     	//2.url
     	var insertUrl="../role/doSaveObject.do";
@@ -141,7 +136,7 @@
     		zTree=$.fn.zTree.init(
     		$("#menuTree"),setting,result.data);
     		//修改时添加如下代码(注意先后顺序)
-    		var rowData=$("#mainContentId").data("data");
+    		var rowData=$(".app-main").data("data");
     	    if(rowData)doInitEditFormData(rowData);
     	 }else{
     		alert(result.message);
