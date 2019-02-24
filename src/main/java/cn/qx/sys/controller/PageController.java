@@ -14,4 +14,13 @@ public class PageController {
     	 //...
       	 return "admin/page/common/page";
       }  
+      
+      @RequestMapping("user/doUserEditUI")
+	  public String doUserEditUI(){
+		  return "admin/page/user_edit";
+	  }
+      @RequestMapping("user/doUserListUI")
+	  public String doUserListUI(){
+		  return "admin/page/user";
+	  }
 }

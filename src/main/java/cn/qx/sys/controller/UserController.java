@@ -8,14 +8,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+
+import cn.qx.common.vo.JsonResult;
+import cn.qx.sys.entity.User;
 
 import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.util.CheckValue;
 import cn.qx.common.vo.PasswordHelper;
 import cn.qx.common.vo.Result;
 import cn.qx.common.vo.StatusCode;
-import cn.qx.sys.entity.User;
 import cn.qx.sys.service.UserService;
 
 /**
@@ -24,7 +28,6 @@ import cn.qx.sys.service.UserService;
  * @date 2019年2月22日
  */
 @RestController
-@SuppressWarnings("all")
 @RequestMapping("/user")
 public class UserController {
 
@@ -53,6 +56,12 @@ public class UserController {
         }
         return new Result(StatusCode.PARAMETER_ERROR, ResultEnums.PARAMETER_ERROR);
     }
+    
+    @RequestMapping(value = "/findUserById", method = RequestMethod.GET)
+    public JsonResult findUserById(@RequestParam("id") Long id) {
+  		  return new JsonResult(
+  		 userService.findById(id));
+    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Result save(@RequestBody User user) {
@@ -68,6 +77,15 @@ public class UserController {
         return new Result(StatusCode.PARAMETER_ERROR, ResultEnums.PARAMETER_ERROR);
     }
 
+    @RequestMapping(value = "/doSaveObject", method = RequestMethod.POST)
+	  public JsonResult doSaveObject(
+			  User entity,Integer[]roleIds){
+    	System.out.println(entity);
+		  userService.saveObject(entity, roleIds);
+		  return new JsonResult("save ok");
+	  }
+    
+    
     @RequestMapping("/update")
     public Result update(@RequestBody User user) {
         if (CheckValue.checkObj(user)) {
@@ -99,6 +117,14 @@ public class UserController {
         }
         return new Result(StatusCode.PARAMETER_ERROR, ResultEnums.PARAMETER_ERROR);
     }
+    
+    @RequestMapping("doUpdateObject")
+	  public JsonResult doUpdateObject(User entity,
+			  Integer[] roleIds){
+		  userService.updateObject(entity,
+				  roleIds);
+		  return new JsonResult("update ok");
+	  }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Result delete(@RequestBody Long... ids) {
@@ -112,5 +138,30 @@ public class UserController {
             }
         }
         return new Result(StatusCode.PARAMETER_ERROR, ResultEnums.PARAMETER_ERROR);
+    }
+    @RequestMapping("doValidById")
+	  public JsonResult doValidById(Integer id,
+			  Integer valid){
+    	String username=(String)SecurityUtils.getSubject()
+				  .getPrincipal();//获取登录用户的身份信息
+		  userService.validById(id, valid,username);
+		  return new JsonResult("update ok");
+	  }
+    
+    @RequestMapping("doFindPageObjects")
+	  public JsonResult doFindPageObjects(
+			  String username,Integer pageCurrent){
+		  return new JsonResult(
+		  userService.doFindPageObjects(
+				  username, pageCurrent));
+	  }
+    @RequestMapping("doFindObjectByColumn")
+    @ResponseBody
+    public JsonResult doFindObjectByColumn(
+   		 String columnName,
+   		 String columnValue){
+   	 return new JsonResult(
+   		userService.findObjectByColumn(
+   			columnName, columnValue));
     }
 }
