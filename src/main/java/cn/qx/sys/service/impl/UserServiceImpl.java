@@ -16,11 +16,13 @@ import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.exception.ResultException;
 import cn.qx.common.exception.ServiceException;
 import cn.qx.common.util.PageUtils;
+import cn.qx.common.util.ShiroUtils;
 import cn.qx.common.vo.PageBean;
 import cn.qx.common.vo.PageObject;
 import cn.qx.common.vo.PasswordHelper;
 import cn.qx.sys.entity.User;
 import cn.qx.sys.mapper.SysUserMapper;
+import cn.qx.sys.mapper.SysUserRoleMapper;
 import cn.qx.sys.service.UserService;
 
 /**
@@ -37,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordHelper passwordHelper;
+    
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
 
     @Override
     public Long findAllCount() {
@@ -165,11 +170,11 @@ public class UserServiceImpl implements UserService {
 		//....
 		//2.保存用户自身信息
 		int rows=userMapper.updateObject(entity);
-		/*//3.保存用户与角色关系数据
-		sysUserRoleDao.deleteObjectsByUserId(entity.getId());
-		sysUserRoleDao.insertObjects(
-				entity.getId(),
-				roleIds);*/
+		//3.保存用户与角色关系数据
+		sysUserRoleMapper.deleteObjectsByUserId((int)entity.getId());
+		sysUserRoleMapper.insertObject(
+				(int)entity.getId(),
+				roleIds);
 		return rows;
 	}
 	
@@ -200,14 +205,13 @@ public class UserServiceImpl implements UserService {
 				 1);//hashIterations
 		entity.setPassword(hash.toHex());
 		//保存用户自身信息
-		//User user=ShiroUtils.getUser();
-		//entity.setCreatedUser(user.getUsername());
-		//entity.setModifiedUser(user.getUsername());
-		//int rows=sysUserDao.insertObject(entity);
-		/*//3.保存用户与角色关系数据
-		sysUserRoleDao.insertObjects(
-				entity.getId(),
-				roleIds);*/
-		//return rows;
+		String username=ShiroUtils.getUser();
+		entity.setCreatedUser(username);
+		entity.setModifiedUser(username);
+		userMapper.save(entity);
+		//3.保存用户与角色关系数据
+		sysUserRoleMapper.insertObject(
+				(int)entity.getId(),
+				roleIds);
 	}
 }

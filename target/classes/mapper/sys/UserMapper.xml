@@ -21,7 +21,7 @@
     <!-- 保存 -->
     <insert id="save" parameterType="cn.qx.sys.entity.User">
         INSERT INTO
-        tb_user(
+        sys_user(
           username,
           nickname,
           password,
@@ -29,8 +29,8 @@
           email,
           avatar,
           valid,
-          modifiedUser,
-          modifiedTime,
+          modified_user,
+          modified_time,
           mobile
 
         )
@@ -74,10 +74,10 @@
                 valid = #{valid}
             </if>
             <if test="modifiedUser != null and modifiedUser != ''">
-                modifiedUser = #{modifiedUser}
+                modified_user = #{modifiedUser}
             </if>
             <if test="modifiedTime != null and modifiedTime != ''">
-                modifiedTime = #{modifiedTime}
+                modified_time = #{modifiedTime}
             </if>
             <if test="mobile != null and mobile != ''">
                 mobile = #{mobile}
@@ -99,9 +99,9 @@
              </if>
              
              <if test="modifiedUser!=null and modifiedUser!=''">
-                modifiedUser=#{modifiedUser},
+                modified_user=#{modifiedUser},
              </if>
-             modifiedTime=now()
+             modified_time=now()
           </set>
         where id=#{id}
     </update>
@@ -120,8 +120,8 @@
    <update id="validById">
         update sys_user
         set valid=#{valid},
-            modifiedUser=#{modifiedUser},
-            modifiedTime=now()
+            modified_user=#{modifiedUser},
+            modified_time=now()
         where id=#{id}
    </update>
    

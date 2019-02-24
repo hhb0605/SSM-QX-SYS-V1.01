@@ -15,6 +15,7 @@ public class RoleController {
 	@Autowired
 	private RoleService sysRoleService;
 
+	
 	@ResponseBody
 	@RequestMapping("doFindPageObjects")
 	public JsonResult doFindPageObjects(String name, Integer pageCurrent) {
@@ -49,7 +50,7 @@ public class RoleController {
 		return new JsonResult("update ok");
 	}
 	
-	@RequestMapping("doFindObjects")
+	@RequestMapping("{doFindObjects,doFindRoles}")
 	@ResponseBody
 	public JsonResult doFindObjects(){
 		return new JsonResult(sysRoleService.findObjects());
