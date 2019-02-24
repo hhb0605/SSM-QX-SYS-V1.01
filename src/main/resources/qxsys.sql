@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 50524
+Source Server Version : 50622
 Source Host           : localhost:3306
 Source Database       : qxsys
 
 Target Server Type    : MYSQL
-Target Server Version : 50524
+Target Server Version : 50622
 File Encoding         : 65001
 
-Date: 2019-02-23 19:18:21
+Date: 2019-02-24 12:33:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,12 +33,14 @@ CREATE TABLE `sys_article` (
   `edit_time` timestamp NOT NULL DEFAULT '1970-02-01 00:00:01' COMMENT '上次修改时间',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文章表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='文章表';
 
 -- ----------------------------
 -- Records of sys_article
 -- ----------------------------
-INSERT INTO `sys_article` VALUES ('1', null, null, 'sda', null, null, null, '1', '0', '1970-02-01 00:00:01', '1970-02-01 00:00:01', '2019-02-22 16:46:55');
+INSERT INTO `sys_article` VALUES ('2', '文章标题1', '', 'admin', '<p>文章内容1</p>\n', '文章内容1', 'http://www.satone.cn/SoftlyFlow', '1', '0', '2019-02-23 20:17:09', '2019-02-23 20:17:09', '2019-02-23 20:17:09');
+INSERT INTO `sys_article` VALUES ('3', '文章标题2', '', 'admin', '<p>文章内容2</p>\n', '文章内容2', 'http://www.satone.cn/SoftlyFlow', '1', '0', '2019-02-23 20:18:11', '2019-02-23 20:18:12', '2019-02-23 20:18:11');
+INSERT INTO `sys_article` VALUES ('4', '文章标题3', '', 'admin', '<p>文章内容3</p>\n', '文章内容3', 'http://www.satone.cn/SoftlyFlow', '0', '4', '2019-02-23 20:18:38', '2019-02-23 20:18:38', '2019-02-23 20:18:38');
 
 -- ----------------------------
 -- Table structure for `sys_article_category`
@@ -49,12 +51,15 @@ CREATE TABLE `sys_article_category` (
   `article_id` bigint(20) NOT NULL COMMENT '文章ID',
   `category_id` bigint(20) NOT NULL COMMENT '分类ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文章&&分类关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='文章&&分类关联表';
 
 -- ----------------------------
 -- Records of sys_article_category
 -- ----------------------------
 INSERT INTO `sys_article_category` VALUES ('1', '1', '1');
+INSERT INTO `sys_article_category` VALUES ('2', '2', '2');
+INSERT INTO `sys_article_category` VALUES ('3', '3', '3');
+INSERT INTO `sys_article_category` VALUES ('4', '4', '4');
 
 -- ----------------------------
 -- Table structure for `sys_article_tags`
@@ -65,12 +70,15 @@ CREATE TABLE `sys_article_tags` (
   `article_id` bigint(20) NOT NULL COMMENT '文章ID',
   `tags_id` bigint(20) NOT NULL COMMENT '标签ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文章&&标签关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='文章&&标签关联表';
 
 -- ----------------------------
 -- Records of sys_article_tags
 -- ----------------------------
 INSERT INTO `sys_article_tags` VALUES ('1', '1', '1');
+INSERT INTO `sys_article_tags` VALUES ('2', '2', '2');
+INSERT INTO `sys_article_tags` VALUES ('3', '3', '3');
+INSERT INTO `sys_article_tags` VALUES ('4', '4', '4');
 
 -- ----------------------------
 -- Table structure for `sys_category`
@@ -80,12 +88,15 @@ CREATE TABLE `sys_category` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(100) DEFAULT NULL COMMENT '分类名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='分类表';
 
 -- ----------------------------
 -- Records of sys_category
 -- ----------------------------
 INSERT INTO `sys_category` VALUES ('1', null);
+INSERT INTO `sys_category` VALUES ('2', '分类1');
+INSERT INTO `sys_category` VALUES ('3', '分类2');
+INSERT INTO `sys_category` VALUES ('4', '分类3');
 
 -- ----------------------------
 -- Table structure for `sys_comments`
@@ -106,11 +117,12 @@ CREATE TABLE `sys_comments` (
   `state` varchar(100) DEFAULT '正常' COMMENT '状态',
   `sort` bigint(20) DEFAULT '0' COMMENT '分类：0默认文章详情页，1友链页，2关于我页',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='评论表';
 
 -- ----------------------------
 -- Records of sys_comments
 -- ----------------------------
+INSERT INTO `sys_comments` VALUES ('1', '0', '0', '文章标题3', '4', 'asdas', null, '1500973619@qq.com', '12312312', '2019-02-23 20:21:39', 'http://www.baidu.com', null, '0');
 
 -- ----------------------------
 -- Table structure for `sys_links`
@@ -142,13 +154,13 @@ CREATE TABLE `sys_logs` (
   `ip` varchar(64) DEFAULT NULL COMMENT 'IP地址',
   `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8 COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_logs
 -- ----------------------------
-INSERT INTO `sys_logs` VALUES ('89', 'admin', '删除操作', 'cn.qx.sys.service.impl.LogServiceImpl.deleteObjects', '[[87]]', '58', '0:0:0:0:0:0:0:1', '2019-02-22 17:25:33');
 INSERT INTO `sys_logs` VALUES ('90', 'admin', '删除操作', 'cn.qx.sys.service.impl.LogServiceImpl.deleteObjects', '[[88]]', '157', '0:0:0:0:0:0:0:1', '2019-02-22 17:25:39');
+INSERT INTO `sys_logs` VALUES ('91', 'admin', '删除操作', 'cn.qx.sys.service.impl.LogServiceImpl.deleteObjects', '[[89]]', '5', '0:0:0:0:0:0:0:1', '2019-02-24 12:33:14');
 
 -- ----------------------------
 -- Table structure for `sys_menus`
@@ -168,7 +180,7 @@ CREATE TABLE `sys_menus` (
   `created_user` varchar(20) DEFAULT NULL COMMENT '创建用户',
   `modified_user` varchar(20) DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='资源管理';
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='资源管理';
 
 -- ----------------------------
 -- Records of sys_menus
@@ -240,12 +252,15 @@ CREATE TABLE `sys_tags` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(100) DEFAULT NULL COMMENT '标签名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='标签表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='标签表';
 
 -- ----------------------------
 -- Records of sys_tags
 -- ----------------------------
 INSERT INTO `sys_tags` VALUES ('1', null);
+INSERT INTO `sys_tags` VALUES ('2', '标签1');
+INSERT INTO `sys_tags` VALUES ('3', '标签2');
+INSERT INTO `sys_tags` VALUES ('4', '标签3');
 
 -- ----------------------------
 -- Table structure for `sys_user`
@@ -254,7 +269,7 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `username` varchar(100) NOT NULL COMMENT '用户名',
-  `nickname` varchar(100) NOT NULL COMMENT '昵称',
+  `nickname` varchar(100) DEFAULT NULL COMMENT '昵称',
   `password` varchar(100) NOT NULL COMMENT '密码',
   `salt` varchar(200) NOT NULL COMMENT '盐值',
   `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
@@ -264,12 +279,13 @@ CREATE TABLE `sys_user` (
   `modified_time` datetime DEFAULT NULL COMMENT '修改时间',
   `mobile` int(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='标签表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='标签表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', '菜鸡一枚', 'b9fd429a10b73d2c0971db1d4ad975a9', '9a924d8ae9800c229c892eeba7d413a6', '233333@qq.com', 'http://img.api.tycoding.cn/avatar.jpg', '1', 'admin', '2019-02-23 17:27:46', null);
+INSERT INTO `sys_user` VALUES ('1', 'admin', '菜鸡一枚', 'b9fd429a10b73d2c0971db1d4ad975a9', '9a924d8ae9800c229c892eeba7d413a6', '233333@qq.com', 'http://img.api.tycoding.cn/avatar.jpg', '1', 'admin', '2019-02-23 19:43:16', null);
+INSERT INTO `sys_user` VALUES ('2', 'shichimi', null, '3b9a5395c205e0b111d6d3ef8b05f488', 'a63e7e2f-6527-4741-89bd-81d9f949c959', '123', null, '1', 'admin', '2019-02-23 20:08:58', '123');
 
 -- ----------------------------
 -- Table structure for `sys_user_roles`
@@ -280,9 +296,10 @@ CREATE TABLE `sys_user_roles` (
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
   `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户与角色对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户与角色对应关系';
 
 -- ----------------------------
 -- Records of sys_user_roles
 -- ----------------------------
 INSERT INTO `sys_user_roles` VALUES ('1', '19', '46');
+INSERT INTO `sys_user_roles` VALUES ('13', '0', '46');
