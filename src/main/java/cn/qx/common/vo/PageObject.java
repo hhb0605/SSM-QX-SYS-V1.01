@@ -1,9 +1,7 @@
 package cn.qx.common.vo;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import cn.qx.sys.entity.Log;
 /**
  * VO: Value Object (值对象) 用于封装数据
  * 说明:当一个泛型参数应用在了类名的右侧时,
