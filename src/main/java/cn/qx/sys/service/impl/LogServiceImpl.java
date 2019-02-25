@@ -74,14 +74,11 @@ public class LogServiceImpl implements LogService {
 		po.setRecords(records);
 		po.setPageSize(pageSize);
 		po.setPageCurrent(pageCurrent);
-		/*int pageCount=rowCount/pageSize;
-		if(rowCount%pageSize!=0){
-			pageCount++;
-		}*/
 		po.setPageCount((rowCount-1)/pageSize+1);
 		return po;
 	}
 
+	@RequiresPermissions("sys:log")
 	@Override
 	public List<Log> getEncryptDeviceForExcel(Log log) {
 	    List<Log> list = sysLogMapper.findAllObjects(log);
