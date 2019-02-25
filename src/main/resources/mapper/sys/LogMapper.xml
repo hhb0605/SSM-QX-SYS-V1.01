@@ -44,7 +44,13 @@
        order by createdTime desc
        limit #{startIndex},#{pageSize}
    </select>
-
+   
+      <select id="findAllObjects"
+           resultType="cn.qx.sys.entity.Log">
+       select *
+       from sys_logs
+       <include refid="queryWhereId"/>
+   </select>
 </mapper>
 
 

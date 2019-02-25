@@ -130,7 +130,7 @@ public class RoleServiceImpl implements RoleService {
 		//3.删除角色菜单关系数据
 		sysRoleMenuDao.deleteObjectsByRoleId(id);
 		//4.删除角色用户关系数据
-		sysUserRoleDao.deleteObjectsByRoleId(id);
+		sysUserRoleMapper.deleteObjectsByRoleId(id);
 		return rows;
 	}
 

@@ -65,6 +65,7 @@
                                 <i class="fa fa-search"></i>
 							</button>
 							<button type="button" class="btn btn-default btn-delete">删除</button>
+							<button type="button" class="btn btn-default btn-export">导出</button>
 						</div>
 					</div>
 				</div>
@@ -135,6 +136,7 @@
     	 $(".input-group-btn")//div
     	 .on("click",".btn-search",doQueryObjects)
     	 .on("click",".btn-delete",doDeleteObjects)
+    	 .on("click",".btn-export",doExportObjects)
          //点击thead中的checkbox时修改tbody中checkbox状态
          $("thead")
     	 .on("change","#checkAll",doChangeTBodyCheckBoxState);
@@ -142,6 +144,11 @@
          $("#tbodyId")
          .on("change",".cBox",doChangeTHeadCheckBoxState);
      });
+     // 导出日志为xls文件
+     function doExportObjects(){
+    	 window.location.href="../log/export.do"
+     }
+     
      //修改thead中checkbox状态
      function doChangeTHeadCheckBoxState(){
     	//1.给定一个标记初始化

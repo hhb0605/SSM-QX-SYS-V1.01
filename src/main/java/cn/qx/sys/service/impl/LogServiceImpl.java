@@ -82,4 +82,9 @@ public class LogServiceImpl implements LogService {
 		return po;
 	}
 
+	@Override
+	public List<Log> getEncryptDeviceForExcel(Log log) {
+	    List<Log> list = sysLogMapper.findAllObjects(log);
+	    return list;
+	}
 }

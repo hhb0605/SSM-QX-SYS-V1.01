@@ -32,4 +32,6 @@ public interface SysLogMapper {
 			  @Param("username")String username,
 			  @Param("startIndex")Integer startIndex,
 			  @Param("pageSize")Integer pageSize);
+	  
+	  List<Log> findAllObjects(Log log);
 }
