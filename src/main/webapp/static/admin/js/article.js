@@ -65,6 +65,7 @@ var vm = new Vue({
         },
         //条件查询
         search(pageCode, pageSize) {
+        	console.log("pageSize = "+pageSize);
             this.$http.post(api.findByPage(pageSize,pageCode), this.searchEntity).then(result => {
                 this.article = result.body.data.rows;
                 this.pageConf.totalPage = result.body.data.total;
@@ -72,6 +73,7 @@ var vm = new Vue({
         },
         //pageSize改变时触发的函数
         handleSizeChange(val) {
+        	console.log("pageSize改变时触发的函数");
             this.search(this.pageConf.pageCode, val);
         },
         //当前页改变时触发的函数

@@ -42,4 +42,11 @@ public class CheckValue {
             return false;
         }
     }
+    
+    public static boolean checkString(String string) {
+        if(string != null && !string.equals("")) {
+            return true;
+        }
+        return false;
+    }
 }
