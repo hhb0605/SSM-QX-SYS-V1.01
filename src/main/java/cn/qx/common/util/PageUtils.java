@@ -14,9 +14,9 @@ public class PageUtils {
        */
 	  public static <T>PageObject<T> newPageObject(
 			  Integer rowCount,
-			  List<T> records,
 			  Integer pageSize,
-			  Integer pageCurrent){
+			  Integer pageCurrent,
+	           List<T> records){
 		    PageObject<T> po=new PageObject<>();
 			po.setRowCount(rowCount);
 			po.setRecords(records);

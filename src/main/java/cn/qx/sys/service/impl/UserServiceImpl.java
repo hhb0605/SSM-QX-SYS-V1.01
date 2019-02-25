@@ -178,7 +178,7 @@ public class UserServiceImpl implements UserService {
         }
         PageObject<User> pageObject=
         		PageUtils.newPageObject((int)page.getTotal(),
-        				page.getResult(), pageSize, pageCurrent);
+        				pageSize, pageCurrent,page.getResult());
         		return pageObject;
 	}
 	
