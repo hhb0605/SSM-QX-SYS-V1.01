@@ -2,11 +2,13 @@ package cn.qx.sys.service.impl;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.druid.util.StringUtils;
 
+import cn.qx.common.annotation.RequestLog;
 import cn.qx.common.exception.ServiceException;
 import cn.qx.common.utils.PageUtils;
 import cn.qx.common.vo.CheckBox;
@@ -23,8 +25,8 @@ public class RoleServiceImpl implements RoleService {
 	private SysRoleMapper sysRoleDao;
 	@Autowired
 	private SysRoleMenuMapper sysRoleMenuDao;
-	
 
+    @RequiresPermissions("sys:role")
 	public PageObject<Role> findPageObjects(String name, Integer pageCurrent) {
 		// 1.验证参数合法性
 		if (pageCurrent==null || pageCurrent<1) {
@@ -44,8 +46,10 @@ public class RoleServiceImpl implements RoleService {
 		return PageUtils.newPageObject(rowCount, pageSize, pageCurrent, records);
 //		return po;
 	}
-
+	
+	@RequestLog("保存角色")
 	@Override
+	@RequiresPermissions("sys:role")
 	public int saveObject(Role entity, Integer[] menuIds) {
 		//1.合法性验证
     	if(entity==null)
@@ -62,8 +66,8 @@ public class RoleServiceImpl implements RoleService {
     	return rows;
 
 	}
-
 	@Override
+	@RequiresPermissions("sys:role")
     public RoleMenuVo findObjectById(Integer id) {
     	//1.合法性验证
     	if(id==null||id<=0)
@@ -75,9 +79,9 @@ public class RoleServiceImpl implements RoleService {
     	throw new ServiceException("此记录已经不存在");
     	return result;
     }
-
-	
+	@RequestLog("更新角色信息")
 	@Override
+	@RequiresPermissions("sys:role")
 	public int updateObject(Role entity,Integer[] menuIds) {
 		//1.合法性验证
 		if(entity==null)
@@ -100,8 +104,9 @@ public class RoleServiceImpl implements RoleService {
 		//3.返回结果
 		return rows;
 	}
-	
+	@RequestLog("删除角色")
 	@Override
+	@RequiresPermissions("sys:role")
 	public int deleteObject(Integer id) {
 		//1.参数合法性校验
 		if(id==null||id<1)
@@ -118,6 +123,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
+	@RequiresPermissions("sys:role")
     public List<CheckBox> findObjects() {
      	return sysRoleDao.findObjects();
     }

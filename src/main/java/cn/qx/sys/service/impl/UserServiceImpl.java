@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,16 +49,19 @@ public class UserServiceImpl implements UserService {
     private SysUserRoleMapper sysUserRoleMapper;
 
     @Override
+    @RequiresPermissions("sys:user")
     public Long findAllCount() {
         return null;
     }
 
     @Override
+    @RequiresPermissions("sys:user")
     public List<User> findAll() {
         return null;
     }
 
     @Override
+    @RequiresPermissions("sys:user")
     public PageBean findByPage(User user, int pageCode, int pageSize) {
         PageHelper.startPage(pageCode, pageSize);
         Page page = userMapper.findByPage(user);
@@ -65,10 +69,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @RequiresPermissions("sys:user")
     public User findById(long id) {
         return userMapper.findById(id);
     }
     @Override
+    @RequiresPermissions("sys:user")
 	public Map<String, Object> findObjectById(Long id) {
 		//1.对参数进行校验
 		if(id==null)
@@ -87,6 +93,7 @@ public class UserServiceImpl implements UserService {
 	}
 
     @Override
+    @RequiresPermissions("sys:user")
     public void save(User user) {
         try {
             passwordHelper.encryptPassword(user); //加密
@@ -97,6 +104,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @RequiresPermissions("sys:user")
     public void update(User user) {
         try {
             if (user.getPassword() != null && !"".equals(user.getPassword())) {
@@ -109,6 +117,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @RequiresPermissions("sys:user")
     public void delete(Long... ids) {
         try {
             for (long id : ids) {
@@ -120,11 +129,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @RequiresPermissions("sys:user")
     public User findByName(String username) {
         return userMapper.findByName(username);
     }
     
-	
+    @RequiresPermissions("sys:user")
 	@Override
 	public int validById(Integer id, 
 			Integer valid,
@@ -152,6 +162,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+    @RequiresPermissions("sys:user")
 	public PageObject<User> doFindPageObjects(String username, Integer pageCurrent) {
 		int pageSize = 3;
 		PageHelper.startPage(pageCurrent, pageSize);
@@ -170,6 +181,7 @@ public class UserServiceImpl implements UserService {
 	@RequestCache
 	@RequestLog("用户查询")
 	@Override
+    @RequiresPermissions("sys:user")
 	public int findObjectByColumn(String columnName,
 			String columnValue) {
 		if(StringUtils.isEmpty(columnName))
@@ -183,6 +195,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+    @RequiresPermissions("sys:user")
 	public int updateObject(User entity, 
 			Integer[] roleIds) {
 		//1.对参数进行校验
@@ -202,6 +215,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+    @RequiresPermissions("sys:user")
 	public void saveObject(User entity, 
 			Integer[] roleIds) {
 		
@@ -225,7 +239,7 @@ public class UserServiceImpl implements UserService {
 				"MD5",//algorithmName
 				 entity.getPassword(),//source
 				 salt,
-				 1);//hashIterations
+				 2);//hashIterations
 		entity.setPassword(hash.toHex());
 		//保存用户自身信息
 		String username=ShiroUtils.getUser();
@@ -238,6 +252,5 @@ public class UserServiceImpl implements UserService {
 		sysUserRoleMapper.insertObject(
 				(int)entity.getId(),
 				roleIds);
-		
 	}
 }

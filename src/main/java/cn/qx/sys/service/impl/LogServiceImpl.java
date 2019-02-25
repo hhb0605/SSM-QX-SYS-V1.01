@@ -1,6 +1,7 @@
 package cn.qx.sys.service.impl;
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class LogServiceImpl implements LogService {
 
     @RequestLog("删除操作")
     @Override
+    @RequiresPermissions("sys:log")
     public int deleteObjects(Integer... ids) {
     	//1.参数有效性验证
     	if(ids==null||ids.length==0)
@@ -51,6 +53,7 @@ public class LogServiceImpl implements LogService {
     	return rows;
     }
 	@Override
+    @RequiresPermissions("sys:log")
 	public PageObject<Log> findPageObjects(
 		String username, Integer pageCurrent) {
 	    //1.验证参数的有效性
