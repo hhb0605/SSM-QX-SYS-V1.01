@@ -30,7 +30,7 @@ public class MenuController {
 	@ResponseBody
 	public JsonResult doDeleteObject(Integer id){
 		sysMenuService.deleteObject(id);
-		return new JsonResult("delete OK");
+		return new JsonResult("删除成功");
 	}
 	
 	@RequestMapping("doMenuEditUI")
@@ -49,7 +49,7 @@ public class MenuController {
 	@ResponseBody
 	public JsonResult doSaveObject(Menu entity) {
 		sysMenuService.insertObject(entity);
-		return new JsonResult("save ok");
+		return new JsonResult("保存成功");
 	}
 	
 	//更新数据
@@ -57,7 +57,7 @@ public class MenuController {
 	@ResponseBody
 	public JsonResult doUpdateObject(Menu entity){
 		sysMenuService.updateObject(entity);
-		return new JsonResult("update ok");
+		return new JsonResult("更新成功");
 	}
 
 }

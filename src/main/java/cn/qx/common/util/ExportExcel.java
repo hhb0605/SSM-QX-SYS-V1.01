@@ -8,7 +8,11 @@ import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 public class ExportExcel<T> {
     public void exportExcel(String[] headers,Collection<T> dataset, String fileName,HttpServletResponse response) {
         // 声明一个工作薄

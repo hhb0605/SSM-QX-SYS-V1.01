@@ -81,7 +81,7 @@ public class UserController {
 	  public JsonResult doSaveObject(
 			  User entity,Integer[]roleIds){
 		  userService.saveObject(entity, roleIds);
-		  return new JsonResult("save ok");
+		  return new JsonResult("保存成功");
 	  }
     
     
@@ -122,7 +122,7 @@ public class UserController {
 			  Integer[] roleIds){
 		  userService.updateObject(entity,
 				  roleIds);
-		  return new JsonResult("update ok");
+		  return new JsonResult("更新成功");
 	  }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -144,7 +144,7 @@ public class UserController {
     	String username=(String)SecurityUtils.getSubject()
 				  .getPrincipal();//获取登录用户的身份信息
 		  userService.validById(id, valid,username);
-		  return new JsonResult("update ok");
+		  return new JsonResult("更新成功");
 	  }
     
     @RequestMapping("doFindPageObjects")
