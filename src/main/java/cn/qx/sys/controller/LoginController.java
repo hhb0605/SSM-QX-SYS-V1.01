@@ -66,21 +66,10 @@ public class LoginController {
             }else {
 				token.setRememberMe(false);
 			}
-            try {
                 subject.login(token);
                 Map<String,Object> map = new HashMap<>();
                 map.put("token", subject.getPrincipal());
                 return new Result(StatusCode.SUCCESS, map);
-            } catch (UnknownAccountException e) {
-                e.printStackTrace();
-                return new Result(StatusCode.ERROR, ResultEnums.LOGIN_UNKNOWN);
-            } catch (IncorrectCredentialsException e) {
-                e.printStackTrace();
-                return new Result(StatusCode.ERROR, ResultEnums.LOGIN_ERROR);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return new Result(StatusCode.ERROR, ResultEnums.INNER_ERROR);
-            }
             }else {
             	Map<String,Object> map = new HashMap<>();
                 map.put("token", subject.getPrincipal());

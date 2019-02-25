@@ -149,7 +149,6 @@ public class AdminController {
      */
     @GetMapping(value = {"/user"})
     public String user() {
-    	System.out.println("AdminController.user()");
         return "admin/page/user";
     }
     
@@ -178,12 +177,5 @@ public class AdminController {
             e.printStackTrace();
             return new Result(StatusCode.ERROR, ResultEnums.INNER_ERROR);
         }
-    }
-
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout() {
-        Subject subject = SecurityUtils.getSubject();
-        subject.logout();
-        return "redirect:/admin";
     }
 }

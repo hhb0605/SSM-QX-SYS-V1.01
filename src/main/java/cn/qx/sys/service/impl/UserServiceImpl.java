@@ -56,7 +56,9 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() {
         return null;
     }
-
+    
+    @RequestCache
+    @RequestLog("用户查询")
     @Override
     public PageBean findByPage(User user, int pageCode, int pageSize) {
         PageHelper.startPage(pageCode, pageSize);
@@ -151,6 +153,8 @@ public class UserServiceImpl implements UserService {
 		return rows;
 	}
 
+	@RequestCache
+	@RequestLog("用户查询")
 	@Override
 	public PageObject<User> doFindPageObjects(String username, Integer pageCurrent) {
 		int pageSize = 3;
@@ -167,8 +171,6 @@ public class UserServiceImpl implements UserService {
         		return pageObject;
 	}
 	
-	@RequestCache
-	@RequestLog("用户查询")
 	@Override
 	public int findObjectByColumn(String columnName,
 			String columnValue) {
@@ -225,7 +227,7 @@ public class UserServiceImpl implements UserService {
 				"MD5",//algorithmName
 				 entity.getPassword(),//source
 				 salt,
-				 1);//hashIterations
+				 2);//hashIterations
 		entity.setPassword(hash.toHex());
 		//保存用户自身信息
 		String username=ShiroUtils.getUser();

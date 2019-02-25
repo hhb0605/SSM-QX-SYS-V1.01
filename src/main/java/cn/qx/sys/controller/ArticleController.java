@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import cn.qx.common.annotation.RequestCache;
+import cn.qx.common.annotation.RequestLog;
 import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.util.CheckValue;
 import cn.qx.common.vo.Result;
@@ -39,6 +41,8 @@ public class ArticleController {
     @Autowired
     private ArticleTagsService articleTagsService;
 
+    @RequestCache
+    @RequestLog("文章查询")
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public Result findAll() {
         return new Result(StatusCode.SUCCESS, articleService.findAll());

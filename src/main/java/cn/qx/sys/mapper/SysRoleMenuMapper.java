@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import cn.qx.sys.entity.Menu;
+
 /**
  * 此DAO对象对应sys_role_menus表中数据操作
  * 此表中存储的是角色和菜单的关系数据
@@ -26,5 +28,4 @@ public interface SysRoleMenuMapper {
 	
 	List<Integer> findMenuIdsByRoleIds(
 			@Param("roleIds")Integer[] roleIds);
-
 }

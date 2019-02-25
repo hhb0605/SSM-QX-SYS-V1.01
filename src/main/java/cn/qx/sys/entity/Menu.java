@@ -99,5 +99,12 @@ public class Menu implements Serializable{
 	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
 	}
+    @Override
+    public String toString() {
+        return "Menu [id=" + id + ", name=" + name + ", url=" + url + ", type=" + type + ", sort=" + sort + ", note="
+                + note + ", parentId=" + parentId + ", permission=" + permission + ", createdUser=" + createdUser
+                + ", modifiedUser=" + modifiedUser + ", createdTime=" + createdTime + ", modifiedTime=" + modifiedTime
+                + "]";
+    }
     
 }

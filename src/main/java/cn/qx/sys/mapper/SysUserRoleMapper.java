@@ -17,4 +17,11 @@ public interface SysUserRoleMapper {
     List<Integer> findRoleIdsByUserId(Integer id);
 
     int deleteObjectsByUserId(Integer userId);
+    
+    /**
+     * 基于角色id删除用户和角色的关系
+     * @param roleId
+     * @return
+     */
+    int deleteObjectsByRoleId(Integer roleId);
 }
