@@ -107,7 +107,9 @@ public class UserController {
                         // check success
                         userService.update(user);
                     }
-                }
+                }else {
+                	userService.updateInfo(user);
+				}
                 return new Result(StatusCode.SUCCESS, ResultEnums.SUCCESS);
             } catch (Exception e) {
                 e.printStackTrace();

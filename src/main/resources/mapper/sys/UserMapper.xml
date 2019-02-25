@@ -155,4 +155,10 @@
       now(),now(),#{modifiedUser})
             
     </insert>
+    
+    <update id="updateInfo" parameterType="cn.qx.sys.entity.User">
+    update sys_user set
+    username=#{username},nickname=#{nickname},email=#{email},modified_time=now()
+    where id=#{id}
+    </update>
 </mapper>

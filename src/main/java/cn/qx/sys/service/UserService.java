@@ -32,4 +32,6 @@ public interface UserService extends BaseService<User> {
 	void saveObject(User entity, Integer[] roleIds);
 	
 	public Map<String, Object> findObjectById(Long id);
+	
+	int updateInfo(User user);
 }
