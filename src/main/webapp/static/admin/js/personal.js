@@ -15,7 +15,7 @@ var vm = new Vue({
     el: '#app',
     data() {
         return {
-            user: {
+            infomation: {
                 id: '',
                 username: '',
                 email: '',
@@ -56,20 +56,20 @@ var vm = new Vue({
         //获取当前用户信息
         getUserInfo() {
             this.$http.get(api.info).then(result => {
-                this.$refs.user.resetFields(); //清空校验状态
+                this.$refs.infomation.resetFields(); //清空校验状态
                 this.$refs.pass.resetFields(); //清空校验状态
-                this.user.id = result.body.data.id;
-                this.user.username = result.body.data.username;
-                this.user.email = result.body.data.email;
-                this.user.nickname = result.body.data.nickname;
+                this.infomation.id = result.body.data.id;
+                this.infomation.username = result.body.data.username;
+                this.infomation.email = result.body.data.email;
+                this.infomation.nickname = result.body.data.nickname;
                 this.pass.id = result.body.data.id;
                 this.token.name = result.body.data.username;
             });
         },
 
-        save() {
-        	console.log(this.user);
-            if (this.user.username == '' || this.user.username == null || this.user.nickname == '' || this.user.nickname == null || this.user.email == '' || this.user.email == null) {
+        saveInfo() {
+        	//console.log(this.infomation.email);
+            if (this.infomation.username == '' || this.infomation.username == null || this.infomation.nickname == '' || this.infomation.nickname == null || this.infomation.email == '' || this.infomation.email == null) {
             	console.log("输入的信息有误");
                 this.$message({
                     type: 'info',
@@ -77,9 +77,10 @@ var vm = new Vue({
                     duration: 6000
                 });
             } else {
-                this.$http.post(api.update, JSON.stringify(this.user)).then(result => {
+                this.$http.post(api.update, JSON.stringify(this.infomation)).then(result => {
                     if (result.body.code == 20000) {
-                        if (this.user.username == this.token.name) {
+                    	console.log(this.infomation.username)
+                        if (this.infomation.username == this.token.name) {
                             /*window.location.reload();*/
                             this.$message({
                                 type: 'success',
@@ -99,11 +100,11 @@ var vm = new Vue({
                         });
                         window.location.reload();
                     }
-                    this.$refs.user.resetFields(); //清空校验状态
+                    this.$refs.infomation.resetFields(); //清空校验状态
                     console.log("清空状态");
-                    this.user.username = '';
-                    this.user.nickname = '';
-                    this.user.email = '';
+                    this.infomation.username = '';
+                    this.infomation.nickname = '';
+                    this.infomation.email = '';
                 });
             }
         },
@@ -136,7 +137,7 @@ var vm = new Vue({
                 });
                 this.clearPass();
             } else {
-                this.pass.username = this.user.username;
+                this.pass.username = this.infomation.username;
                 this.$http.post('/SSM-QX-SYS-V1.01/user/update.do', JSON.stringify(this.pass)).then(result => {
                     if (result.body.code == 20000) {
                         this.$message({

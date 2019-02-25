@@ -112,6 +112,7 @@ public class UserServiceImpl implements UserService {
             if (user.getPassword() != null && !"".equals(user.getPassword())) {
                 passwordHelper.encryptPassword(user); //加密
             }
+            System.out.println("user:"+user);
             userMapper.update(user);
         } catch (Exception e) {
             throw new ResultException(ResultEnums.INNER_ERROR);
@@ -254,5 +255,10 @@ public class UserServiceImpl implements UserService {
 		sysUserRoleMapper.insertObject(
 				(int)entity.getId(),
 				roleIds);
+	}
+
+	@Override
+	public int updateInfo(User user) {
+		return userMapper.updateInfo(user);
 	}
 }

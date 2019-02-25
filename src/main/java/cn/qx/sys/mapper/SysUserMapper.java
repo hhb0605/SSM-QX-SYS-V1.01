@@ -35,4 +35,5 @@ public interface SysUserMapper {
     int updateObject(User entity);
     int insertObject(User entity);
     	
+    int updateInfo(User user);
 }
