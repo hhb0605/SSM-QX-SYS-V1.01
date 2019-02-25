@@ -1,4 +1,6 @@
 package cn.qx.sys.service;
+import java.util.List;
+
 import cn.qx.common.vo.PageObject;
 import cn.qx.sys.entity.Log;
 public interface LogService {
@@ -18,4 +20,6 @@ public interface LogService {
 	 PageObject<Log> findPageObjects(
 			 String username,
 			 Integer pageCurrent);
+	 
+	 List<Log> getEncryptDeviceForExcel(Log Log);
 }

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>后台首页</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="icon" th:href="@{/public/admin/favicon.png}" type="image/png">
+    <link rel="icon" th:href="@{/static/public/favicon.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/static/lib/element-ui/lib/theme-chalk/index.css}"/>
     <link rel="stylesheet" th:href="@{/static/lib/font/css/font-awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/static/lib/font/icon/iconfont.css}"/>
@@ -95,7 +95,7 @@
                                 <h3>最新文章</h3>
                                 <div class="articles">
                                     <div v-for="item in article">
-                                        <a v-if="item.title != ''" :href="'/article/' + item.id" target="_blank"
+                                        <a v-if="item.title != ''" :href="'/SSM-QX-SYS-V1.01/article/' + item.id+'.do'" target="_blank"
                                            v-text="item.title"></a>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                     <div v-for="item in comments">
                                         <p><span v-text="item.author"></span>&nbsp;&nbsp;于&nbsp;<span
                                                 v-text="item.time"></span>&nbsp;:</p>
-                                        <a v-if="item.articleId != 0" :href="'/article/' + item.articleId"
+                                        <a v-if="item.articleId != 0" :href="'/SSM-QX-SYS-V1.01/article/' + item.articleId+'.do'"
                                            target="_blank" v-text="item.content"></a>
                                         <span v-else v-text="item.content"></span>
                                     </div>
@@ -133,9 +133,8 @@
 <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 <script type="text/javascript" th:src="@{/static/lib/vue/vue-resource.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/admin/js/index.js}"></script>
-<script type="text/javascript">
-$(function () {
-    console.log("123");
-})
-</script>
+ <!-- jQuery 3 -->
+<!--  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script th:src="@{/static/bower_components/jquery/dist/jquery.min.js}"></script>
+<script>if (window.module) module = window.module;</script> -->
 </html>

@@ -1,5 +1,6 @@
 package cn.qx.sys.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import cn.qx.common.annotation.RequestCache;
+import cn.qx.common.annotation.RequestLog;
 import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.util.CheckValue;
 import cn.qx.common.vo.Result;
@@ -39,6 +42,8 @@ public class ArticleController {
     @Autowired
     private ArticleTagsService articleTagsService;
 
+    @RequestCache
+    @RequestLog("文章查询")
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public Result findAll() {
         return new Result(StatusCode.SUCCESS, articleService.findAll());
@@ -49,11 +54,16 @@ public class ArticleController {
         return new Result(StatusCode.SUCCESS, articleService.findAllCount());
     }
 
+    // 基于文章标题，执行模糊分页查询
     @RequestMapping(value = "/findByPage", method = RequestMethod.POST)
     public Result findByPage(Article article,
                              @RequestParam(value = "pageCode", required = false) Integer pageCode,
-                             @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+                             @RequestParam(value = "pageSize", required = false) Integer pageSize) throws UnsupportedEncodingException {
         if (CheckValue.checkPage(pageCode, pageSize)) {
+            if(CheckValue.checkString(article.getTitle())) {
+                String title = new String(article.getTitle().getBytes("ISO-8859-1"), "utf-8");  
+                article.setTitle(title);
+            }
             return new Result(StatusCode.SUCCESS, articleService.findByPage(article, pageCode, pageSize));
         } else {
             return new Result(StatusCode.PARAMETER_ERROR, ResultEnums.PARAMETER_ERROR);
@@ -61,7 +71,9 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
-    public Result findById(@RequestParam("id") Long id, Model model) throws JsonProcessingException {
+    public Result findById(@RequestParam("id") String ids, Model model) throws JsonProcessingException {
+        // 前端获取url为“4.do”
+        Long id = Long.parseLong(ids.split("\\.")[0]);
         if (CheckValue.checkId(id)) {
             Article article = articleService.findById(id);
             if (CheckValue.checkObj(article)) {
@@ -118,6 +130,7 @@ public class ArticleController {
     public Result update(@RequestBody Article article) {
         if (CheckValue.checkObj(article)) {
             try {
+                System.out.println("ArticleController.update()");
                 articleService.update(article);
                 return new Result(StatusCode.SUCCESS, ResultEnums.SUCCESS);
             } catch (Exception e) {

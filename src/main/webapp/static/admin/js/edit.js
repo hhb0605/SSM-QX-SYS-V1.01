@@ -7,12 +7,12 @@ const RATIO = 3;
 
 const api = {
     findById(id) {
-        return 'article/findById.do?id=' + id
+        return '/SSM-QX-SYS-V1.01/article/findById.do?id=' + id
     },
-    save: 'article/save.do',
-    update: 'article/update.do',
-    allCategory: 'category/findAll.do',
-    info: 'admin/info.do'
+    save: '/SSM-QX-SYS-V1.01/article/save.do',
+    update: '/SSM-QX-SYS-V1.01/article/update.do',
+    allCategory: '/SSM-QX-SYS-V1.01/category/findAll.do',
+    info: '/SSM-QX-SYS-V1.01/admin/info.do'
 };
 
 //Vue实例
@@ -51,6 +51,12 @@ new Vue({
             mobileStatus: false, //是否是移动端
             sidebarStatus: true, //侧边栏状态，true：打开，false：关闭
             sidebarFlag: ' openSidebar ', //侧边栏标志
+            
+            personal:false,
+	        log : false,
+	        user:false,
+	        role:false,
+	        permissions:[]
         }
     },
     methods: {
@@ -62,7 +68,7 @@ new Vue({
             this.article.tags = JSON.stringify(this.dynamicTags); //给tags字段赋值
 
             this.$http.put(api.update, JSON.stringify(this.article)).then(result => {
-                window.location.href = 'admin/article.do';
+                window.location.href = '/SSM-QX-SYS-V1.01/admin/article.do';
                 if (result.body.code == 20000) {
                     this.$message({
                         showClose: true,
@@ -108,6 +114,8 @@ new Vue({
             //从url中获取参数查询文章数据
             this.$http.get(api.findById(id)).then(result => {
                 this.article = result.body.data;
+                console.log(result.body.data);
+                console.log(this.article.contentMd);
                 this.dynamicTags = eval(result.body.data.tags);
             });
 
@@ -122,7 +130,7 @@ new Vue({
 
             //已登录用户名
             this.$http.get(api.info).then(result => {
-                this.token.name = result.body.data.name;
+                this.token.name = result.body.data.username;
             });
         },
 
@@ -188,5 +196,32 @@ new Vue({
             this.mobileStatus = true;
         }
     },
+    mounted : function() {
+		this.$http.post('/SSM-QX-SYS-V1.01/role/doFindCurrentMenus.do').then(result => {
+			this.permissions = result.data.data;
+			for(var i =0;i<this.permissions.length;i++){
+				switch(this.permissions[i]){
+					case 'sys:personal':
+						this.personal=true;
+						   break;
+					case 'sys:log':
+						this.log = true;
+                        break;
+					case 'sys:user':
+						this.user = true;
+                        break;
+					case 'sys:role':
+						this.role = true;
+                        break;
+					case 'sys:root':
+						this.role = true;
+						this.user = true;
+						this.log = true;
+						this.personal=true;
+                        break;
+				}
+			}
+        });
+    }
 });
 

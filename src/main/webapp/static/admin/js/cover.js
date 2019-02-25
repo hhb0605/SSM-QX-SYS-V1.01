@@ -7,21 +7,21 @@ const RATIO = 3;
 
 const api = {
     findByPage(flag, pageSize, pageCode) {
-        return flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return "../"+flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     delete(flag) {
-        return flag + '/delete.do';
+        return "../"+flag + '/delete.do';
     },
     update(flag) {
-        return flag + '/update.do'
+        return "../"+flag + '/update.do'
     },
     save(flag) {
-        return flag + '/save.do'
+        return "../"+flag + '/save.do'
     },
     findById(flag, id) {
-        return flag + '/findById.do?id=' + id
+        return "../"+flag + '/findById.do?id=' + id
     },
-    info: 'admin/info.do'
+    info: '/SSM-QX-SYS-V1.01/admin/info.do'
 };
 
 // Vue实例
@@ -67,6 +67,12 @@ var vm = new Vue({
             mobileStatus: false, //是否是移动端
             sidebarStatus: true, //侧边栏状态，true：打开，false：关闭
             sidebarFlag: ' openSidebar ', //侧边栏标志
+            
+            personal:false,
+	        log : false,
+	        user:false,
+	        role:false,
+	        permissions:[]
         }
     },
     methods: {
@@ -80,7 +86,7 @@ var vm = new Vue({
         },
         //条件查询
         search(pageCode, pageSize) {
-            this.$http.post('article/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode).then(result => {
+            this.$http.post('../article/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode).then(result => {
                 this.article = result.body.data.rows;
                 this.pageConf.totalPage = result.body.data.total;
             });
@@ -99,18 +105,18 @@ var vm = new Vue({
         //编辑按钮
         editBtn(id) {
             this.editDialog = true;
-            this.$http.get('article/findById.do?id=' + id).then(result => {
+            this.$http.get('/SSM-QX-SYS-V1.01/article/findById.do?id=' + id).then(result => {
                 this.editor.id = result.body.data.id;
                 this.editor.titlePic = result.body.data.titlePic;
-
                 this.fileList.forEach(row => {
-                    row.url = result.body.data.titlePic; //将图片的URL地址赋值给file-list展示出来
+                    row.url =result.body.data.titlePic; //将图片的URL地址赋值给file-list展示出来
                 });
             });
         },
         //编辑
         edit() {
-            this.$http.put('article/update.do', JSON.stringify(this.editor)).then(result => {
+        	console.log("上传图片");
+            this.$http.put('/SSM-QX-SYS-V1.01/article/update.do', JSON.stringify(this.editor)).then(result => {
                 this.editDialog = false;
                 this.reloadList();
                 if (result.body.code == 20000) {
@@ -144,6 +150,7 @@ var vm = new Vue({
             });
             if (res.code == 20000) {
                 this.fileList = [];
+                res.data.url = "/SSM-QX-SYS-V1.01/static"+res.data.url;
                 this.fileList.push(res.data);
                 this.editor.titlePic = res.data.url; //将返回的文件储存路径赋值image字段
             }
@@ -187,8 +194,8 @@ var vm = new Vue({
 
         init() {
             //已登录用户名
-            this.$http.get('admin/info.do').then(result => {
-                this.token.name = result.body.data.name;
+            this.$http.get('../admin/info.do').then(result => {
+                this.token.name = result.body.data.username;
             });
         },
 
@@ -232,5 +239,32 @@ var vm = new Vue({
         }
 
     },
+    mounted : function() {
+		this.$http.post('/SSM-QX-SYS-V1.01/role/doFindCurrentMenus.do').then(result => {
+			this.permissions = result.data.data;
+			for(var i =0;i<this.permissions.length;i++){
+				switch(this.permissions[i]){
+					case 'sys:personal':
+						this.personal=true;
+						   break;
+					case 'sys:log':
+						this.log = true;
+                        break;
+					case 'sys:user':
+						this.user = true;
+                        break;
+					case 'sys:role':
+						this.role = true;
+                        break;
+					case 'sys:root':
+						this.role = true;
+						this.user = true;
+						this.log = true;
+						this.personal=true;
+                        break;
+				}
+			}
+        });
+    }
 
 });

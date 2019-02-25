@@ -67,7 +67,7 @@
     <el-dialog title="修改文章封面图片" :visible.sync="editDialog" width="30%" :append-to-body='true' :before-close="handleClose">
         <span>
             <el-card>
-                <el-upload action="admin/upload.do" multiple drag name="file" list-type="picture-card" :limit="1"
+                <el-upload action="/SSM-QX-SYS-V1.01/admin/upload.do" multiple drag name="file" list-type="picture-card" :limit="1"
                         :on-exceed="onExceed"
                         :file-list="fileList"
                         :before-upload="beforeUpload"

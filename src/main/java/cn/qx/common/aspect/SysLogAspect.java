@@ -15,7 +15,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.qx.common.annotation.RequestLog;
-import cn.qx.common.utils.IPUtils;
+import cn.qx.common.util.IPUtils;
 import cn.qx.sys.mapper.SysLogMapper;
 import cn.qx.sys.entity.Log;
 /**
@@ -47,12 +47,9 @@ public class SysLogAspect {
 	@Around("@annotation(cn.qx.common.annotation.RequestLog)")
 	public Object around(ProceedingJoinPoint jp)
 	throws Throwable{
-		System.out.println("log record around");
 		long t1=System.currentTimeMillis();
-		System.out.println(t1);
 		Object result=jp.proceed();//执行目标方法
 		long t2=System.currentTimeMillis();
-		System.out.println("方法执行时长:"+(t2-t1));
 		saveLog(jp,(t2-t1));
 		return result;
 	}

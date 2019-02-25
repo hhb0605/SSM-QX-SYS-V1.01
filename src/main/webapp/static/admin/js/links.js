@@ -7,15 +7,15 @@ const RATIO = 3;
 
 const api = {
     findByPage(pageSize, pageCode) {
-        return 'links/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return '/SSM-QX-SYS-V1.01/links/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     findById(id) {
-        return 'links/findById.do?id=' + id
+        return '../links/findById.do?id=' + id
     },
-    save: 'links/save.do',
-    delete: 'links/delete.do',
-    update: 'links/update.do',
-    info: 'admin/info.do'
+    save: '../links/save.do',
+    delete: '../links/delete.do',
+    update: '../links/update.do',
+    info: '../admin/info.do'
 };
 
 // Vue实例
@@ -50,6 +50,12 @@ var vm = new Vue({
             mobileStatus: false, //是否是移动端
             sidebarStatus: true, //侧边栏状态，true：打开，false：关闭
             sidebarFlag: ' openSidebar ', //侧边栏标志
+            
+            personal:false,
+	        log : false,
+	        user:false,
+	        role:false,
+	        permissions:[]
         }
     },
     methods: {
@@ -82,7 +88,7 @@ var vm = new Vue({
 
         //删除
         sureDelete(ids) {
-            this.$confirm('你确定永久删除此用户信息？', '提示', {
+            this.$confirm('你确定永久删除此友链？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning',
@@ -236,5 +242,32 @@ var vm = new Vue({
         }
 
     },
+    mounted : function() {
+		this.$http.post('/SSM-QX-SYS-V1.01/role/doFindCurrentMenus.do').then(result => {
+			this.permissions = result.data.data;
+			for(var i =0;i<this.permissions.length;i++){
+				switch(this.permissions[i]){
+					case 'sys:personal':
+						this.personal=true;
+						   break;
+					case 'sys:log':
+						this.log = true;
+                        break;
+					case 'sys:user':
+						this.user = true;
+                        break;
+					case 'sys:role':
+						this.role = true;
+                        break;
+					case 'sys:root':
+						this.role = true;
+						this.user = true;
+						this.log = true;
+						this.personal=true;
+                        break;
+				}
+			}
+        });
+    }
 
 });

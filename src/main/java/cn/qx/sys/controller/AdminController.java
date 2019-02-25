@@ -16,8 +16,9 @@ import cn.qx.common.vo.StatusCode;
 import cn.qx.sys.service.UserService;
 
 /**
- * @auther TyCoding
- * @date 2018/10/3
+ * 
+ * @author STK_Tofu
+ * @date 2019年2月23日
  */
 @Controller
 @RequestMapping("/admin")
@@ -35,6 +36,16 @@ public class AdminController {
     public String publish() {
         return "admin/page/publish";
     }
+    
+    /**
+     * 加载上一页，下一页等
+     * @return
+     */
+    @GetMapping(value = {"doPageUI"})
+    public String doPageUI() {
+        return "admin/page/common/page";
+    }
+    
 
     /**
      * 跳转到文件编辑页
@@ -43,8 +54,8 @@ public class AdminController {
      * @return
      */
     @RequestMapping(value = {"/article/edit/{id}"})
-    public String edit(@PathVariable("id") Long id) {
-        if (id == null || id == 0) {
+    public String edit(@PathVariable("id") String id) {
+        if (id == null || id == "") {
             return "admin/page/article";
         } else {
             return "admin/page/edit";
@@ -87,7 +98,7 @@ public class AdminController {
      * @return
      */
     @GetMapping(value = {"/cover"})
-    public String attach() {
+    public String cover() {
         return "admin/page/cover";
     }
 
@@ -106,9 +117,9 @@ public class AdminController {
      *
      * @return
      */
-    @GetMapping(value = {"/user"})
-    public String users() {
-        return "admin/page/user";
+    @GetMapping(value = {"/personal"})
+    public String personal() {
+        return "admin/page/personal";
     }
 
     /**
@@ -121,7 +132,7 @@ public class AdminController {
         return "admin/page/setting";
     }
     /**
-     * 系统设置页
+     * 日志管理页
      *
      * @return
      */
@@ -129,6 +140,26 @@ public class AdminController {
     public String log() {
         return "admin/page/log";
     }
+    
+    
+    /**
+     * 用户管理页
+     *
+     * @return
+     */
+    @GetMapping(value = {"/user"})
+    public String user() {
+        return "admin/page/user";
+    }
+    
+    /**
+     * 角色管理页
+     * @return
+     */
+	@RequestMapping("role")
+	public String doRoleListUI() {
+		return "admin/page/role";
+	}
 
     /**
      * 根据登录token获取登录信息
@@ -146,12 +177,5 @@ public class AdminController {
             e.printStackTrace();
             return new Result(StatusCode.ERROR, ResultEnums.INNER_ERROR);
         }
-    }
-
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout() {
-        Subject subject = SecurityUtils.getSubject();
-        subject.logout();
-        return "redirect:/admin";
     }
 }

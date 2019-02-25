@@ -7,10 +7,10 @@ const RATIO = 3;
 
 const api = {
     findByPage(pageSize, pageCode) {
-        return 'article/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return '/SSM-QX-SYS-V1.01/article/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
-    delete: 'article/delete.do',
-    info: 'admin/info.do'
+    delete: '/SSM-QX-SYS-V1.01/article/delete.do',
+    info: '/SSM-QX-SYS-V1.01/admin/info.do'
 };
 
 // Vue实例
@@ -50,6 +50,12 @@ var vm = new Vue({
             mobileStatus: false, //是否是移动端
             sidebarStatus: true, //侧边栏状态，true：打开，false：关闭
             sidebarFlag: ' openSidebar ', //侧边栏标志
+            
+            personal:false,
+	        log : false,
+	        user:false,
+	        role:false,
+	        permissions:[]
         }
     },
     methods: {
@@ -59,6 +65,7 @@ var vm = new Vue({
         },
         //条件查询
         search(pageCode, pageSize) {
+        	console.log("pageSize = "+pageSize);
             this.$http.post(api.findByPage(pageSize,pageCode), this.searchEntity).then(result => {
                 this.article = result.body.data.rows;
                 this.pageConf.totalPage = result.body.data.total;
@@ -66,6 +73,7 @@ var vm = new Vue({
         },
         //pageSize改变时触发的函数
         handleSizeChange(val) {
+        	console.log("pageSize改变时触发的函数");
             this.search(this.pageConf.pageCode, val);
         },
         //当前页改变时触发的函数
@@ -76,7 +84,7 @@ var vm = new Vue({
 
         //删除
         sureDelete(ids) {
-            this.$confirm('你确定永久删除此用户信息？', '提示', {
+            this.$confirm('你确定永久删除此文章？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning',
@@ -129,7 +137,7 @@ var vm = new Vue({
         init() {
             //已登录用户名
             this.$http.get(api.info).then(result => {
-                this.token.name = result.body.data.name;
+                this.token.name = result.body.data.username;
             });
         },
 
@@ -171,5 +179,32 @@ var vm = new Vue({
             this.mobileStatus = true;
         }
     },
+    mounted : function() {
+		this.$http.post('/SSM-QX-SYS-V1.01/role/doFindCurrentMenus.do').then(result => {
+			this.permissions = result.data.data;
+			for(var i =0;i<this.permissions.length;i++){
+				switch(this.permissions[i]){
+					case 'sys:personal':
+						this.personal=true;
+						   break;
+					case 'sys:log':
+						this.log = true;
+                        break;
+					case 'sys:user':
+						this.user = true;
+                        break;
+					case 'sys:role':
+						this.role = true;
+                        break;
+					case 'sys:root':
+						this.role = true;
+						this.user = true;
+						this.log = true;
+						this.personal=true;
+                        break;
+				}
+			}
+        });
+    }
 
 });

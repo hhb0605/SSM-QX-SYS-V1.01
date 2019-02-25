@@ -7,10 +7,10 @@
     <!-- 条件查询 -->
     <select id="findByPage" resultType="cn.qx.sys.entity.User">
         SELECT * FROM sys_user
-        <!--WHERE 1=1-->
-        <!--<if test="author != null">-->
-        <!--AND author LIKE CONCAT('%', #{author}, '%')-->
-        <!--</if>-->
+        WHERE 1=1
+        <if test="username != null">
+        AND username LIKE CONCAT('%', #{username}, '%')
+        </if>
     </select>
 
     <!-- 根据ID查询 -->
@@ -21,13 +21,18 @@
     <!-- 保存 -->
     <insert id="save" parameterType="cn.qx.sys.entity.User">
         INSERT INTO
-        tb_user(
+        sys_user(
           username,
           nickname,
           password,
           salt,
           email,
-          avatar
+          avatar,
+          valid,
+          modified_user,
+          modified_time,
+          mobile
+
         )
         VALUES(
           #{username},
@@ -35,7 +40,11 @@
           #{password},
           #{salt},
           #{email},
-          #{avatar}
+          #{avatar},
+          #{valid},
+          #{modifiedUser},
+          #{modifiedTime},
+          #{mobile}
         )
     </insert>
 
@@ -61,8 +70,41 @@
             <if test="avatar != null and avatar != ''">
                 avatar = #{avatar}
             </if>
+            <if test="valid != null and valid != ''">
+                valid = #{valid}
+            </if>
+            <if test="modifiedUser != null and modifiedUser != ''">
+                modified_user = #{modifiedUser}
+            </if>
+            <if test="modifiedTime != null and modifiedTime != ''">
+                modified_time = #{modifiedTime}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile}
+            </if>
+            
         </set>
         WHERE id = #{id}
+    </update>
+    <update id="updateObject">
+        update sys_user
+         <set>
+             <if test="username!=null and username!=''">
+               username=#{username},
+             </if>
+             <if test="email!=null and email!=''">
+                  email=#{email},
+             </if>
+             <if test="mobile!=null and mobile!=''">
+                mobile=#{mobile},
+             </if>
+             
+             <if test="modifiedUser!=null and modifiedUser!=''">
+                modified_user=#{modifiedUser},
+             </if>
+             modified_time=now()
+          </set>
+        where id=#{id}
     </update>
 
     <!-- 删除 -->
@@ -74,4 +116,43 @@
     <select id="findByName" resultType="cn.qx.sys.entity.User">
         SELECT * FROM sys_user WHERE username = #{username}
     </select>
+    
+    <!-- 禁用或启用用户信息 -->
+   <update id="validById">
+        update sys_user
+        set valid=#{valid},
+            modified_user=#{modifiedUser},
+            modified_time=now()
+        where id=#{id}
+   </update>
+   
+   <select id="findObjectByColumn"
+           resultType="int">
+           select count(*)
+           from sys_user
+           where ${columnName}=#{columnValue}
+   </select>
+   
+    <!-- 保存用户自身信息 -->
+    <insert id="insertObject"
+            parameterType="cn.qx.sys.entity.User">
+      
+      <!-- 通过selectKey获取一个值 
+           order表示在insert语句之后执行,
+           keyProperty表示将selectKey的结果
+                      赋予参数对象的id属性-->
+       <selectKey order="AFTER" 
+                 resultType="int" 
+                 keyProperty="id">
+         select last_insert_id()
+       </selectKey>
+      
+      insert into sys_user
+      (username,password,email,mobile,salt,valid,
+      created_time,modified_time,modified_user)
+      values
+      (#{username},#{password},#{email},#{mobile},#{salt},#{valid},
+      now(),now(),#{modifiedUser})
+            
+    </insert>
 </mapper>

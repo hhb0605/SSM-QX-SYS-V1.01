@@ -78,3 +78,7 @@ function addCommentInputValue() {
 
 addCommentInputValue();
 //>>>>>>>>>>>>>回复表单提交<<<<<<<<<<<<END
+
+function reDirect(url){
+	console.log(url);
+}

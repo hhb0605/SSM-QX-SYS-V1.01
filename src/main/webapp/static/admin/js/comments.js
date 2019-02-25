@@ -7,10 +7,10 @@ const RATIO = 3;
 
 const api = {
     findByPage(pageSize, pageCode) {
-        return 'comments/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return '/SSM-QX-SYS-V1.01/comments/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
-    delete: 'comments/delete.do',
-    info: 'admin/info.do',
+    delete: '/SSM-QX-SYS-V1.01/comments/delete.do',
+    info: '/SSM-QX-SYS-V1.01/admin/info.do',
 
 };
 
@@ -50,6 +50,12 @@ var vm = new Vue({
             mobileStatus: false, //是否是移动端
             sidebarStatus: true, //侧边栏状态，true：打开，false：关闭
             sidebarFlag: ' openSidebar ', //侧边栏标志
+            
+            personal:false,
+	        log : false,
+	        user:false,
+	        role:false,
+	        permissions:[]
         }
     },
     methods: {
@@ -171,5 +177,32 @@ var vm = new Vue({
         }
 
     },
+    mounted : function() {
+		this.$http.post('/SSM-QX-SYS-V1.01/role/doFindCurrentMenus.do').then(result => {
+			this.permissions = result.data.data;
+			for(var i =0;i<this.permissions.length;i++){
+				switch(this.permissions[i]){
+					case 'sys:personal':
+						this.personal=true;
+						   break;
+					case 'sys:log':
+						this.log = true;
+                        break;
+					case 'sys:user':
+						this.user = true;
+                        break;
+					case 'sys:role':
+						this.role = true;
+                        break;
+					case 'sys:root':
+						this.role = true;
+						this.user = true;
+						this.log = true;
+						this.personal=true;
+                        break;
+				}
+			}
+        });
+    }
 
 });

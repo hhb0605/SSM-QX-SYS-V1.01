@@ -23,6 +23,9 @@ public class Log implements Serializable{
 	private String ip;
 	//创建时间
 	private Date createdTime;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public Integer getId() {
 		return id;
 	}

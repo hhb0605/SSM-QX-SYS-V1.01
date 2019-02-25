@@ -7,21 +7,21 @@ const RATIO = 3;
 
 const api = {
     findByPage(flag, pageSize, pageCode) {
-        return flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
+        return "/SSM-QX-SYS-V1.01/"+flag + '/findByPage.do?pageSize=' + pageSize + '&pageCode=' + pageCode
     },
     delete(flag) {
-        return flag + '/delete.do';
+        return "../"+flag + '/delete.do';
     },
     update(flag) {
-        return flag + '/update.do'
+        return "../"+flag + '/update.do'
     },
     save(flag) {
-        return flag + '/save.do'
+        return "../"+flag + '/save.do'
     },
     findById(flag, id) {
-        return flag + '/findById.do?id=' + id
+        return "../"+flag + '/findById.do?id=' + id
     },
-    info: 'admin/info.do'
+    info: '../admin/info.do'
 };
 
 // Vue实例
@@ -68,6 +68,12 @@ var vm = new Vue({
             mobileStatus: false, //是否是移动端
             sidebarStatus: true, //侧边栏状态，true：打开，false：关闭
             sidebarFlag: ' openSidebar ', //侧边栏标志
+            
+            personal:false,
+	        log : false,
+	        user:false,
+	        role:false,
+	        permissions:[]
         }
     },
     methods: {
@@ -116,7 +122,7 @@ var vm = new Vue({
 
         //删除
         sureDelete(flag, ids) {
-            this.$confirm('你确定永久删除此用户信息？', '提示', {
+            this.$confirm('你确定永久删除此分类/标签信息？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning',
@@ -211,7 +217,6 @@ var vm = new Vue({
                 if (this.dialogFlag == '标签') {
                     flag = api.save('tags')
                 }
-                console.log('请求API：' + flag + ', 数据：' + this.editor.name);
                 this.$http.post(flag, JSON.stringify(this.editor)).then(result => {
                     if (result.body.code == 20000) {
                         this.$message({
@@ -236,7 +241,6 @@ var vm = new Vue({
                 if (this.dialogFlag == '标签') {
                     flag = api.update('tags')
                 }
-                console.log('请求API：' + flag + ', 数据：' + this.editor.name);
                 this.$http.put(flag, JSON.stringify(this.editor)).then(result => {
                     if (result.body.code == 20000) {
                         this.$message({
@@ -306,4 +310,31 @@ var vm = new Vue({
         }
 
     },
+    mounted : function() {
+		this.$http.post('/SSM-QX-SYS-V1.01/role/doFindCurrentMenus.do').then(result => {
+			this.permissions = result.data.data;
+			for(var i =0;i<this.permissions.length;i++){
+				switch(this.permissions[i]){
+					case 'sys:personal':
+						this.personal=true;
+						   break;
+					case 'sys:log':
+						this.log = true;
+                        break;
+					case 'sys:user':
+						this.user = true;
+                        break;
+					case 'sys:role':
+						this.role = true;
+                        break;
+					case 'sys:root':
+						this.role = true;
+						this.user = true;
+						this.log = true;
+						this.personal=true;
+                        break;
+				}
+			}
+        });
+    }
 });

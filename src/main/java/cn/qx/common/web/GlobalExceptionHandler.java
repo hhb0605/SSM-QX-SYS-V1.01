@@ -7,7 +7,10 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.vo.JsonResult;
+import cn.qx.common.vo.Result;
+import cn.qx.common.vo.StatusCode;
 
 /**
  * @ControllerAdvice 注解描述的类
@@ -25,13 +28,7 @@ public class GlobalExceptionHandler {
 		e.printStackTrace();
 		JsonResult r=new JsonResult();
 		r.setState(0);
-		if(e instanceof UnknownAccountException){
-			r.setMessage("账户不存在");
-		}else if(e instanceof LockedAccountException){
-			r.setMessage("账户被锁定");
-		}else if(e instanceof CredentialsException){
-			r.setMessage("密码不正确");
-		}else if(e instanceof AuthorizationException){
+		if(e instanceof AuthorizationException){
 			r.setMessage("没有此操作权限");
 		}else {
 		    r.setMessage("认证或授权失败");
@@ -58,6 +55,16 @@ public class GlobalExceptionHandler {
     	e.printStackTrace();
 		return new JsonResult(e);
 	}
+    
+    @ExceptionHandler({CredentialsException.class,UnknownAccountException.class,LockedAccountException.class})
+    public Result doHandleLoginException(
+            RuntimeException e){
+        e.printStackTrace();
+        if(e instanceof LockedAccountException) {
+            return new Result(StatusCode.ERROR, ResultEnums.LOGIN_LOCKED);
+        }
+        return new Result(StatusCode.ERROR, ResultEnums.LOGIN_ERROR);
+    }
 }
 
 

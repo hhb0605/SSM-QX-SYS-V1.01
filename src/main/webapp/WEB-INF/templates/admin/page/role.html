@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>角色管理</title>
+    <link rel="icon" th:href="@{/static/public/admin/favicon.png}" type="image/png">
+    <!--<link rel="stylesheet" th:href="@{/lib/element-ui/lib/theme-chalk/index.css}"/>-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" th:href="@{/static/lib/font/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/public/admin/base.css}">
+    
+    <!-- 导入的adminLTE的css -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" th:href="@{/static/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/static/bower_components/font-awesome/css/font-awesome.min.css}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" th:href="@{/static/bower_components/Ionicons/css/ionicons.min.css}">
+  <!-- Theme style -->
+  <link rel="stylesheet" th:href="@{/static/dist/css/AdminLTE.min.css}">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" th:href="@{/static/dist/css/skins/skin-blue.min.css}">
+  <link rel="stylesheet" th:href="@{/static/bower_components/layer/skin/default/layer.css}">
+  <link rel="stylesheet" th:href="@{/static/bower_components/ztree/css/metroStyle/metroStyle.css}"/>
+  <link rel="stylesheet" th:href="@{/static/bower_components/treegrid/jquery.treegrid.css}"/>
+  
+ 
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!-- vue入口 -->
+<div id="app">
+    <div :class="'app-wrapper' + sidebarFlag">
+        <!-- aside -->
+        <div th:replace="admin/side :: side"></div>
+
+        <!-- container -->
+        <el-container class="main-container">
+            <!-- header -->
+            <div style="background-color: rgb(84, 92, 100);" th:replace="admin/header :: header"></div>
+
+            <!-- main -->
+            <el-main class="app-main">
+                <el-card>
+                    <h2>角色管理</h2>
+                    <div>
+                    <div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"></h3>
+
+				<div class="box-tools">
+					<div class="input-group input-group-sm" style="width: 350px;">
+						<input type="text" name="table_search" id="searchNameId"
+							class="form-control pull-right" placeholder="角色名">
+
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default btn-search">
+                                <i class="fa fa-search"></i>
+							</button>
+							<button type="button" class="btn btn-default btn-add">添加</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body table-responsive no-padding">
+				<form>
+				  <table class="table table-hover">
+					<thead>
+						<tr>
+						    <th>序号</th>
+							<th>角色名称</th>
+							<th>备注</th>
+							<th>创建时间</th>
+							<th>修改时间</th>
+							<th>创建用户</th>
+							<th>修改用户</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyId">
+					</tbody>
+				  </table>
+				</form>
+			</div>
+			<!-- /.box-body -->
+			<div id="pageId" class="box-footer clearfix">
+            </div>
+		</div>
+		<!-- /.box -->
+	</div>
+</div>
+
+                    </div>
+                </el-card>
+            </el-main>
+        </el-container>
+    </div>
+</div>
+</body>
+<!--<script type="text/javascript" th:src="@{/lib/vue/vue.min.js}"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript" th:src="@{/static/lib/element-ui/lib/index.js}"></script>
+<script type="text/javascript" th:src="@{/static/lib/vue/vue-resource.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/admin/js/role.js}"></script>
+
+<!-- 导入的adminLTE的js -->
+ <!-- jQuery 3 -->
+<script th:src="@{/static/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script th:src="@{/static/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/static/dist/js/adminlte.min.js}"></script>
+
+<script type="text/javascript">
+$(function(){
+	  $("#pageId").load("doPageUI.do",function(){
+		  doGetObjects();
+	  });
+	  $(".input-group-btn")
+	  .on("click",".btn-search",doQueryObjects)
+	  .on("click",".btn-add",doLoadEditUI)
+   
+	  $("#tbodyId")
+	  .on("click",".btn-delete",doDeleteObject)
+	  .on("click",".btn-update",doLoadEditUI)
+});
+
+function doLoadEditUI(){
+	   var title;
+	   if($(this).hasClass('btn-add')){
+		   title="添加角色";
+		   console.log("title:"+title);
+		   doLoadPageUI(title);
+	   }else{
+		   title="修改角色"
+		   console.log("title:"+title)
+		   var id=$(this).parents("tr").data("id");
+		   var params={"id":id};
+		   var url="../role/doFindObjectById.do";
+		   $.getJSON(url,params,function(result){
+			   console.log("update.result",result);
+			   if(result.state==1){
+				   // 在data对象 上追加一个id值
+				   result.data.id=id;
+				  $(".app-main").data("data",result.data);
+				  doLoadPageUI(title);//异步加载页面  
+			   }else{
+				  alert(result.message); 
+			   }
+		   });
+	   }
+}
+function doLoadPageUI(title){
+	   var url="../role/doRoleEditUI.do"
+	   $(".app-main")
+	   .load(url,function(){
+		   $(".box-title").html(title);
+	   })
+}
+
+
+
+function doDeleteObject(){
+	   //1.params
+	   var id=$(this).parents("tr").data("id");
+	   var params={"id":id};
+	   //2.url
+	   var url="../role/doDeleteObject.do"
+	   //3.ajax request
+	   $.post(url,params,function(result){
+		   if(result.state==1){
+			   alert(result.message);
+			   doGetObjects();
+		   }else{
+			   alert(result.message);
+		   }
+	   })
+	   
+}
+function doQueryObjects(){
+	   $("#pageId").data("pageCurrent",1);
+	   doGetObjects();
+}
+function doGetObjects(){
+	   //1.params
+	   //获取在Page.html中绑定的当前页码值
+	   var pageCurrent=$("#pageId").data("pageCurrent");
+	   //假如没有值,设置初始值为1
+	   if(!pageCurrent)pageCurrent=1;
+	   //var params="pageCurrrent="+pageCurrent;
+	   var params={"pageCurrent":pageCurrent};
+	   //获取查询时用户输入的名字
+	   var name=$("#searchNameId").val();
+	   if(name)params.name=name;
+	   //2.url
+	   var url="../role/doFindPageObjects.do";
+	   //3.ajax request
+	   console.log(params);
+	   $.getJSON(url,params,function(result){
+		   doHandleResponseResult(result);
+	   });
+}
+function doHandleResponseResult(result){
+	   
+	   if(result.state==1){
+		  doSetTableBodyRows(result.data.records);
+		  doSetPagination(result.data);
+	   }else{
+		  alert(result.message);
+		  doSetTableBodyErrors(result.message);
+	   }
+}
+function doSetTableBodyErrors(message){
+	   //获取body对象并清空
+	   var tBody=$("#tbodyId");
+	   tBody.empty();
+	   //创建tr对象
+	   var tr=$("<tr></tr>");
+	   //创建td对象
+	   //var len=$("table thead").find("tr").find("th").length;
+	   var len=$("table th").length;
+	   var td=$("<td></td>");
+	   td.prop("colspan",len);
+	   td.append("数据正在加载中....");
+	   tr.append(td);
+	   //将tr追加到tbody
+	   tBody.append(tr);
+}
+function doSetTableBodyRows(records){
+	   
+	  //获取tbody对象,并清空
+	   var tBody=$("#tbodyId");
+	   tBody.empty();
+	   //2.迭代数据,并追加到tBody
+	   for(var i in records){
+		  //2.1构建tr对象
+		  var tr=$("<tr></tr>");
+		  tr.data("id",records[i].id);
+		  //2.2构建tds对象
+		  var tds=doCreateTds(records[i],i);
+		  //2.3将tds对象追加到tr中
+		  tr.append(tds);
+		  //2.4将tr追加到tbody中
+		  tBody.append(tr);
+	   }
+}
+function doCreateTds(row,i){
+	   var tds=
+    "<td>"+(parseInt(i)+1)+"</td>"+
+	   "<td>"+row.name+"</td>"+
+    "<td>"+row.note+"</td>"+
+    "<td>"+new Date(row.createdTime).toLocaleString()+"</td>"+
+    "<td>"+new Date(row.modifiedTime).toLocaleString()+"</td>"+
+    "<td>"+row.createdUser+"</td>"+
+    "<td>"+row.modifiedUser+"</td>"+
+    "<td><a class='btn-delete'>delete</a>"+
+    "&nbsp;<a class='btn-update'>update</a></td>";
+    return tds;
+}
+</script>
+</script>
+</html>

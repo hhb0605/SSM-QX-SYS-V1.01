@@ -8,71 +8,91 @@
 <div th:fragment="side">
     <div @click="drawerClick" v-if="sidebarStatus == true && mobileStatus == true" class="drawer-bg"></div>
     <div class="sidebar-container el-scrollbar">
-        <div class="scrollbar-wrapper el-scrollbar__wrap">
-            <div class="el-scrollbar__view" style="background-color: rgb(48, 65, 86);">
+        <div class="scrollbar-wrapper el-scrollbar__wrap" >
+            <div class="el-scrollbar__view role" style="background-color: rgb(48, 65, 86);">
                 <el-aside style="background-color: rgb(48, 65, 86);width: auto !important;" show-timeout="200">
                     <el-menu unique-opened :default-active="defaultActive" :collapse="!sidebarStatus" background-color="rgb(48, 65, 86)" text-color="#fff">
-                        <a href="/admin">
-                            <el-menu-item index="1">
+                     <el-submenu index="20">
+                            <template slot="title">
+                                <i class="el-icon-menu"></i>
+                                <span>功能菜单</span>
+                            </template>
+        
+                        <a href="/SSM-QX-SYS-V1.01/admin.do" v-show="personal">
+                            <el-menu-item index="1" >
                                 <i class="fa fa-home fa-fw"></i>
                                 <span slot="title">首页</span>
                             </el-menu-item>
                         </a>
                         
-                        <a href="./admin/article/publish.do">
-                            <el-menu-item index="2">
+                        <a href="/SSM-QX-SYS-V1.01/admin/article/publish.do">
+                            <el-menu-item index="2" v-show="personal">
                                 <i class="fa fa-pencil-square-o fa-fw"></i>
                                 <span slot="title">发布文章</span>
                             </el-menu-item>
                         </a>
-                        <a href="./admin/article.do">
-                            <el-menu-item index="3">
+                        <a href="/SSM-QX-SYS-V1.01/admin/article.do">
+                            <el-menu-item index="3" v-show="personal">
                                 <i class="fa fa-list fa-fw"></i>
                                 <span slot="title">文章管理</span>
                             </el-menu-item>
                         </a>
-                        <a href="./admin/comments.do">
-                            <el-menu-item index="4">
+                        <a href="/SSM-QX-SYS-V1.01/admin/comments.do">
+                            <el-menu-item index="4" v-show="personal">
                                 <i class="fa fa-comments fa-fw"></i>
                                 <span slot="title">评论管理</span>
                             </el-menu-item>
                         </a>
-                        <a href="./admin/category.do">
-                            <el-menu-item index="5">
+                        <a href="/SSM-QX-SYS-V1.01/admin/category.do">
+                            <el-menu-item index="5" v-show="personal">
                                 <i class="fa fa-tags fa-fw"></i>
                                 <span slot="title">分类/标签</span>
                             </el-menu-item>
                         </a>
-                        <a href="./admin/cover.do">
-                            <el-menu-item index="7">
+                        <a href="/SSM-QX-SYS-V1.01/admin/cover.do">
+                            <el-menu-item index="7" v-show="personal">
                                 <i class="fa fa-paper-plane fa-fw"></i>
                                 <span slot="title">封面管理</span>
                             </el-menu-item>
                         </a>
-                        <a href="./admin/links.do">
-                            <el-menu-item index="8">
+                        <a href="/SSM-QX-SYS-V1.01/admin/links.do">
+                            <el-menu-item index="8" v-show="personal">
                                 <i class="fa fa-link fa-fw"></i>
                                 <span slot="title">友链管理</span>
                             </el-menu-item>
                         </a>
-                        <a href="./admin/user.do">
-                            <el-menu-item index="9">
+                        <a href="/SSM-QX-SYS-V1.01/admin/personal.do">
+                            <el-menu-item index="9"  v-show="personal">
                                 <i class="fa fa-user fa-fw"></i>
                                 <span slot="title">个人信息</span>
                             </el-menu-item>
                         </a>
-                        <a href="./admin/setting.do">
-                            <el-menu-item index="10">
-                                <i class="fa fa-cog fa-fw"></i>
-                                <span slot="title">系统设置</span>
-                            </el-menu-item>
-                        </a>
-                        <a href="./admin/log.do">
-                            <el-menu-item index="11">
-                                <i class="fa fa-cog fa-fw"></i>
+                        <!-- </template> -->
+                        </el-submenu>
+                        <el-submenu index="10" >
+                            <template slot="title">
+                                <i class="el-icon-setting"></i>
+                                <span>系统管理</span>
+                            </template>
+                        <a href="/SSM-QX-SYS-V1.01/admin/log.do">
+                            <el-menu-item index="11"  v-show="log">
+                                <i class="fa fa-file-text fa-fw"></i>
                                 <span slot="title">日志管理</span>
                             </el-menu-item>
                         </a>
+                        <a href="/SSM-QX-SYS-V1.01/admin/user.do">
+                            <el-menu-item index="12" v-show="user">
+                                <i class="fa fa-user-circle fa-fw"></i>
+                                <span slot="title">用户管理</span>
+                            </el-menu-item>
+                        </a>
+                        <a href="/SSM-QX-SYS-V1.01/admin/role.do">
+                            <el-menu-item index="13" v-show="role">
+                                <i class="fa fa-id-card-o fa-fw"></i>
+                                <span slot="title" >角色管理</span>
+                            </el-menu-item>
+                        </a>
+      </el-submenu>
                     </el-menu>
                 </el-aside>
             </div>

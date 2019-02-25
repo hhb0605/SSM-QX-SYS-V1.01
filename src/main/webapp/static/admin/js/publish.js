@@ -6,9 +6,9 @@ const WIDTH = 1024;
 const RATIO = 3;
 
 const api = {
-    save: 'article/save.do',
-    allCategory: 'category/findAll.do',
-    info: 'admin/info.do'
+    save: '/SSM-QX-SYS-V1.01/article/save.do',
+    allCategory: '/SSM-QX-SYS-V1.01/category/findAll.do',
+    info: '/SSM-QX-SYS-V1.01/admin/info.do'
 };
 
 //Vue实例
@@ -24,7 +24,7 @@ new Vue({
                 author: '',
                 content: '',
                 contentMd: '',
-                origin: 'http://tycoding.cn',
+                origin: 'http://www.satone.cn/SoftlyFlow',
             },
             category: [{
                 id: '',
@@ -46,6 +46,12 @@ new Vue({
             mobileStatus: false, //是否是移动端
             sidebarStatus: true, //侧边栏状态，true：打开，false：关闭
             sidebarFlag: ' openSidebar ', //侧边栏标志
+            
+            personal:false,
+	        log : false,
+	        user:false,
+	        role:false,
+	        permissions:[]
         }
     },
     methods: {
@@ -55,7 +61,6 @@ new Vue({
             this.article.content = window.markdownContent.getHTML(); //给content赋值
             this.article.contentMd = window.markdownContent.getMarkdown(); //给contentMd赋值
             this.article.tags = JSON.stringify(this.dynamicTags); //给tags字段赋值
-
             this.$http.post(api.save, JSON.stringify(this.article)).then(result => {
                 window.location.reload();
                 if (result.body.code == 20000) {
@@ -111,7 +116,8 @@ new Vue({
             });
             //已登录用户名
             this.$http.get(api.info).then(result => {
-                this.token.name = result.body.data.name;
+                this.token.name = result.body.data.username;
+                this.article.author =  this.token.name;
             });
         },
 
@@ -153,5 +159,32 @@ new Vue({
         }
 
     },
+    mounted : function() {
+		this.$http.post('/SSM-QX-SYS-V1.01/role/doFindCurrentMenus.do').then(result => {
+			this.permissions = result.data.data;
+			for(var i =0;i<this.permissions.length;i++){
+				switch(this.permissions[i]){
+					case 'sys:personal':
+						this.personal=true;
+						   break;
+					case 'sys:log':
+						this.log = true;
+                        break;
+					case 'sys:user':
+						this.user = true;
+                        break;
+					case 'sys:role':
+						this.role = true;
+                        break;
+					case 'sys:root':
+						this.role = true;
+						this.user = true;
+						this.log = true;
+						this.personal=true;
+                        break;
+				}
+			}
+        });
+    }
 });
 

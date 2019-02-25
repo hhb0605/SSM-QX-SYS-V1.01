@@ -2,14 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>个人信息</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>用户管理</title>
     <link rel="icon" th:href="@{/static/public/admin/favicon.png}" type="image/png">
-    <link rel="stylesheet" th:href="@{/static/lib/element-ui/lib/theme-chalk/index.css}"/>
+    <!--<link rel="stylesheet" th:href="@{/lib/element-ui/lib/theme-chalk/index.css}"/>-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" th:href="@{/static/lib/font/css/font-awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/static/public/admin/base.css}">
-    <link rel="stylesheet" th:href="@{/static/admin/css/user.css}">
-
+    
+    <!-- 导入的adminLTE的css -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" th:href="@{/static/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/static/bower_components/font-awesome/css/font-awesome.min.css}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" th:href="@{/static/bower_components/Ionicons/css/ionicons.min.css}">
+  <!-- Theme style -->
+  <link rel="stylesheet" th:href="@{/static/dist/css/AdminLTE.min.css}">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" th:href="@{/static/dist/css/skins/skin-blue.min.css}">
+  <link rel="stylesheet" th:href="@{/static/bower_components/layer/skin/default/layer.css}">
+  <link rel="stylesheet" th:href="@{/static/bower_components/ztree/css/metroStyle/metroStyle.css}"/>
+  <link rel="stylesheet" th:href="@{/static/bower_components/treegrid/jquery.treegrid.css}"/>
+  
+ 
     <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -30,56 +47,63 @@
             <!-- main -->
             <el-main class="app-main">
                 <el-card>
-                    <h2>个人设置</h2>
-                    <div>
-                        <el-row :gutter="200">
-                            <el-col :xs="24" :sm="12" :lg="12" :span="12" style="padding-bottom: 20px;">
-                                <el-card class="card-category">
-                                    <div slot="header">
-                                        <span>个人信息</span>
-                                    </div>
-                                    <div>
-                                        <el-form label-width="80px" :model="user" ref="user">
-                                            <el-form-item required prop="username" :rules="[{ required: true, message: '请输入用户账号'}]" label="账号">
-                                                <el-input placeholder="请输入用户账号" v-model="user.username"></el-input>
-                                            </el-form-item>
-                                            <el-form-item required prop="nickname" :rules="[{ required: true, message: '请输入用户昵称'}]" label="昵称">
-                                                <el-input placeholder="请输入用户昵称" v-model="user.nickname"></el-input>
-                                            </el-form-item>
-                                            <el-form-item required prop="email" :rules="[{ required: true, message: '请输入用户邮箱'}]" label="邮箱">
-                                                <el-input placeholder="请输入用户邮箱" v-model="user.email"></el-input>
-                                            </el-form-item>
-                                            <el-form-item>
-                                                <el-button type="primary" @click="save" style="float:right;">保存信息</el-button>
-                                            </el-form-item>
-                                        </el-form>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                            <el-col :xs="24" :sm="12" :lg="12" :span="12">
-                                <el-card class="card-tags">
-                                    <div slot="header">
-                                        <span>修改密码</span>
-                                    </div>
-                                    <div>
-                                        <el-form label-width="100px" ref="pass" :model="pass">
-                                            <el-form-item required prop="checkPass" :rules="[{ required: true, message: '请输入旧密码'}]" label="输入旧密码">
-                                                <el-input placeholder="请输入旧密码" v-model="pass.checkPass" type="password"></el-input>
-                                            </el-form-item>
-                                            <el-form-item required prop="password" :rules="[{ required: true, message: '请输入新密码'}]" label="输入新密码">
-                                                <el-input placeholder="请输入新密码,密码长度在6位及以上" v-model="pass.password" type="password"></el-input>
-                                            </el-form-item>
-                                            <el-form-item required prop="repassword" :rules="[{ required: true, message: '确认新密码'}]" label="确认新密码">
-                                                <el-input placeholder="确认新密码" v-model="pass.repassword" type="password"></el-input>
-                                            </el-form-item>
-                                            <el-form-item>
-                                                <el-button type="danger" @click="changePassword" style="float:right;">修改密码</el-button>
-                                            </el-form-item>
-                                        </el-form>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                        </el-row>
+                    <h2>用户管理</h2>
+                    <div id="mainContentId">
+                    <!-- 填充用户列表 -->
+                    	<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"></h3>
+
+				<div class="box-tools">
+					<div class="input-group input-group-sm" style="width: 350px;">
+						<input type="text" name="table_search" id="searchNameId"
+							class="form-control pull-right" placeholder="用户名">
+
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default btn-search">
+                                <i class="fa fa-search"></i>
+							</button>
+							<button type="button" class="btn btn-default btn-add">添加</button>
+							<button type="button" class="btn btn-default btn-update">修改</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body table-responsive no-padding">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>用户名</th>
+							<th></th>
+							<th>邮箱</th>
+							<th>手机号</th>
+							<th>状态</th>
+							<th>创建时间</th>
+							<th>修改时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyId"></tbody>
+				</table>
+			</div>
+			<div id="pageId" class="box-footer clearfix">
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+</div>
+
+
+
+
+
+                    	
+
                     </div>
                 </el-card>
             </el-main>
@@ -92,4 +116,154 @@
 <script type="text/javascript" th:src="@{/static/lib/element-ui/lib/index.js}"></script>
 <script type="text/javascript" th:src="@{/static/lib/vue/vue-resource.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/admin/js/user.js}"></script>
+
+<!-- 导入的adminLTE的js -->
+ <!-- jQuery 3 -->
+<script th:src="@{/static/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script th:src="@{/static/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/static/dist/js/adminlte.min.js}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	   $("#pageId").load("../user/doPageUI.do",function(){
+		   doGetObjects();
+	   });
+	   $(".input-group-btn")
+	   .on("click",".btn-search",doQueryObjects)
+	   .on("click",".btn-add,.btn-update",doLoadEditUI);
+	   $("tbody").on("click",".btn-valid",doValidById);
+});
+
+function doLoadEditUI(){
+	   //1.判定点击的对象
+	   var title;
+	   if($(this).hasClass("btn-add")){
+		   title="添加用户";
+		   doLoadPage(title);
+	   }else if($(this).hasClass("btn-update")){
+		   title="修改用户";
+		   var id=doGetCheckedId();
+		   if(!id){
+			  alert("请先选择");
+			  return;
+		   }
+		   //基于id进行查询并加载编辑页面
+		   doFindObjectById(id,title);
+	   }
+}
+function doFindObjectById(id,title){
+	   //1.params
+	   var params={"id":id};
+	   //2.url
+	   var url="../user/findUserById.do";
+	   //3.ajax request
+	   $.getJSON(url,params,function(result){//JsonResult
+		   if(result.state==1){
+			  $("#mainContentId").data("rowData",result.data); 
+	          doLoadPage(title);
+		   }else{
+			  alert(result.message);
+		   }
+	   });
+}
+
+function doGetCheckedId(){
+	 return $("tbody input[name='radioId']:checked").val();
+}
+function doLoadPage(title){
+	   var url="../user/doUserEditUI.do";
+	   $("#mainContentId").load(url,function(){
+		   $(".box-title").html(title);
+	   }) 
+}
+//禁用和启用操作
+function doValidById(){
+	   //params
+	   var rowData=$(this).parents("tr").data("rowData");
+	   var id=rowData.id;
+	   var newValid=rowData.valid?0:1;
+	   var params={"id":rowData.id,"valid":newValid};
+	   //url
+	   var url="../user/doValidById.do";
+	   //ajax request
+    var btn=$(this);//获取点击的button对象
+	   $.post(url,params,function(result){
+ 	   if(result.state==1){
+ 		   alert(result.message);
+ 		   //doGetObjects();//重新查询刷新
+ 		   //优化方式实现(局部刷新:修改button显示,修改td内容显示)
+ 		   doEditRow(btn,rowData.valid);
+ 	   }else{
+ 		   alert(result.message);
+ 	   }
+    })    
+}    
+function doEditRow(obj,valid){
+	   //1.修改按钮上的内容
+	   $(obj).html(valid?"启用":"禁用");
+	   //2.修改tr中第5个td中的内容(查询API文档)
+	   var tr=$(obj).parents("tr");
+	   tr.find("td:eq(5)").text(valid?"禁用":"启用");
+	   //3.获取当前行tr对象，然后重新绑定新的值
+	   var rowData=tr.data("rowData")
+	   rowData.valid=valid?0:1;
+	   tr.data("rowData",rowData);
+}
+//处理查询按钮事件
+function doQueryObjects(){
+	   $("#pageId").data("pageCurrent",1);
+	   doGetObjects();
+}
+//页面加载完成异步加载当前页数据
+function doGetObjects(){
+	   var url="../user/doFindPageObjects.do";
+	   var pageCurrent=$("#pageId").data("pageCurrent");
+	   if(!pageCurrent)pageCurrent=1;
+	   var params={"pageCurrent":pageCurrent}
+	   params.username=$("#searchNameId").val().trim();
+	   console.log(params);
+	   $.getJSON(url,params,function(result){
+		   console.log(result);
+		   doHandleResponseResult(result);
+	   });
+}
+function doHandleResponseResult(result){
+	   if(result.state==1){
+		  doSetTableBodyRows(result.data.records);
+		  doSetPagination(result.data);
+		}else{
+		  alert(result.message);
+	   }
+}
+//通过服务端返回的数据初始化页面
+function doSetTableBodyRows(data){
+	  //1.获取tbody对象，并清空内容
+	  var tBody=$("#tbodyId");
+	  tBody.empty();
+	  //2.迭代data内容将数据追加到tbody中
+	  for(var i in data){
+		  var tr=$("<tr></tr>");
+		  tr.data("rowData",data[i]);
+		  var tds=doCreateTds(data[i]);
+		  tr.append(tds);
+		  tBody.append(tr);
+	  }
+}
+function doCreateTds(row){
+	   console.log(row);
+	   var tds="<td><input type='radio' name='radioId' value='"+row.id+"' ></td>"+
+	     "<td>"+row.username+"</td>"+
+	     "<td>"+(row.sysDept?row.sysDept.name:'')+"</td>"+
+	     "<td>"+row.email+"</td>"+
+	     "<td>"+row.mobile+"</td>"+
+	     "<td>"+(row.valid?"启用":"禁用")+"</td>"+
+	     "<td>"+new Date(row.createdTime).toLocaleString()+"</td>"+
+	     "<td>"+new Date(row.modifiedTime).toLocaleString()+"</td>"+
+	     "<td><button type='button' class='btn btn-default btn-valid'>"+(row.valid?"禁用":"启用")+"</button></td>"; 
+    return tds;
+}
+</script>
+</script>
 </html>

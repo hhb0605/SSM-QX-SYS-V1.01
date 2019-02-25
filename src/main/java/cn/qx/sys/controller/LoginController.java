@@ -25,7 +25,6 @@ import cn.qx.common.vo.StatusCode;
  */
 @Controller
 public class LoginController {
-    
     /**
      * 跳转到后台首页
      *
@@ -46,6 +45,7 @@ public class LoginController {
         return "admin/login";
     }
 
+    
     @ResponseBody
     @RequestMapping("/admin/login")
     public Result login(
@@ -55,34 +55,27 @@ public class LoginController {
         if (username != null && password != null) {
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            if(!subject.isRemembered() || subject.isAuthenticated()) {
             if (remember != null) {
                 if (remember.equals("true")) {
                     //说明选择了记住我
                     token.setRememberMe(true);
-                } else {
-                    token.setRememberMe(false);
-                }
-            } else {
-                token.setRememberMe(false);
-            }
-
-            try {
+                }else {
+					token.setRememberMe(false);
+				}
+            }else {
+				token.setRememberMe(false);
+			}
                 subject.login(token);
-                System.out.println("是否登录：" + subject.isAuthenticated());
                 Map<String,Object> map = new HashMap<>();
                 map.put("token", subject.getPrincipal());
                 return new Result(StatusCode.SUCCESS, map);
-            } catch (UnknownAccountException e) {
-                e.printStackTrace();
-                return new Result(StatusCode.ERROR, ResultEnums.LOGIN_UNKNOWN);
-            } catch (IncorrectCredentialsException e) {
-                e.printStackTrace();
-                return new Result(StatusCode.ERROR, ResultEnums.LOGIN_ERROR);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return new Result(StatusCode.ERROR, ResultEnums.INNER_ERROR);
+            }else {
+            	Map<String,Object> map = new HashMap<>();
+                map.put("token", subject.getPrincipal());
+                return new Result(StatusCode.SUCCESS, map);
             }
-        } else {
+        	} else {
             return new Result(StatusCode.ERROR, ResultEnums.INPUT_ERROR);
         }
     }

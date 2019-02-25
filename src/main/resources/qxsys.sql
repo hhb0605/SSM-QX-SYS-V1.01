@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 50524
+Source Server Version : 50622
 Source Host           : localhost:3306
 Source Database       : qxsys
 
 Target Server Type    : MYSQL
-Target Server Version : 50524
+Target Server Version : 50622
 File Encoding         : 65001
 
-Date: 2019-02-22 12:23:41
+Date: 2019-02-25 09:58:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,11 +33,12 @@ CREATE TABLE `sys_article` (
   `edit_time` timestamp NOT NULL DEFAULT '1970-02-01 00:00:01' COMMENT '上次修改时间',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文章表';
 
 -- ----------------------------
 -- Records of sys_article
 -- ----------------------------
+INSERT INTO `sys_article` VALUES ('2', '文章标题1', '', 'admin', '<p>文章内容1</p>\n', '文章内容1', 'http://www.satone.cn/SoftlyFlow', '1', '3', '2019-02-25 07:44:09', '2019-02-25 07:44:09', '2019-02-25 07:44:09');
 
 -- ----------------------------
 -- Table structure for `sys_article_category`
@@ -48,11 +49,13 @@ CREATE TABLE `sys_article_category` (
   `article_id` bigint(20) NOT NULL COMMENT '文章ID',
   `category_id` bigint(20) NOT NULL COMMENT '分类ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章&&分类关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文章&&分类关联表';
 
 -- ----------------------------
 -- Records of sys_article_category
 -- ----------------------------
+INSERT INTO `sys_article_category` VALUES ('1', '1', '1');
+INSERT INTO `sys_article_category` VALUES ('2', '2', '2');
 
 -- ----------------------------
 -- Table structure for `sys_article_tags`
@@ -63,11 +66,13 @@ CREATE TABLE `sys_article_tags` (
   `article_id` bigint(20) NOT NULL COMMENT '文章ID',
   `tags_id` bigint(20) NOT NULL COMMENT '标签ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章&&标签关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文章&&标签关联表';
 
 -- ----------------------------
 -- Records of sys_article_tags
 -- ----------------------------
+INSERT INTO `sys_article_tags` VALUES ('1', '1', '1');
+INSERT INTO `sys_article_tags` VALUES ('2', '2', '2');
 
 -- ----------------------------
 -- Table structure for `sys_category`
@@ -77,11 +82,13 @@ CREATE TABLE `sys_category` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(100) DEFAULT NULL COMMENT '分类名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='分类表';
 
 -- ----------------------------
 -- Records of sys_category
 -- ----------------------------
+INSERT INTO `sys_category` VALUES ('1', null);
+INSERT INTO `sys_category` VALUES ('2', '分类1');
 
 -- ----------------------------
 -- Table structure for `sys_comments`
@@ -102,11 +109,12 @@ CREATE TABLE `sys_comments` (
   `state` varchar(100) DEFAULT '正常' COMMENT '状态',
   `sort` bigint(20) DEFAULT '0' COMMENT '分类：0默认文章详情页，1友链页，2关于我页',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='评论表';
 
 -- ----------------------------
 -- Records of sys_comments
 -- ----------------------------
+INSERT INTO `sys_comments` VALUES ('1', '0', '0', '文章标题1', '2', 'asdas', null, '1500973619@qq.com', 'dasdsa', '2019-02-25 09:02:33', 'http://www.baidu.com', null, '0');
 
 -- ----------------------------
 -- Table structure for `sys_links`
@@ -117,11 +125,12 @@ CREATE TABLE `sys_links` (
   `name` varchar(100) DEFAULT NULL COMMENT '连接名称',
   `url` varchar(200) DEFAULT NULL COMMENT '连接URL',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='友链表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='友链表';
 
 -- ----------------------------
 -- Records of sys_links
 -- ----------------------------
+INSERT INTO `sys_links` VALUES ('1', null, null);
 
 -- ----------------------------
 -- Table structure for `sys_logs`
@@ -137,13 +146,123 @@ CREATE TABLE `sys_logs` (
   `ip` varchar(64) DEFAULT NULL COMMENT 'IP地址',
   `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8 COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8 COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_logs
 -- ----------------------------
-INSERT INTO `sys_logs` VALUES ('82', 'admin', '删除操作', 'cn.qx.sys.service.impl.SysLogServiceImpl.deleteObjects', '[[Ljava.lang.Integer;@2b5dd79f]', '128', '0:0:0:0:0:0:0:1', '2019-02-22 12:15:45');
-INSERT INTO `sys_logs` VALUES ('83', 'admin', '删除操作', 'cn.qx.sys.service.impl.SysLogServiceImpl.deleteObjects', '[[65]]', '211', '0:0:0:0:0:0:0:1', '2019-02-22 12:17:49');
+INSERT INTO `sys_logs` VALUES ('89', 'admin', '删除操作', 'cn.qx.sys.service.impl.LogServiceImpl.deleteObjects', '[[87]]', '58', '0:0:0:0:0:0:0:1', '2019-02-22 17:25:33');
+INSERT INTO `sys_logs` VALUES ('90', 'admin', '删除操作', 'cn.qx.sys.service.impl.LogServiceImpl.deleteObjects', '[[88]]', '157', '0:0:0:0:0:0:0:1', '2019-02-22 17:25:39');
+INSERT INTO `sys_logs` VALUES ('91', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.findObjectByColumn', '[\"mobile\",\"123\"]', '11', '0:0:0:0:0:0:0:1', '2019-02-24 19:20:15');
+INSERT INTO `sys_logs` VALUES ('92', 'admin', '用户分页查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '364', '0:0:0:0:0:0:0:1', '2019-02-24 19:30:21');
+INSERT INTO `sys_logs` VALUES ('93', 'admin', '用户分页查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '3', '0:0:0:0:0:0:0:1', '2019-02-24 19:31:26');
+INSERT INTO `sys_logs` VALUES ('94', 'admin', '用户分页查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '11', '0:0:0:0:0:0:0:1', '2019-02-24 19:32:34');
+INSERT INTO `sys_logs` VALUES ('95', 'admin', '用户分页查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '2', '0:0:0:0:0:0:0:1', '2019-02-24 19:33:58');
+INSERT INTO `sys_logs` VALUES ('96', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '111', '0:0:0:0:0:0:0:1', '2019-02-24 20:03:44');
+INSERT INTO `sys_logs` VALUES ('97', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:03:50');
+INSERT INTO `sys_logs` VALUES ('98', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:05:17');
+INSERT INTO `sys_logs` VALUES ('99', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:05:21');
+INSERT INTO `sys_logs` VALUES ('100', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:05:23');
+INSERT INTO `sys_logs` VALUES ('101', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:05:24');
+INSERT INTO `sys_logs` VALUES ('102', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:05:26');
+INSERT INTO `sys_logs` VALUES ('103', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '0', '0:0:0:0:0:0:0:1', '2019-02-24 20:05:27');
+INSERT INTO `sys_logs` VALUES ('104', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:05:28');
+INSERT INTO `sys_logs` VALUES ('105', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"satone\",1]', '5', '0:0:0:0:0:0:0:1', '2019-02-24 20:05:43');
+INSERT INTO `sys_logs` VALUES ('106', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:07:09');
+INSERT INTO `sys_logs` VALUES ('107', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:07:12');
+INSERT INTO `sys_logs` VALUES ('108', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:08:34');
+INSERT INTO `sys_logs` VALUES ('109', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '0', '0:0:0:0:0:0:0:1', '2019-02-24 20:08:46');
+INSERT INTO `sys_logs` VALUES ('110', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:08:56');
+INSERT INTO `sys_logs` VALUES ('111', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-24 20:09:11');
+INSERT INTO `sys_logs` VALUES ('112', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '3', '0:0:0:0:0:0:0:1', '2019-02-24 20:09:18');
+INSERT INTO `sys_logs` VALUES ('113', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '350', '0:0:0:0:0:0:0:1', '2019-02-24 20:12:41');
+INSERT INTO `sys_logs` VALUES ('114', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",2]', '5', '0:0:0:0:0:0:0:1', '2019-02-24 20:12:53');
+INSERT INTO `sys_logs` VALUES ('115', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '12', '0:0:0:0:0:0:0:1', '2019-02-25 07:50:29');
+INSERT INTO `sys_logs` VALUES ('116', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '1', '0:0:0:0:0:0:0:1', '2019-02-25 07:53:17');
+INSERT INTO `sys_logs` VALUES ('117', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '65', '0:0:0:0:0:0:0:1', '2019-02-25 08:16:44');
+INSERT INTO `sys_logs` VALUES ('118', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"satone\",1]', '5', '0:0:0:0:0:0:0:1', '2019-02-25 08:16:50');
+INSERT INTO `sys_logs` VALUES ('119', 'admin', '用户查询', 'cn.qx.sys.service.impl.UserServiceImpl.doFindPageObjects', '[\"\",1]', '16', '0:0:0:0:0:0:0:1', '2019-02-25 09:04:08');
+
+-- ----------------------------
+-- Table structure for `sys_menus`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_menus`;
+CREATE TABLE `sys_menus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL COMMENT '资源名称',
+  `url` varchar(200) DEFAULT NULL COMMENT '资源URL',
+  `type` int(11) DEFAULT NULL COMMENT '类型     1：菜单   2：按钮',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  `note` varchar(100) DEFAULT NULL COMMENT '备注',
+  `parent_id` int(11) DEFAULT NULL COMMENT '父菜单ID，一级菜单为0',
+  `permission` varchar(500) DEFAULT NULL COMMENT '授权(如：user:create)',
+  `created_time` datetime DEFAULT NULL,
+  `modifiedTime` datetime DEFAULT NULL,
+  `created_user` varchar(20) DEFAULT NULL COMMENT '创建用户',
+  `modified_user` varchar(20) DEFAULT NULL COMMENT '修改用户',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='资源管理';
+
+-- ----------------------------
+-- Records of sys_menus
+-- ----------------------------
+INSERT INTO `sys_menus` VALUES ('7', '个人页面管理', '/admin.do', '1', '7', null, null, 'sys:personal', '2017-07-12 15:15:59', '2018-10-29 12:16:41', 'admin', null);
+INSERT INTO `sys_menus` VALUES ('8', '系统管理', '请求路径', '1', '8', null, null, 'sys:root', '2017-07-12 15:15:59', '2017-07-21 11:16:00', 'admin', 'admin');
+INSERT INTO `sys_menus` VALUES ('25', '日志管理', 'log/doFindPageObject.do', '1', '25', null, '8', 'sys:log', '2017-07-12 15:15:59', '2018-10-29 12:15:48', 'admin', null);
+INSERT INTO `sys_menus` VALUES ('45', '用户管理', 'user/doUserListUI.do', '1', '45', null, '8', 'sys:user', '2017-07-12 15:15:59', '2018-10-29 12:16:41', 'admin', null);
+INSERT INTO `sys_menus` VALUES ('47', '角色管理', 'role/doRoleListUI.do', '1', '47', null, '8', 'sys:role', '2017-07-12 15:15:59', '2018-10-29 12:17:46', 'admin', null);
+
+-- ----------------------------
+-- Table structure for `sys_roles`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_roles`;
+CREATE TABLE `sys_roles` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT '角色名称',
+  `note` varchar(500) DEFAULT NULL COMMENT '备注',
+  `created_time` datetime DEFAULT NULL,
+  `modified_time` datetime DEFAULT NULL,
+  `created_user` varchar(20) DEFAULT NULL COMMENT '创建用户',
+  `modified_user` varchar(20) DEFAULT NULL COMMENT '修改用户',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色';
+
+-- ----------------------------
+-- Records of sys_roles
+-- ----------------------------
+INSERT INTO `sys_roles` VALUES ('47', '系统所有者', '系统所有者', '2018-07-18 19:23:11', '2019-02-24 16:44:50', null, null);
+INSERT INTO `sys_roles` VALUES ('48', '权限管理员', '权限管理', '2019-01-30 17:24:42', '2019-02-24 16:10:59', '系统所有者', null);
+INSERT INTO `sys_roles` VALUES ('49', '第二个权限管理者', '黄浩', '2019-02-23 15:48:51', '2019-02-24 16:11:07', null, null);
+INSERT INTO `sys_roles` VALUES ('51', '第二个普通用户', '第二个普通用户', '2019-02-23 17:00:56', '2019-02-24 16:11:33', null, null);
+INSERT INTO `sys_roles` VALUES ('52', '普通用户', '普通用户', '2019-02-24 16:44:24', '2019-02-24 16:44:24', null, null);
+
+-- ----------------------------
+-- Table structure for `sys_role_menus`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_menus`;
+CREATE TABLE `sys_role_menus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
+  `menu_id` int(11) DEFAULT NULL COMMENT 'ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1510 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与菜单对应关系';
+
+-- ----------------------------
+-- Records of sys_role_menus
+-- ----------------------------
+INSERT INTO `sys_role_menus` VALUES ('1495', '48', '7');
+INSERT INTO `sys_role_menus` VALUES ('1496', '48', '8');
+INSERT INTO `sys_role_menus` VALUES ('1497', '48', '25');
+INSERT INTO `sys_role_menus` VALUES ('1498', '49', '7');
+INSERT INTO `sys_role_menus` VALUES ('1499', '49', '8');
+INSERT INTO `sys_role_menus` VALUES ('1500', '49', '25');
+INSERT INTO `sys_role_menus` VALUES ('1503', '51', '7');
+INSERT INTO `sys_role_menus` VALUES ('1504', '52', '7');
+INSERT INTO `sys_role_menus` VALUES ('1505', '47', '7');
+INSERT INTO `sys_role_menus` VALUES ('1506', '47', '8');
+INSERT INTO `sys_role_menus` VALUES ('1507', '47', '25');
+INSERT INTO `sys_role_menus` VALUES ('1508', '47', '45');
+INSERT INTO `sys_role_menus` VALUES ('1509', '47', '47');
 
 -- ----------------------------
 -- Table structure for `sys_tags`
@@ -153,11 +272,13 @@ CREATE TABLE `sys_tags` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(100) DEFAULT NULL COMMENT '标签名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标签表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='标签表';
 
 -- ----------------------------
 -- Records of sys_tags
 -- ----------------------------
+INSERT INTO `sys_tags` VALUES ('1', null);
+INSERT INTO `sys_tags` VALUES ('2', '标签1');
 
 -- ----------------------------
 -- Table structure for `sys_user`
@@ -166,15 +287,69 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `username` varchar(100) NOT NULL COMMENT '用户名',
-  `nickname` varchar(100) NOT NULL COMMENT '昵称',
+  `nickname` varchar(100) DEFAULT NULL COMMENT '昵称',
   `password` varchar(100) NOT NULL COMMENT '密码',
   `salt` varchar(200) NOT NULL COMMENT '盐值',
   `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
   `avatar` varchar(100) DEFAULT NULL COMMENT '头像',
+  `valid` tinyint(4) DEFAULT NULL COMMENT '状态  0：禁用   1：正常  默认值 ：1',
+  `modified_user` varchar(20) DEFAULT NULL COMMENT '修改用户',
+  `modified_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `mobile` int(15) DEFAULT NULL,
+  `created_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='标签表';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='标签表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', '菜鸡一枚', 'b9fd429a10b73d2c0971db1d4ad975a9', '9a924d8ae9800c229c892eeba7d413a6', '233333@qq.com', 'http://img.api.tycoding.cn/avatar.jpg');
+INSERT INTO `sys_user` VALUES ('1', 'admin', '菜鸡一枚', 'b9fd429a10b73d2c0971db1d4ad975a9', '9a924d8ae9800c229c892eeba7d413a6', '233333@qq.com', 'http://img.api.tycoding.cn/avatar.jpg', '1', 'admin', '2019-02-24 19:20:15', '123', null);
+INSERT INTO `sys_user` VALUES ('15', 'zxzx', null, 'a0ec95965b80ed1c2a01af749de615df', 'e5b5f928-ec6f-45d1-bb11-6186f84f23c3', 'sdasd', null, '1', 'admin', '2019-02-24 15:43:47', '21213222', '2019-02-24 15:43:38');
+INSERT INTO `sys_user` VALUES ('16', 'asdasdas', null, '7b2ab210c526fe9378be120e32ba9dfb', '29687883-678b-409b-b9ea-6b357246e3e9', 'dasdsa', null, '1', 'admin', '2019-02-24 17:48:15', '123421312', '2019-02-24 17:47:58');
+INSERT INTO `sys_user` VALUES ('17', 'satone', null, 'b9fd429a10b73d2c0971db1d4ad975a9', '9a924d8ae9800c229c892eeba7d413a6', 'sadawdas', null, '0', 'admin', '2019-02-25 08:16:51', '12323', '2019-02-24 20:04:50');
+
+-- ----------------------------
+-- Table structure for `sys_user_roles`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_roles`;
+CREATE TABLE `sys_user_roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
+  `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户与角色对应关系';
+
+-- ----------------------------
+-- Records of sys_user_roles
+-- ----------------------------
+INSERT INTO `sys_user_roles` VALUES ('1', '19', '46');
+INSERT INTO `sys_user_roles` VALUES ('13', '0', '47');
+INSERT INTO `sys_user_roles` VALUES ('14', '0', '46');
+INSERT INTO `sys_user_roles` VALUES ('15', '0', '47');
+INSERT INTO `sys_user_roles` VALUES ('16', '0', '46');
+INSERT INTO `sys_user_roles` VALUES ('17', '0', '47');
+INSERT INTO `sys_user_roles` VALUES ('18', '0', '46');
+INSERT INTO `sys_user_roles` VALUES ('19', '0', '47');
+INSERT INTO `sys_user_roles` VALUES ('20', '6', '46');
+INSERT INTO `sys_user_roles` VALUES ('21', '6', '47');
+INSERT INTO `sys_user_roles` VALUES ('22', '7', '46');
+INSERT INTO `sys_user_roles` VALUES ('23', '7', '49');
+INSERT INTO `sys_user_roles` VALUES ('26', '9', '46');
+INSERT INTO `sys_user_roles` VALUES ('27', '9', '48');
+INSERT INTO `sys_user_roles` VALUES ('28', '8', '46');
+INSERT INTO `sys_user_roles` VALUES ('29', '8', '48');
+INSERT INTO `sys_user_roles` VALUES ('30', '8', '49');
+INSERT INTO `sys_user_roles` VALUES ('31', '10', '46');
+INSERT INTO `sys_user_roles` VALUES ('32', '10', '47');
+INSERT INTO `sys_user_roles` VALUES ('33', '11', '46');
+INSERT INTO `sys_user_roles` VALUES ('34', '11', '47');
+INSERT INTO `sys_user_roles` VALUES ('35', '12', '46');
+INSERT INTO `sys_user_roles` VALUES ('36', '13', '47');
+INSERT INTO `sys_user_roles` VALUES ('37', '14', '46');
+INSERT INTO `sys_user_roles` VALUES ('38', '3', '51');
+INSERT INTO `sys_user_roles` VALUES ('41', '15', '46');
+INSERT INTO `sys_user_roles` VALUES ('42', '15', '47');
+INSERT INTO `sys_user_roles` VALUES ('45', '16', '46');
+INSERT INTO `sys_user_roles` VALUES ('46', '16', '48');
+INSERT INTO `sys_user_roles` VALUES ('47', '1', '47');
+INSERT INTO `sys_user_roles` VALUES ('48', '17', '47');

@@ -16,10 +16,12 @@
 
     <!-- 条件查询 -->
     <select id="findByPage"  resultType="cn.qx.sys.entity.Article">
-        SELECT * FROM sys_article WHERE 1=1
-        <if test="author != null">
-            AND author LIKE CONCAT('%', #{author}, '%')
+        SELECT * FROM sys_article
+        <where>
+        <if test="title != null and title!=''">
+            title LIKE CONCAT('%', #{title}, '%')
         </if>
+        </where>
         ORDER BY id DESC
     </select>
 
