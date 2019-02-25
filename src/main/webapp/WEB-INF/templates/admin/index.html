@@ -95,7 +95,7 @@
                                 <h3>最新文章</h3>
                                 <div class="articles">
                                     <div v-for="item in article">
-                                        <a v-if="item.title != ''" :href="'/article/' + item.id" target="_blank"
+                                        <a v-if="item.title != ''" :href="'/SSM-QX-SYS-V1.01/article/' + item.id+'.do'" target="_blank"
                                            v-text="item.title"></a>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                     <div v-for="item in comments">
                                         <p><span v-text="item.author"></span>&nbsp;&nbsp;于&nbsp;<span
                                                 v-text="item.time"></span>&nbsp;:</p>
-                                        <a v-if="item.articleId != 0" :href="'/article/' + item.articleId"
+                                        <a v-if="item.articleId != 0" :href="'/SSM-QX-SYS-V1.01/article/' + item.articleId+'.do'"
                                            target="_blank" v-text="item.content"></a>
                                         <span v-else v-text="item.content"></span>
                                     </div>
