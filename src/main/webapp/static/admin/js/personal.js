@@ -89,7 +89,7 @@ var vm = new Vue({
                         } else {
                             //修改了用户名，从新登陆
                             //执行/logout请求
-                            window.location.href = '/SSM-QX-SYS-V1.01/admin/logout.do'; //更改了密码，注销当前登录状态，重新登录
+                            window.location.href = '/SSM-QX-SYS-V1.01/logout.do'; //更改了密码，注销当前登录状态，重新登录
                         }
                     } else {
                         this.$message({
@@ -146,7 +146,7 @@ var vm = new Vue({
                         });
 
                         //执行/logout请求
-                        window.location.href = '/SSM-QX-SYS-V1.01/admin/logout.do'; //更改了密码，注销当前登录状态，重新登录
+                        window.location.href = '/SSM-QX-SYS-V1.01/logout.do'; //更改了密码，注销当前登录状态，重新登录
                     } else {
                         this.$message({
                             type: 'info',

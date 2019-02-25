@@ -40,7 +40,7 @@ public class LogController {
 	public JsonResult doDeleteObjects(Integer...ids){
 		System.out.println("sysLogService="+sysLogService.getClass().getName());
 		sysLogService.deleteObjects(ids);
-		return new JsonResult("delete ok");
+		return new JsonResult("删除成功");
 	}
 	
 	@GetMapping("doFindPageObjects")

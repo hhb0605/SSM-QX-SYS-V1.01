@@ -66,7 +66,6 @@ var vm = new Vue({
         //条件查询
         search(pageCode, pageSize) {
             this.$http.post(api.findByPage(pageSize,pageCode), this.searchEntity).then(result => {
-            	console.log(result.body.data);
                 this.article = result.body.data.rows;
                 this.pageConf.totalPage = result.body.data.total;
             });

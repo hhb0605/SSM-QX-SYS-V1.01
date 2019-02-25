@@ -32,7 +32,7 @@ public class RoleController {
     @ResponseBody
     public JsonResult doSaveObject(Role entity, Integer[] menuIds) {
         sysRoleService.saveObject(entity, menuIds);
-        return new JsonResult("save ok");
+        return new JsonResult("保存成功");
     }
 
     @RequestMapping("doFindObjectById")
@@ -45,7 +45,7 @@ public class RoleController {
     @ResponseBody
     public JsonResult doUpdateObject(Role entity, Integer[] menuIds) {
         sysRoleService.updateObject(entity, menuIds);
-        return new JsonResult("update ok");
+        return new JsonResult("更新成功");
     }
 
     @RequestMapping("{doFindObjects,doFindRoles}")
@@ -58,7 +58,7 @@ public class RoleController {
     @ResponseBody
     public JsonResult doDeleteObject(Integer id) {
         sysRoleService.deleteObject(id);
-        return new JsonResult("delete ok");
+        return new JsonResult("删除成功");
     }
 
     @RequestMapping("doFindCurrentMenus")
