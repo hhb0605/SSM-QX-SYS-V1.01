@@ -46,10 +46,11 @@ new Vue({
                             this.loading.close(); //关闭动画加载
                         } else {
                             // 弹出错误信息框
+                        	console.log(result.body.data);
                             this.$emit(
                                 'submit-form',
                                 this.$message({
-                                    message: result.body.data.info,
+                                    message: result.body.data,
                                     type: 'warning',
                                     duration: 6000
                                 })

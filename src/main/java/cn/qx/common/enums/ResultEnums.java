@@ -14,7 +14,8 @@ public enum ResultEnums {
     LOGIN_UNKNOWN("账户不存在"),
     LOGIN_ERROR("用户名或密码错误"),
     LOGIN_CHECK_ERROR("输入的旧密码不匹配"),
-    PARAMETER_ERROR("入参错误");
+    PARAMETER_ERROR("入参错误"),
+    LOGIN_LOCKED("账号被锁定");
 
     private String info;
 

@@ -35,7 +35,6 @@ public class SysCacheAspect {
         if(result == null) {
             result = joinPoint.proceed();
             cache.put(cacheKey, result);
-            System.out.println("放入缓存");
         }
         return result;
     }

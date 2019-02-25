@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.qx.common.annotation.RequestCache;
 import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.util.CheckValue;
 import cn.qx.common.vo.Result;
@@ -69,6 +70,7 @@ public class CommentsController {
      * @param sort      分类，规定：sort=0表示文章详情页的评论信息；sort=1表示友链页的评论信息；sort=2表示关于我页的评论信息
      * @return
      */
+    @RequestCache
     @RequestMapping(value = "/findCommentsList", method = RequestMethod.GET)
     public Result findCommentsList(@RequestParam(value = "pageCode", required = false) Integer pageCode,
                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,

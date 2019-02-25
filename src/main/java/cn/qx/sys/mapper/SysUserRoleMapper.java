@@ -26,9 +26,9 @@ public interface SysUserRoleMapper {
 	 */
     int deleteObjectsByUserId(Integer userId);
     /**
-	 * 基于角色id删除用户和角色的关系
-	 * @param roleId
-	 * @return
-	 */
-	int deleteObjectsByRoleId(Integer roleId);
+     * 基于角色id删除用户和角色的关系
+     * @param roleId
+     * @return
+     */
+    int deleteObjectsByRoleId(Integer roleId);
 }

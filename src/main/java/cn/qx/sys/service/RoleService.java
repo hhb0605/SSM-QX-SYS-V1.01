@@ -29,4 +29,5 @@ public interface RoleService {
 	  */
 	 int deleteObject(Integer id);
 
+	 List<String> findCurrentMenus(String username);
 }

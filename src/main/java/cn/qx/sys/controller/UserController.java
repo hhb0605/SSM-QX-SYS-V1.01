@@ -1,7 +1,5 @@
 package cn.qx.sys.controller;
 
-import java.util.Arrays;
-
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,8 +80,6 @@ public class UserController {
     @RequestMapping(value = "/doSaveObject")
 	  public JsonResult doSaveObject(
 			  User entity,Integer[]roleIds){
-    	System.out.println(entity);
-    	System.out.println(Arrays.toString(roleIds));
 		  userService.saveObject(entity, roleIds);
 		  return new JsonResult("save ok");
 	  }

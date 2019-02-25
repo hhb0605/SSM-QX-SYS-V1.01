@@ -9,42 +9,52 @@ import org.springframework.stereotype.Service;
 import com.alibaba.druid.util.StringUtils;
 
 import cn.qx.common.annotation.RequestLog;
+import cn.qx.common.annotation.RequestCache;
 import cn.qx.common.exception.ServiceException;
 import cn.qx.common.utils.PageUtils;
 import cn.qx.common.vo.CheckBox;
 import cn.qx.common.vo.PageObject;
 import cn.qx.common.vo.RoleMenuVo;
 import cn.qx.sys.entity.Role;
+import cn.qx.sys.entity.User;
+import cn.qx.sys.mapper.SysMenuMapper;
 import cn.qx.sys.mapper.SysRoleMapper;
 import cn.qx.sys.mapper.SysRoleMenuMapper;
+import cn.qx.sys.mapper.SysUserMapper;
+import cn.qx.sys.mapper.SysUserRoleMapper;
 import cn.qx.sys.service.RoleService;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-	@Autowired
-	private SysRoleMapper sysRoleDao;
-	@Autowired
-	private SysRoleMenuMapper sysRoleMenuDao;
 
+    @Autowired
+    private SysRoleMapper sysRoleDao;
+    @Autowired
+    private SysRoleMenuMapper sysRoleMenuDao;
+    @Autowired
+    private SysUserMapper sysUserMapper;
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
+    @Autowired
+    private SysMenuMapper sysMenuMapper;
+    
     @RequiresPermissions("sys:role")
-	public PageObject<Role> findPageObjects(String name, Integer pageCurrent) {
-		// 1.验证参数合法性
-		if (pageCurrent==null || pageCurrent<1) {
-			throw new IllegalArgumentException("页码不正确");
-		}
-		// 2.基于条件查询总记录数
-		Integer rowCount = sysRoleDao.getRowCount(name);
-		if (rowCount==0) {
-			throw new ServiceException("要查询的记录可能不存在");
-		}
-		// 3.查询当前页记录数
-		Integer pageSize=3;
-		Integer startIndex=(pageCurrent-1)*pageSize;
-		List<Role> records = sysRoleDao.findPageObjects(name, startIndex, pageSize);
-		// 4.封装为VO对象
-//		PageObject<SysRole> po = new PageObject<>();
-		return PageUtils.newPageObject(rowCount, pageSize, pageCurrent, records);
-//		return po;
+    public PageObject<Role> findPageObjects(String name, Integer pageCurrent) {
+        // 1.验证参数合法性
+        if (pageCurrent == null || pageCurrent < 1) {
+            throw new IllegalArgumentException("页码不正确");
+        }
+        // 2.基于条件查询总记录数
+        Integer rowCount = sysRoleDao.getRowCount(name);
+        if (rowCount == 0) {
+            throw new ServiceException("要查询的记录可能不存在");
+        }
+        // 3.查询当前页记录数
+        Integer pageSize = 3;
+        Integer startIndex = (pageCurrent - 1) * pageSize;
+        List<Role> records = sysRoleDao.findPageObjects(name, startIndex, pageSize);
+        // 4.封装为VO对象
+        return PageUtils.newPageObject(rowCount, pageSize, pageCurrent, records);
 	}
 	
 	@RequestLog("保存角色")
@@ -66,19 +76,21 @@ public class RoleServiceImpl implements RoleService {
     	return rows;
 
 	}
-	@Override
-	@RequiresPermissions("sys:role")
+
+@RequiresPermissions("sys:role")
+    @Override
     public RoleMenuVo findObjectById(Integer id) {
-    	//1.合法性验证
-    	if(id==null||id<=0)
-    	throw new ServiceException("id的值不合法");
-    	//2.执行查询
-    	RoleMenuVo result = sysRoleDao.findObjectById(id);
-  	//3.验证结果并返回
-    	if(result==null)
-    	throw new ServiceException("此记录已经不存在");
-    	return result;
+        // 1.合法性验证
+        if (id == null || id <= 0)
+            throw new ServiceException("id的值不合法");
+        // 2.执行查询
+        RoleMenuVo result = sysRoleDao.findObjectById(id);
+        // 3.验证结果并返回
+        if (result == null)
+            throw new ServiceException("此记录已经不存在");
+        return result;
     }
+
 	@RequestLog("更新角色信息")
 	@Override
 	@RequiresPermissions("sys:role")
@@ -117,14 +129,31 @@ public class RoleServiceImpl implements RoleService {
 		throw new ServiceException("记录可能已经不存在");
 		//3.删除角色菜单关系数据
 		sysRoleMenuDao.deleteObjectsByRoleId(id);
-/*		//4.删除角色用户关系数据
-		sysUserRoleDao.deleteObjectsByRoleId(id);*/
+		//4.删除角色用户关系数据
+		sysUserRoleDao.deleteObjectsByRoleId(id);
 		return rows;
 	}
 
-	@Override
-	@RequiresPermissions("sys:role")
+  @RequiresPermissions("sys:role")
+    @Override
     public List<CheckBox> findObjects() {
-     	return sysRoleDao.findObjects();
+        return sysRoleDao.findObjects();
+    }
+
+    @RequestCache
+    @Override
+    public List<String> findCurrentMenus(String username) {
+        User user = sysUserMapper.findByName(username);
+        // 查询用户的角色id
+        List<Integer> roleIds = sysUserRoleMapper.findRoleIdsByUserId((int) user.getId());
+        Integer[] rids = new Integer[roleIds.size()];
+        roleIds.toArray(rids);
+        // 查询角色的菜单id
+        List<Integer> mids = sysRoleMenuDao.findMenuIdsByRoleIds(rids);
+        Integer[] menuIds = new Integer[mids.size()];
+        mids.toArray(menuIds);
+        // 查询权限字符串
+        List<String> permissions = sysMenuMapper.findPermissions(menuIds);
+        return permissions;
     }
 }

@@ -6,7 +6,11 @@ import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * 
+ * 使用LinkedHashMap完成缓存 <br/>
+ * (1)单例，通过静态方法getCache()获取 <br/>
+ * (2)ReentrantReadWriteLock实现线程安全 <br/>
+ * (3)以LRU规则置换<br/>
+ * (4)期望容量20
  * @author Satone
  * @date 2019年2月24日
  */
@@ -18,7 +22,7 @@ public class LRUCache implements Serializable{
     // 可重入读写锁
     private static ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     // 期望容量
-    private static final int CACHE_SIZE = 10;
+    private static final int CACHE_SIZE = 20;
     // 负载因子
     private static final float HASH_LOCAL_FACTORY = 0.75f;
 
@@ -40,7 +44,6 @@ public class LRUCache implements Serializable{
                     // 此方法在put()与putAll()时执行
                     @Override
                     protected boolean removeEldestEntry(java.util.Map.Entry<CacheKey, Object> eldest) {
-                        System.out.println("removeEldestEntry() = "+(this.size() > CACHE_SIZE));
                         return this.size() > CACHE_SIZE;
                     }
                 };

@@ -41,6 +41,4 @@
 			#{item}
 		</foreach>
 	</select>
-	
-	
   </mapper>

@@ -37,8 +37,6 @@ public interface SysRoleMapper {
     
     List<CheckBox> findObjects();
     
-    List<Integer> findRoleIdsByUserId(
-			Integer id);
 	/**
 	 * 删除角色自身信息
 	 * @param id

@@ -59,7 +59,9 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() {
         return null;
     }
-
+    
+    @RequestCache
+    @RequestLog("用户查询")
     @Override
     @RequiresPermissions("sys:user")
     public PageBean findByPage(User user, int pageCode, int pageSize) {
@@ -161,6 +163,8 @@ public class UserServiceImpl implements UserService {
 		return rows;
 	}
 
+	@RequestCache
+	@RequestLog("用户查询")
 	@Override
     @RequiresPermissions("sys:user")
 	public PageObject<User> doFindPageObjects(String username, Integer pageCurrent) {
@@ -178,8 +182,6 @@ public class UserServiceImpl implements UserService {
         		return pageObject;
 	}
 	
-	@RequestCache
-	@RequestLog("用户查询")
 	@Override
     @RequiresPermissions("sys:user")
 	public int findObjectByColumn(String columnName,

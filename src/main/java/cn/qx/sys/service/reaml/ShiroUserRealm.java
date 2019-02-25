@@ -7,6 +7,7 @@ import java.util.Set;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
@@ -70,7 +71,12 @@ public class ShiroUserRealm extends AuthorizingRealm {
         String username = (String) authenticationToken.getPrincipal();
         User user = userService.findByName(username);
         if (user == null){
+            // 用户不存在
             throw new UnknownAccountException();
+        }
+        if(user.getValid()==0) {
+            // 账号被锁定
+            throw new LockedAccountException();
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUsername(),

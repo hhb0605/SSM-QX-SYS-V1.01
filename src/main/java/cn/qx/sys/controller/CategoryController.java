@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.qx.common.annotation.RequestCache;
+import cn.qx.common.annotation.RequestLog;
 import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.util.CheckValue;
 import cn.qx.common.vo.Result;
@@ -35,6 +37,8 @@ public class CategoryController {
     @Autowired
     private ArticleService articleService;
 
+    @RequestCache
+    @RequestLog("标签查询")
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public Result findAll() {
         return new Result(StatusCode.SUCCESS, categoryService.findAll());
