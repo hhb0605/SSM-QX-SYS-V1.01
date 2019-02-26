@@ -31,6 +31,8 @@ public class RoleController {
     @RequestMapping("doSaveObject")
     @ResponseBody
     public JsonResult doSaveObject(Role entity, Integer[] menuIds) {
+        String createdUser = (String)SecurityUtils.getSubject().getPrincipal();
+        entity.setCreatedUser(createdUser);
         sysRoleService.saveObject(entity, menuIds);
         return new JsonResult("保存成功");
     }
