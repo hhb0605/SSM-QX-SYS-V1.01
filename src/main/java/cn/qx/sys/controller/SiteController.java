@@ -133,11 +133,11 @@ public class SiteController {
      * @return
      */
     @RequestMapping("/page/{pageCode}")
-    public String page(@PathVariable("pageCode") Integer pageCode, Model model) {
-        if (pageCode != null && pageCode != 0) {
-
+    public String page(@PathVariable("pageCode") String pageCode, Model model) {
+        if (pageCode != null && pageCode != "") {
+            Integer code = Integer.valueOf(pageCode.split("\\.")[0]);
             //初始化页面数据
-            initIndex(pageCode, model);
+            initIndex(code, model);
             initFooter(model);
 
             return "site/index";
