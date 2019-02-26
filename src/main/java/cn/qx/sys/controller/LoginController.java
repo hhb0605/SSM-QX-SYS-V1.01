@@ -55,14 +55,9 @@ public class LoginController {
         if (username != null && password != null) {
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-            if(!subject.isRemembered() || subject.isAuthenticated()) {
-            if (remember != null) {
-                if (remember.equals("true")) {
+            if (remember != null && remember.equals("true")) {
                     //说明选择了记住我
                     token.setRememberMe(true);
-                }else {
-					token.setRememberMe(false);
-				}
             }else {
 				token.setRememberMe(false);
 			}
@@ -70,12 +65,7 @@ public class LoginController {
                 Map<String,Object> map = new HashMap<>();
                 map.put("token", subject.getPrincipal());
                 return new Result(StatusCode.SUCCESS, map);
-            }else {
-            	Map<String,Object> map = new HashMap<>();
-                map.put("token", subject.getPrincipal());
-                return new Result(StatusCode.SUCCESS, map);
-            }
-        	} else {
+            } else {
             return new Result(StatusCode.ERROR, ResultEnums.INPUT_ERROR);
         }
     }

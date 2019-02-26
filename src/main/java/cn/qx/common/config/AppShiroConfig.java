@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -12,6 +13,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
@@ -28,10 +30,12 @@ import org.springframework.context.annotation.DependsOn;
 public class AppShiroConfig {
 
     @Bean("securityManager")
-    public SecurityManager newDefaultWebSecurityManager(AuthorizingRealm userRealm) {
+    @DependsOn("rememberMeManager")
+    public SecurityManager newDefaultWebSecurityManager(AuthorizingRealm userRealm,RememberMeManager rememberMeManager) {
         DefaultWebSecurityManager sManager = new DefaultWebSecurityManager();
         // 此时必须保证realm对象已经存在了
         sManager.setRealm(userRealm);
+        sManager.setRememberMeManager(rememberMeManager);
         return sManager;
     }
     
@@ -39,16 +43,17 @@ public class AppShiroConfig {
     public SimpleCookie rememberMeCookie() {
     	SimpleCookie cookie = new SimpleCookie("rememberMe");
     	cookie.setHttpOnly(true);
-    	cookie.setMaxAge(3600000);
+    	cookie.setMaxAge(10);
     	return cookie;
     }
     
     // 设置RememberMeManager，实现RememberMe
     @Bean("rememberMeManager")
-    public CookieRememberMeManager rememberMeManager() {
+    @DependsOn("rememberMeCookie")
+    public CookieRememberMeManager rememberMeManager(Cookie rememberMeCookie) {
     	CookieRememberMeManager remenberCookie = new CookieRememberMeManager();
     	remenberCookie.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
-    	remenberCookie.setCookie(rememberMeCookie());
+    	remenberCookie.setCookie(rememberMeCookie);
     	return remenberCookie;
     }
     
