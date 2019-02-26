@@ -71,7 +71,8 @@ public class LRUCache implements Serializable{
     // 获取值，无缓存返回null
     public Object get(CacheKey key) {
         lock.readLock().lock();
+        Object result = cache.get(key);
         lock.readLock().unlock();
-        return cache.get(key);
+        return result;
     }
 }

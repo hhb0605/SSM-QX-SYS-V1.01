@@ -35,7 +35,7 @@
                         <div>
                             <el-row :gutter="20">
                                 <el-col :xs="12" :sm="12" :lg="6" :span="6">
-                                    <el-input placeholder="请输入内容" v-model="searchEntity.title" @keyup.native="search(pageConf.pageCode,pageConf.pageCode)">
+                                    <el-input placeholder="请输入内容" v-model="searchEntity.title" @keyup.native="search(pageConf.pageCode,pageConf.pageSize)">
                                         <i slot="prefix" class="el-input__icon el-icon-search"></i>
                                     </el-input>
                                 </el-col>

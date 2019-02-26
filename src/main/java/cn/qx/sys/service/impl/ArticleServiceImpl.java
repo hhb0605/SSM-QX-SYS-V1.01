@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import cn.qx.common.annotation.RequestCache;
 import cn.qx.common.enums.ResultEnums;
 import cn.qx.common.exception.ResultException;
 import cn.qx.common.vo.ArticleArchives;
@@ -65,6 +67,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.findAll();
     }
 
+    @RequestCache
     @Override
     public PageBean findByPage(Article article, int pageCode, int pageSize) {
         PageHelper.startPage(pageCode, pageSize);
@@ -74,6 +77,7 @@ public class ArticleServiceImpl implements ArticleService {
         return new PageBean(page.getTotal(), articleList);
     }
 
+    // 设置文章分类、标签
     private void findInit(List<Article> list){
         for (Article article : list) {
             List<Category> categoryList = categoryService.findByArticleId(article.getId());
@@ -178,6 +182,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
+    @RequiresPermissions("sys:personal")
     @Override
     public void delete(Long... ids) {
         try {

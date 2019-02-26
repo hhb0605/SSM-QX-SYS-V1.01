@@ -1,5 +1,6 @@
 package cn.qx.sys.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,11 +54,16 @@ public class ArticleController {
         return new Result(StatusCode.SUCCESS, articleService.findAllCount());
     }
 
+    // 基于文章标题，执行模糊分页查询
     @RequestMapping(value = "/findByPage", method = RequestMethod.POST)
     public Result findByPage(Article article,
                              @RequestParam(value = "pageCode", required = false) Integer pageCode,
-                             @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+                             @RequestParam(value = "pageSize", required = false) Integer pageSize) throws UnsupportedEncodingException {
         if (CheckValue.checkPage(pageCode, pageSize)) {
+            if(CheckValue.checkString(article.getTitle())) {
+                String title = new String(article.getTitle().getBytes("ISO-8859-1"), "utf-8");  
+                article.setTitle(title);
+            }
             return new Result(StatusCode.SUCCESS, articleService.findByPage(article, pageCode, pageSize));
         } else {
             return new Result(StatusCode.PARAMETER_ERROR, ResultEnums.PARAMETER_ERROR);
