@@ -27,10 +27,12 @@ import cn.qx.sys.entity.ArticleTags;
 import cn.qx.sys.entity.Category;
 import cn.qx.sys.entity.Tags;
 import cn.qx.sys.mapper.SysArticleMapper;
+import cn.qx.sys.mapper.SysCommentsMapper;
 import cn.qx.sys.service.ArticleCategoryService;
 import cn.qx.sys.service.ArticleService;
 import cn.qx.sys.service.ArticleTagsService;
 import cn.qx.sys.service.CategoryService;
+import cn.qx.sys.service.CommentsService;
 import cn.qx.sys.service.TagsService;
 
 /**
@@ -44,6 +46,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private SysArticleMapper articleMapper;
+    
+    @Autowired
+    private SysCommentsMapper sysCommentsMapper;
 
     @Autowired
     private CategoryService categoryService;
@@ -56,6 +61,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleTagsService articleTagsService;
+    
+    @Autowired
+    private CommentsService commentsService;
 
     @Override
     public Long findAllCount() {
@@ -192,6 +200,9 @@ public class ArticleServiceImpl implements ArticleService {
                 articleCategoryService.deleteByArticleId(id);
                 //删除文章-标签表的关联
                 articleTagsService.deleteByArticleId(id);
+                //删除文章同时删除评论
+                commentsService.deleteWithArticle(id);
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,4 +251,5 @@ public class ArticleServiceImpl implements ArticleService {
             throw new ResultException(ResultEnums.INNER_ERROR);
         }
     }
+
 }

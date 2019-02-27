@@ -129,6 +129,10 @@
     <delete id="delete" parameterType="Long">
         DELETE FROM sys_comments WHERE id = #{id}
     </delete>
+    
+    <delete id="deleteWithArticle" parameterType="Long">
+        DELETE FROM sys_comments WHERE article_id = #{articleId}
+    </delete>
 
 
 </mapper>

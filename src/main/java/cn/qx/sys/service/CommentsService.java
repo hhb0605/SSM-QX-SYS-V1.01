@@ -28,4 +28,7 @@ public interface CommentsService extends BaseService<Comments> {
      */
     Long findCountByArticle(long articleId);
 
+    //删除文章同时删除评论
+    void deleteWithArticle(Long id);
+
 }

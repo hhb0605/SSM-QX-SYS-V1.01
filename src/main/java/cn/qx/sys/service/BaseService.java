@@ -61,6 +61,8 @@ public interface BaseService<T> {
      * @param ids
      */
     void delete(Long... ids);
+    
+   
 
 
 }

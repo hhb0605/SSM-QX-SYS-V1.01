@@ -40,6 +40,8 @@ public interface SysCommentsMapper {
     void update(Comments comments);
 
     void delete(long id);
+    
+    void deleteWithArticle(long articleId);
 
     Long findAllCount();
 
