@@ -10,9 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
+import cn.qx.common.enums.ResultEnums;
+import cn.qx.common.exception.ResultException;
 import cn.qx.common.exception.ServiceException;
 import cn.qx.common.vo.CommentsDTO;
 import cn.qx.common.vo.PageBean;
+import cn.qx.sys.entity.ArticleCategory;
 import cn.qx.sys.entity.Comments;
 import cn.qx.sys.mapper.SysCommentsMapper;
 import cn.qx.sys.service.CommentsService;
@@ -124,6 +127,17 @@ public class CommentsServiceImpl implements CommentsService {
             throw new ServiceException(e);
         }
     }
+
+	@Override
+	public void deleteWithArticle(Long id) {
+		try {
+            commentsMapper.deleteWithArticle(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResultException(ResultEnums.INNER_ERROR);
+        }
+	}
+    
 
 
 }
